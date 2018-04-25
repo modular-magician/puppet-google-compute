@@ -2068,6 +2068,7 @@ gcompute_global_address { 'id-of-resource':
   creation_timestamp => time,
   description        => string,
   id                 => integer,
+  ip_version         => 'IPV4' or 'IPV6',
   name               => string,
   region             => reference to gcompute_region,
   project            => string,
@@ -2089,6 +2090,11 @@ Required.  Name of the resource. Provided by the client when the resource is
   the first character must be a lowercase letter, and all following
   characters must be a dash, lowercase letter, or digit, except the last
   character, which cannot be a dash.
+
+##### `ip_version`
+
+  The IP Version that will be used by this address. Valid options are
+  IPV4 or IPV6. The default value is IPV4.
 
 
 ##### Output-only properties
@@ -5289,7 +5295,7 @@ gcompute_target_ssl_proxy { 'id-of-resource':
 
 ##### `name`
 
-  Name of the resource. Provided by the client when the resource is
+Required.  Name of the resource. Provided by the client when the resource is
   created. The name must be 1-63 characters long, and comply with
   RFC1035. Specifically, the name must be 1-63 characters long and match
   the regular expression `[a-z]([-a-z0-9]*[a-z0-9])?` which means the
@@ -5304,11 +5310,11 @@ gcompute_target_ssl_proxy { 'id-of-resource':
 
 ##### `service`
 
-  A reference to BackendService resource
+Required.  A reference to BackendService resource
 
 ##### `ssl_certificates`
 
-  A list of SslCertificate resources that are used to authenticate
+Required.  A list of SslCertificate resources that are used to authenticate
   connections between users and the load balancer. Currently, exactly
   one SSL certificate must be specified.
 
