@@ -29,11 +29,13 @@ require 'google/compute/network/delete'
 require 'google/compute/network/get'
 require 'google/compute/network/post'
 require 'google/compute/network/put'
+require 'google/compute/property/enum'
 require 'google/compute/property/integer'
 require 'google/compute/property/region_selflink'
 require 'google/compute/property/string'
 require 'google/compute/property/time'
 require 'google/hash_utils'
+require 'google/object_store'
 require 'puppet'
 
 Puppet::Type.type(:gcompute_global_address).provide(:google) do
@@ -55,11 +57,13 @@ Puppet::Type.type(:gcompute_global_address).provide(:google) do
       debug("prefetch #{name} @ #{project}") unless project.nil?
       fetch = fetch_resource(resource, self_link(resource), 'compute#address')
       resource.provider = present(name, fetch) unless fetch.nil?
+      Google::ObjectStore.instance.add(:gcompute_global_address, resource)
     end
   end
 
   def self.present(name, fetch)
     result = new({ title: name, ensure: :present }.merge(fetch_to_hash(fetch)))
+    result.instance_variable_set(:@fetched, fetch)
     result
   end
 
@@ -72,6 +76,7 @@ Puppet::Type.type(:gcompute_global_address).provide(:google) do
         Google::Compute::Property::String.api_munge(fetch['description']),
       id: Google::Compute::Property::Integer.api_munge(fetch['id']),
       name: Google::Compute::Property::String.api_munge(fetch['name']),
+      ip_version: Google::Compute::Property::Enum.api_munge(fetch['ipVersion']),
       region:
         Google::Compute::Property::RegioSelfLinkRef.api_munge(fetch['region'])
     }.reject { |_, v| v.nil? }
@@ -89,7 +94,7 @@ Puppet::Type.type(:gcompute_global_address).provide(:google) do
                                                     fetch_auth(@resource),
                                                     'application/json',
                                                     resource_to_request)
-    wait_for_operation create_req.send, @resource
+    @fetched = wait_for_operation create_req.send, @resource
     @property_hash[:ensure] = :present
   end
 
@@ -110,7 +115,7 @@ Puppet::Type.type(:gcompute_global_address).provide(:google) do
                                                    fetch_auth(@resource),
                                                    'application/json',
                                                    resource_to_request)
-    wait_for_operation update_req.send, @resource
+    @fetched = wait_for_operation update_req.send, @resource
   end
 
   def dirty(field, from, to)
@@ -118,6 +123,12 @@ Puppet::Type.type(:gcompute_global_address).provide(:google) do
     @dirty[field] = {
       from: from,
       to: to
+    }
+  end
+
+  def exports
+    {
+      self_link: @fetched['selfLink']
     }
   end
 
@@ -132,6 +143,7 @@ Puppet::Type.type(:gcompute_global_address).provide(:google) do
       creation_timestamp: resource[:creation_timestamp],
       description: resource[:description],
       id: resource[:id],
+      ip_version: resource[:ip_version],
       region: resource[:region]
     }.reject { |_, v| v.nil? }
   end
@@ -140,7 +152,8 @@ Puppet::Type.type(:gcompute_global_address).provide(:google) do
     request = {
       kind: 'compute#address',
       description: @resource[:description],
-      name: @resource[:name]
+      name: @resource[:name],
+      ipVersion: @resource[:ip_version]
     }.reject { |_, v| v.nil? }
     debug "request: #{request}" unless ENV['PUPPET_HTTP_DEBUG'].nil?
     request.to_json

@@ -25,10 +25,12 @@
 #
 # ----------------------------------------------------------------------------
 
+require 'google/compute/property/enum'
 require 'google/compute/property/integer'
 require 'google/compute/property/region_selflink'
 require 'google/compute/property/string'
 require 'google/compute/property/time'
+require 'google/object_store'
 require 'puppet'
 
 Puppet::Type.newtype(:gcompute_global_address) do
@@ -98,7 +100,21 @@ Puppet::Type.newtype(:gcompute_global_address) do
     DOC
   end
 
+  newproperty(:ip_version, parent: Google::Compute::Property::Enum) do
+    desc <<-DOC
+      The IP Version that will be used by this address. Valid options are IPV4
+      or IPV6. The default value is IPV4.
+    DOC
+    newvalue(:IPV4)
+    newvalue(:IPV6)
+  end
+
   newproperty(:region, parent: Google::Compute::Property::RegioSelfLinkRef) do
     desc 'A reference to Region resource (output only)'
+  end
+
+  # Returns all properties that a provider can export to other resources
+  def exports
+    provider.exports
   end
 end

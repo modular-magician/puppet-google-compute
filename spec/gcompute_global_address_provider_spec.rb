@@ -62,6 +62,7 @@ describe Puppet::Type.type(:gcompute_global_address).provider(:google) do
                 gcompute_global_address { 'title0':
                   ensure      => present,
                   description => 'test description#0 data',
+                  ip_version  => 'IPV4',
                   project     => 'test project#0 data',
                   credential  => 'cred0',
                 }
@@ -69,6 +70,7 @@ describe Puppet::Type.type(:gcompute_global_address).provider(:google) do
                 gcompute_global_address { 'title1':
                   ensure      => present,
                   description => 'test description#1 data',
+                  ip_version  => 'IPV6',
                   project     => 'test project#1 data',
                   credential  => 'cred1',
                 }
@@ -76,6 +78,7 @@ describe Puppet::Type.type(:gcompute_global_address).provider(:google) do
                 gcompute_global_address { 'title2':
                   ensure      => present,
                   description => 'test description#2 data',
+                  ip_version  => 'IPV4',
                   project     => 'test project#2 data',
                   credential  => 'cred2',
                 }
@@ -104,6 +107,7 @@ describe Puppet::Type.type(:gcompute_global_address).provider(:google) do
               end
               it { is_expected.to have_attributes(id: 2_149_500_871) }
               it { is_expected.to have_attributes(name: 'title0') }
+              it { is_expected.to have_attributes(ip_version: 'IPV4') }
               # TODO(alexstephen): Implement resourceref test.
               # it 'region' do
               #   # Add test code here
@@ -131,6 +135,7 @@ describe Puppet::Type.type(:gcompute_global_address).provider(:google) do
               end
               it { is_expected.to have_attributes(id: 4_299_001_743) }
               it { is_expected.to have_attributes(name: 'title1') }
+              it { is_expected.to have_attributes(ip_version: 'IPV6') }
               # TODO(alexstephen): Implement resourceref test.
               # it 'region' do
               #   # Add test code here
@@ -158,6 +163,7 @@ describe Puppet::Type.type(:gcompute_global_address).provider(:google) do
               end
               it { is_expected.to have_attributes(id: 6_448_502_614) }
               it { is_expected.to have_attributes(name: 'title2') }
+              it { is_expected.to have_attributes(ip_version: 'IPV4') }
               # TODO(alexstephen): Implement resourceref test.
               # it 'region' do
               #   # Add test code here
@@ -192,6 +198,7 @@ describe Puppet::Type.type(:gcompute_global_address).provider(:google) do
                 gcompute_global_address { 'title0':
                   ensure      => present,
                   description => 'test description#0 data',
+                  ip_version  => 'IPV4',
                   name        => 'test name#0 data',
                   project     => 'test project#0 data',
                   credential  => 'cred0',
@@ -200,6 +207,7 @@ describe Puppet::Type.type(:gcompute_global_address).provider(:google) do
                 gcompute_global_address { 'title1':
                   ensure      => present,
                   description => 'test description#1 data',
+                  ip_version  => 'IPV6',
                   name        => 'test name#1 data',
                   project     => 'test project#1 data',
                   credential  => 'cred1',
@@ -208,6 +216,7 @@ describe Puppet::Type.type(:gcompute_global_address).provider(:google) do
                 gcompute_global_address { 'title2':
                   ensure      => present,
                   description => 'test description#2 data',
+                  ip_version  => 'IPV4',
                   name        => 'test name#2 data',
                   project     => 'test project#2 data',
                   credential  => 'cred2',
@@ -237,6 +246,7 @@ describe Puppet::Type.type(:gcompute_global_address).provider(:google) do
               end
               it { is_expected.to have_attributes(id: 2_149_500_871) }
               it { is_expected.to have_attributes(name: 'test name#0 data') }
+              it { is_expected.to have_attributes(ip_version: 'IPV4') }
               # TODO(alexstephen): Implement resourceref test.
               # it 'region' do
               #   # Add test code here
@@ -264,6 +274,7 @@ describe Puppet::Type.type(:gcompute_global_address).provider(:google) do
               end
               it { is_expected.to have_attributes(id: 4_299_001_743) }
               it { is_expected.to have_attributes(name: 'test name#1 data') }
+              it { is_expected.to have_attributes(ip_version: 'IPV6') }
               # TODO(alexstephen): Implement resourceref test.
               # it 'region' do
               #   # Add test code here
@@ -291,6 +302,7 @@ describe Puppet::Type.type(:gcompute_global_address).provider(:google) do
               end
               it { is_expected.to have_attributes(id: 6_448_502_614) }
               it { is_expected.to have_attributes(name: 'test name#2 data') }
+              it { is_expected.to have_attributes(ip_version: 'IPV4') }
               # TODO(alexstephen): Implement resourceref test.
               # it 'region' do
               #   # Add test code here
@@ -353,7 +365,8 @@ describe Puppet::Type.type(:gcompute_global_address).provider(:google) do
               {
                 'kind' => 'compute#address',
                 'description' => 'test description#0 data',
-                'name' => 'title0'
+                'name' => 'title0',
+                'ipVersion' => 'IPV4'
               },
               name: 'title0'
             expect_network_get_async 1, name: 'title0'
@@ -365,6 +378,7 @@ describe Puppet::Type.type(:gcompute_global_address).provider(:google) do
               gcompute_global_address { 'title0':
                 ensure      => present,
                 description => 'test description#0 data',
+                ip_version  => 'IPV4',
                 project     => 'test project#0 data',
                 credential  => 'cred0',
               }
@@ -394,7 +408,8 @@ describe Puppet::Type.type(:gcompute_global_address).provider(:google) do
               1,
               'kind' => 'compute#address',
               'description' => 'test description#0 data',
-              'name' => 'test name#0 data'
+              'name' => 'test name#0 data',
+              'ipVersion' => 'IPV4'
             expect_network_get_async 1
           end
 
@@ -404,6 +419,7 @@ describe Puppet::Type.type(:gcompute_global_address).provider(:google) do
               gcompute_global_address { 'title0':
                 ensure      => present,
                 description => 'test description#0 data',
+                ip_version  => 'IPV4',
                 name        => 'test name#0 data',
                 project     => 'test project#0 data',
                 credential  => 'cred0',
@@ -588,6 +604,25 @@ describe Puppet::Type.type(:gcompute_global_address).provider(:google) do
         before { subject.instance_variable_set(:@deleted, true) }
         it { expect { subject.flush }.not_to raise_error }
       end
+    end
+  end
+
+  context '#exports' do
+    context 'exports all properties' do
+      let(:resource1) { create_type 1 }
+      before do
+        expect_network_get_success 1
+        described_class.prefetch(title0: resource1)
+      end
+
+      subject { resource1.exports }
+
+      let(:expected_results) do
+        {
+          self_link: 'selflink(resource(global_address,0))'
+        }
+      end
+      it { is_expected.to eq(expected_results) }
     end
   end
 
