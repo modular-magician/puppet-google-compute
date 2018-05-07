@@ -93,6 +93,10 @@ describe Puppet::Type.type(:gcompute_disk).provider(:google) do
                     raw_key => 'test raw_key#0 data',
                     sha256  => 'test sha256#0 data',
                   },
+                  labels                         => {
+                    'test labels#1 data' => 'test labels#1 data',
+                    'test labels#2 data' => 6131251034,
+                  },
                   licenses                       => ['ww', 'xx'],
                   size_gb                        => 2858499398,
                   source_image                   => 'test source_image#0 data',
@@ -105,6 +109,7 @@ describe Puppet::Type.type(:gcompute_disk).provider(:google) do
                     raw_key => 'test raw_key#0 data',
                     sha256  => 'test sha256#0 data',
                   },
+                  type                           => 'test type#0 data',
                   zone                           => 'resource(zone,0)',
                   project                        => 'test project#0 data',
                   credential                     => 'cred0',
@@ -116,6 +121,11 @@ describe Puppet::Type.type(:gcompute_disk).provider(:google) do
                   disk_encryption_key            => {
                     raw_key => 'test raw_key#1 data',
                     sha256  => 'test sha256#1 data',
+                  },
+                  labels                         => {
+                    'test labels#2 data' => 'test labels#2 data',
+                    'test labels#3 data' => 8175001379,
+                    'test labels#4 data' => 'test labels#4 data',
                   },
                   licenses                       => ['uu', 'vv'],
                   size_gb                        => 5716998797,
@@ -129,6 +139,7 @@ describe Puppet::Type.type(:gcompute_disk).provider(:google) do
                     raw_key => 'test raw_key#1 data',
                     sha256  => 'test sha256#1 data',
                   },
+                  type                           => 'test type#1 data',
                   zone                           => 'resource(zone,1)',
                   project                        => 'test project#1 data',
                   credential                     => 'cred1',
@@ -140,6 +151,12 @@ describe Puppet::Type.type(:gcompute_disk).provider(:google) do
                   disk_encryption_key            => {
                     raw_key => 'test raw_key#2 data',
                     sha256  => 'test sha256#2 data',
+                  },
+                  labels                         => {
+                    'test labels#3 data' => 'test labels#3 data',
+                    'test labels#4 data' => 10218751724,
+                    'test labels#5 data' => 'test labels#5 data',
+                    'test labels#6 data' => 14306252413,
                   },
                   licenses                       => ['tt', 'uu', 'vv'],
                   size_gb                        => 8575498196,
@@ -153,6 +170,7 @@ describe Puppet::Type.type(:gcompute_disk).provider(:google) do
                     raw_key => 'test raw_key#2 data',
                     sha256  => 'test sha256#2 data',
                   },
+                  type                           => 'test type#2 data',
                   zone                           => 'resource(zone,2)',
                   project                        => 'test project#2 data',
                   credential                     => 'cred2',
@@ -190,6 +208,16 @@ describe Puppet::Type.type(:gcompute_disk).provider(:google) do
                   .to have_attributes(
                     last_detach_timestamp:
                     ::Time.parse('1986-08-30T10:54:51+00:00')
+                  )
+              end
+              # TODO(nelsonjr): Implement complex namevalues property test.
+              # it 'labels' do
+              #   # Add test code here
+              # end
+              it do
+                is_expected
+                  .to have_attributes(
+                    label_fingerprint: 'test label_fingerprint#0 data'
                   )
               end
               it { is_expected.to have_attributes(licenses: %w[ww xx]) }
@@ -234,6 +262,16 @@ describe Puppet::Type.type(:gcompute_disk).provider(:google) do
                     ::Time.parse('2003-04-28T21:49:42+00:00')
                   )
               end
+              # TODO(nelsonjr): Implement complex namevalues property test.
+              # it 'labels' do
+              #   # Add test code here
+              # end
+              it do
+                is_expected
+                  .to have_attributes(
+                    label_fingerprint: 'test label_fingerprint#1 data'
+                  )
+              end
               it { is_expected.to have_attributes(licenses: %w[uu vv]) }
               it { is_expected.to have_attributes(name: 'title1') }
               it { is_expected.to have_attributes(size_gb: 5_716_998_797) }
@@ -274,6 +312,16 @@ describe Puppet::Type.type(:gcompute_disk).provider(:google) do
                   .to have_attributes(
                     last_detach_timestamp:
                     ::Time.parse('2019-12-26T08:44:33+00:00')
+                  )
+              end
+              # TODO(nelsonjr): Implement complex namevalues property test.
+              # it 'labels' do
+              #   # Add test code here
+              # end
+              it do
+                is_expected
+                  .to have_attributes(
+                    label_fingerprint: 'test label_fingerprint#2 data'
                   )
               end
               it { is_expected.to have_attributes(licenses: %w[tt uu vv]) }
@@ -340,6 +388,10 @@ describe Puppet::Type.type(:gcompute_disk).provider(:google) do
                     raw_key => 'test raw_key#0 data',
                     sha256  => 'test sha256#0 data',
                   },
+                  labels                         => {
+                    'test labels#1 data' => 'test labels#1 data',
+                    'test labels#2 data' => 6131251034,
+                  },
                   licenses                       => ['ww', 'xx'],
                   name                           => 'test name#0 data',
                   size_gb                        => 2858499398,
@@ -353,6 +405,7 @@ describe Puppet::Type.type(:gcompute_disk).provider(:google) do
                     raw_key => 'test raw_key#0 data',
                     sha256  => 'test sha256#0 data',
                   },
+                  type                           => 'test type#0 data',
                   zone                           => 'resource(zone,0)',
                   project                        => 'test project#0 data',
                   credential                     => 'cred0',
@@ -364,6 +417,11 @@ describe Puppet::Type.type(:gcompute_disk).provider(:google) do
                   disk_encryption_key            => {
                     raw_key => 'test raw_key#1 data',
                     sha256  => 'test sha256#1 data',
+                  },
+                  labels                         => {
+                    'test labels#2 data' => 'test labels#2 data',
+                    'test labels#3 data' => 8175001379,
+                    'test labels#4 data' => 'test labels#4 data',
                   },
                   licenses                       => ['uu', 'vv'],
                   name                           => 'test name#1 data',
@@ -378,6 +436,7 @@ describe Puppet::Type.type(:gcompute_disk).provider(:google) do
                     raw_key => 'test raw_key#1 data',
                     sha256  => 'test sha256#1 data',
                   },
+                  type                           => 'test type#1 data',
                   zone                           => 'resource(zone,1)',
                   project                        => 'test project#1 data',
                   credential                     => 'cred1',
@@ -389,6 +448,12 @@ describe Puppet::Type.type(:gcompute_disk).provider(:google) do
                   disk_encryption_key            => {
                     raw_key => 'test raw_key#2 data',
                     sha256  => 'test sha256#2 data',
+                  },
+                  labels                         => {
+                    'test labels#3 data' => 'test labels#3 data',
+                    'test labels#4 data' => 10218751724,
+                    'test labels#5 data' => 'test labels#5 data',
+                    'test labels#6 data' => 14306252413,
                   },
                   licenses                       => ['tt', 'uu', 'vv'],
                   name                           => 'test name#2 data',
@@ -403,6 +468,7 @@ describe Puppet::Type.type(:gcompute_disk).provider(:google) do
                     raw_key => 'test raw_key#2 data',
                     sha256  => 'test sha256#2 data',
                   },
+                  type                           => 'test type#2 data',
                   zone                           => 'resource(zone,2)',
                   project                        => 'test project#2 data',
                   credential                     => 'cred2',
@@ -440,6 +506,16 @@ describe Puppet::Type.type(:gcompute_disk).provider(:google) do
                   .to have_attributes(
                     last_detach_timestamp:
                     ::Time.parse('1986-08-30T10:54:51+00:00')
+                  )
+              end
+              # TODO(nelsonjr): Implement complex namevalues property test.
+              # it 'labels' do
+              #   # Add test code here
+              # end
+              it do
+                is_expected
+                  .to have_attributes(
+                    label_fingerprint: 'test label_fingerprint#0 data'
                   )
               end
               it { is_expected.to have_attributes(licenses: %w[ww xx]) }
@@ -484,6 +560,16 @@ describe Puppet::Type.type(:gcompute_disk).provider(:google) do
                     ::Time.parse('2003-04-28T21:49:42+00:00')
                   )
               end
+              # TODO(nelsonjr): Implement complex namevalues property test.
+              # it 'labels' do
+              #   # Add test code here
+              # end
+              it do
+                is_expected
+                  .to have_attributes(
+                    label_fingerprint: 'test label_fingerprint#1 data'
+                  )
+              end
               it { is_expected.to have_attributes(licenses: %w[uu vv]) }
               it { is_expected.to have_attributes(name: 'test name#1 data') }
               it { is_expected.to have_attributes(size_gb: 5_716_998_797) }
@@ -524,6 +610,16 @@ describe Puppet::Type.type(:gcompute_disk).provider(:google) do
                   .to have_attributes(
                     last_detach_timestamp:
                     ::Time.parse('2019-12-26T08:44:33+00:00')
+                  )
+              end
+              # TODO(nelsonjr): Implement complex namevalues property test.
+              # it 'labels' do
+              #   # Add test code here
+              # end
+              it do
+                is_expected
+                  .to have_attributes(
+                    label_fingerprint: 'test label_fingerprint#2 data'
                   )
               end
               it { is_expected.to have_attributes(licenses: %w[tt uu vv]) }
@@ -595,10 +691,15 @@ describe Puppet::Type.type(:gcompute_disk).provider(:google) do
               {
                 'kind' => 'compute#disk',
                 'description' => 'test description#0 data',
+                'labels' => {
+                  'test labels#1 data' => 'test labels#1 data',
+                  'test labels#2 data' => 6_131_251_034
+                },
                 'licenses' => %w[ww xx],
                 'name' => 'title0',
                 'sizeGb' => 2_858_499_398,
                 'sourceImage' => 'test source_image#0 data',
+                'type' => 'test type#0 data',
                 'diskEncryptionKey' => {
                   'rawKey' => 'test raw_key#0 data',
                   'sha256' => 'test sha256#0 data'
@@ -634,6 +735,10 @@ describe Puppet::Type.type(:gcompute_disk).provider(:google) do
                   raw_key => 'test raw_key#0 data',
                   sha256  => 'test sha256#0 data',
                 },
+                labels                         => {
+                  'test labels#1 data' => 'test labels#1 data',
+                  'test labels#2 data' => 6131251034,
+                },
                 licenses                       => ['ww', 'xx'],
                 size_gb                        => 2858499398,
                 source_image                   => 'test source_image#0 data',
@@ -646,6 +751,7 @@ describe Puppet::Type.type(:gcompute_disk).provider(:google) do
                   raw_key => 'test raw_key#0 data',
                   sha256  => 'test sha256#0 data',
                 },
+                type                           => 'test type#0 data',
                 zone                           => 'resource(zone,0)',
                 project                        => 'test project#0 data',
                 credential                     => 'cred0',
@@ -676,10 +782,15 @@ describe Puppet::Type.type(:gcompute_disk).provider(:google) do
               {
                 'kind' => 'compute#disk',
                 'description' => 'test description#0 data',
+                'labels' => {
+                  'test labels#1 data' => 'test labels#1 data',
+                  'test labels#2 data' => 6_131_251_034
+                },
                 'licenses' => %w[ww xx],
                 'name' => 'test name#0 data',
                 'sizeGb' => 2_858_499_398,
                 'sourceImage' => 'test source_image#0 data',
+                'type' => 'test type#0 data',
                 'diskEncryptionKey' => {
                   'rawKey' => 'test raw_key#0 data',
                   'sha256' => 'test sha256#0 data'
@@ -714,6 +825,10 @@ describe Puppet::Type.type(:gcompute_disk).provider(:google) do
                   raw_key => 'test raw_key#0 data',
                   sha256  => 'test sha256#0 data',
                 },
+                labels                         => {
+                  'test labels#1 data' => 'test labels#1 data',
+                  'test labels#2 data' => 6131251034,
+                },
                 licenses                       => ['ww', 'xx'],
                 name                           => 'test name#0 data',
                 size_gb                        => 2858499398,
@@ -727,6 +842,7 @@ describe Puppet::Type.type(:gcompute_disk).provider(:google) do
                   raw_key => 'test raw_key#0 data',
                   sha256  => 'test sha256#0 data',
                 },
+                type                           => 'test type#0 data',
                 zone                           => 'resource(zone,0)',
                 project                        => 'test project#0 data',
                 credential                     => 'cred0',
