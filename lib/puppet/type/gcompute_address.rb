@@ -25,10 +25,12 @@
 #
 # ----------------------------------------------------------------------------
 
+require 'google/compute/property/enum'
 require 'google/compute/property/integer'
 require 'google/compute/property/region_name'
 require 'google/compute/property/string'
 require 'google/compute/property/string_array'
+require 'google/compute/property/subnetwork_selflink'
 require 'google/compute/property/time'
 require 'google/object_store'
 require 'puppet'
@@ -91,6 +93,15 @@ Puppet::Type.newtype(:gcompute_address) do
     DOC
   end
 
+  newproperty(:address_type, parent: Google::Compute::Property::Enum) do
+    desc <<-DOC
+      The type of address to reserve, either INTERNAL or EXTERNAL. If
+      unspecified, defaults to EXTERNAL.
+    DOC
+    newvalue(:INTERNAL)
+    newvalue(:EXTERNAL)
+  end
+
   newproperty(:creation_timestamp, parent: Google::Compute::Property::Time) do
     desc 'Creation timestamp in RFC3339 text format. (output only)'
   end
@@ -111,6 +122,16 @@ Puppet::Type.newtype(:gcompute_address) do
       first character must be a lowercase letter, and all following characters
       must be a dash, lowercase letter, or digit, except the last character,
       which cannot be a dash.
+    DOC
+  end
+
+  newproperty(:subnetwork,
+              parent: Google::Compute::Property::SubneSelfLinkRef) do
+    desc <<-DOC
+      The URL of the subnetwork in which to reserve the address. If an IP
+      address is specified, it must be within the subnetwork's IP range. This
+      field can only be used with INTERNAL type with GCE_ENDPOINT/DNS_RESOLVER
+      purposes.
     DOC
   end
 
