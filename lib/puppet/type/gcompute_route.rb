@@ -82,6 +82,13 @@ Puppet::Type.newtype(:gcompute_route) do
     DOC
   end
 
+  newproperty(:description, parent: Google::Compute::Property::String) do
+    desc <<-DOC
+      An optional description of this resource. Provide this property when you
+      create the resource.
+    DOC
+  end
+
   newproperty(:name, parent: Google::Compute::Property::String) do
     desc <<-DOC
       Name of the resource. Provided by the client when the resource is

@@ -69,6 +69,8 @@ Puppet::Type.type(:gcompute_route).provide(:google) do
     {
       dest_range:
         Google::Compute::Property::String.api_munge(fetch['destRange']),
+      description:
+        Google::Compute::Property::String.api_munge(fetch['description']),
       name: Google::Compute::Property::String.api_munge(fetch['name']),
       network: resource[:network],
       priority: resource[:priority],
@@ -132,6 +134,7 @@ Puppet::Type.type(:gcompute_route).provide(:google) do
       name: resource[:name],
       kind: 'compute#route',
       dest_range: resource[:dest_range],
+      description: resource[:description],
       network: resource[:network],
       priority: resource[:priority],
       tags: resource[:tags],
@@ -146,6 +149,7 @@ Puppet::Type.type(:gcompute_route).provide(:google) do
     request = {
       kind: 'compute#route',
       destRange: @resource[:dest_range],
+      description: @resource[:description],
       name: @resource[:name],
       network: @resource[:network],
       priority: @resource[:priority],

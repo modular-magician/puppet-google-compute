@@ -28,6 +28,7 @@
 ---
 kind: compute#route
 name: test name#0 data
+description: test description#0 data
 destRange: test dest_range#0 data
 network: selflink(resource(network,0))
 nextHopGateway: test next_hop_gateway#0 data
