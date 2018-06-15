@@ -95,8 +95,7 @@ Puppet::Type.newtype(:gcompute_subnetwork) do
   newproperty(:gateway_address, parent: Google::Compute::Property::String) do
     desc <<-DOC
       The gateway address for default routes to reach destination addresses
-      outside this subnetwork. This field can be set only at resource creation
-      time.
+      outside this subnetwork. (output only)
     DOC
   end
 
