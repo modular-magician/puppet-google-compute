@@ -113,7 +113,6 @@ describe Puppet::Type.type(:gcompute_subnetwork).provider(:google) do
                 gcompute_subnetwork { 'title0':
                   ensure                   => present,
                   description              => 'test description#0 data',
-                  gateway_address          => 'test gateway_address#0 data',
                   ip_cidr_range            => 'test ip_cidr_range#0 data',
                   network                  => 'resource(network,0)',
                   private_ip_google_access => true,
@@ -125,7 +124,6 @@ describe Puppet::Type.type(:gcompute_subnetwork).provider(:google) do
                 gcompute_subnetwork { 'title1':
                   ensure                   => present,
                   description              => 'test description#1 data',
-                  gateway_address          => 'test gateway_address#1 data',
                   ip_cidr_range            => 'test ip_cidr_range#1 data',
                   network                  => 'resource(network,1)',
                   private_ip_google_access => false,
@@ -137,7 +135,6 @@ describe Puppet::Type.type(:gcompute_subnetwork).provider(:google) do
                 gcompute_subnetwork { 'title2':
                   ensure                   => present,
                   description              => 'test description#2 data',
-                  gateway_address          => 'test gateway_address#2 data',
                   ip_cidr_range            => 'test ip_cidr_range#2 data',
                   network                  => 'resource(network,2)',
                   private_ip_google_access => true,
@@ -351,7 +348,6 @@ describe Puppet::Type.type(:gcompute_subnetwork).provider(:google) do
                 gcompute_subnetwork { 'title0':
                   ensure                   => present,
                   description              => 'test description#0 data',
-                  gateway_address          => 'test gateway_address#0 data',
                   ip_cidr_range            => 'test ip_cidr_range#0 data',
                   name                     => 'test name#0 data',
                   network                  => 'resource(network,0)',
@@ -364,7 +360,6 @@ describe Puppet::Type.type(:gcompute_subnetwork).provider(:google) do
                 gcompute_subnetwork { 'title1':
                   ensure                   => present,
                   description              => 'test description#1 data',
-                  gateway_address          => 'test gateway_address#1 data',
                   ip_cidr_range            => 'test ip_cidr_range#1 data',
                   name                     => 'test name#1 data',
                   network                  => 'resource(network,1)',
@@ -377,7 +372,6 @@ describe Puppet::Type.type(:gcompute_subnetwork).provider(:google) do
                 gcompute_subnetwork { 'title2':
                   ensure                   => present,
                   description              => 'test description#2 data',
-                  gateway_address          => 'test gateway_address#2 data',
                   ip_cidr_range            => 'test ip_cidr_range#2 data',
                   name                     => 'test name#2 data',
                   network                  => 'resource(network,2)',
@@ -577,7 +571,6 @@ describe Puppet::Type.type(:gcompute_subnetwork).provider(:google) do
               {
                 'kind' => 'compute#subnetwork',
                 'description' => 'test description#0 data',
-                'gatewayAddress' => 'test gateway_address#0 data',
                 'ipCidrRange' => 'test ip_cidr_range#0 data',
                 'name' => 'title0',
                 'network' => 'selflink(resource(network,0))',
@@ -612,7 +605,6 @@ describe Puppet::Type.type(:gcompute_subnetwork).provider(:google) do
               gcompute_subnetwork { 'title0':
                 ensure                   => present,
                 description              => 'test description#0 data',
-                gateway_address          => 'test gateway_address#0 data',
                 ip_cidr_range            => 'test ip_cidr_range#0 data',
                 network                  => 'resource(network,0)',
                 private_ip_google_access => true,
@@ -646,7 +638,6 @@ describe Puppet::Type.type(:gcompute_subnetwork).provider(:google) do
               {
                 'kind' => 'compute#subnetwork',
                 'description' => 'test description#0 data',
-                'gatewayAddress' => 'test gateway_address#0 data',
                 'ipCidrRange' => 'test ip_cidr_range#0 data',
                 'name' => 'test name#0 data',
                 'network' => 'selflink(resource(network,0))',
@@ -678,7 +669,6 @@ describe Puppet::Type.type(:gcompute_subnetwork).provider(:google) do
               gcompute_subnetwork { 'title0':
                 ensure                   => present,
                 description              => 'test description#0 data',
-                gateway_address          => 'test gateway_address#0 data',
                 ip_cidr_range            => 'test ip_cidr_range#0 data',
                 name                     => 'test name#0 data',
                 network                  => 'resource(network,0)',
@@ -727,10 +717,11 @@ describe Puppet::Type.type(:gcompute_subnetwork).provider(:google) do
               }
 
               gcompute_subnetwork { 'title0':
-                ensure     => absent,
-                region     => 'resource(region,0)',
-                project    => 'test project#0 data',
-                credential => 'cred0',
+                ensure        => absent,
+                ip_cidr_range => 'test ip_cidr_range#0 data',
+                region        => 'resource(region,0)',
+                project       => 'test project#0 data',
+                credential    => 'cred0',
               }
               MANIFEST
             ).catalog.resource('Gcompute_subnetwork[title0]')
@@ -767,11 +758,12 @@ describe Puppet::Type.type(:gcompute_subnetwork).provider(:google) do
               }
 
               gcompute_subnetwork { 'title0':
-                ensure     => absent,
-                name       => 'test name#0 data',
-                region     => 'resource(region,0)',
-                project    => 'test project#0 data',
-                credential => 'cred0',
+                ensure        => absent,
+                ip_cidr_range => 'test ip_cidr_range#0 data',
+                name          => 'test name#0 data',
+                region        => 'resource(region,0)',
+                project       => 'test project#0 data',
+                credential    => 'cred0',
               }
               MANIFEST
             ).catalog.resource('Gcompute_subnetwork[title0]')
@@ -816,10 +808,11 @@ describe Puppet::Type.type(:gcompute_subnetwork).provider(:google) do
               }
 
               gcompute_subnetwork { 'title0':
-                ensure     => absent,
-                region     => 'resource(region,0)',
-                project    => 'test project#0 data',
-                credential => 'cred0',
+                ensure        => absent,
+                ip_cidr_range => 'test ip_cidr_range#0 data',
+                region        => 'resource(region,0)',
+                project       => 'test project#0 data',
+                credential    => 'cred0',
               }
               MANIFEST
             ).catalog.resource('Gcompute_subnetwork[title0]')
@@ -858,11 +851,12 @@ describe Puppet::Type.type(:gcompute_subnetwork).provider(:google) do
               }
 
               gcompute_subnetwork { 'title0':
-                ensure     => absent,
-                name       => 'test name#0 data',
-                region     => 'resource(region,0)',
-                project    => 'test project#0 data',
-                credential => 'cred0',
+                ensure        => absent,
+                ip_cidr_range => 'test ip_cidr_range#0 data',
+                name          => 'test name#0 data',
+                region        => 'resource(region,0)',
+                project       => 'test project#0 data',
+                credential    => 'cred0',
               }
               MANIFEST
             ).catalog.resource('Gcompute_subnetwork[title0]')

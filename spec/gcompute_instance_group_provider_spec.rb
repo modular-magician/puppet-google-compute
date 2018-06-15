@@ -120,27 +120,30 @@ describe Puppet::Type.type(:gcompute_instance_group).provider(:google) do
                 }
 
                 gcompute_subnetwork { 'resource(subnetwork,0)':
-                  ensure     => present,
-                  name       => 'test name#0 data',
-                  region     => 'resource(region,0)',
-                  project    => 'test project#0 data',
-                  credential => 'cred0',
+                  ensure        => present,
+                  ip_cidr_range => 'test ip_cidr_range#0 data',
+                  name          => 'test name#0 data',
+                  region        => 'resource(region,0)',
+                  project       => 'test project#0 data',
+                  credential    => 'cred0',
                 }
 
                 gcompute_subnetwork { 'resource(subnetwork,1)':
-                  ensure     => present,
-                  name       => 'test name#1 data',
-                  region     => 'resource(region,1)',
-                  project    => 'test project#1 data',
-                  credential => 'cred1',
+                  ensure        => present,
+                  ip_cidr_range => 'test ip_cidr_range#1 data',
+                  name          => 'test name#1 data',
+                  region        => 'resource(region,1)',
+                  project       => 'test project#1 data',
+                  credential    => 'cred1',
                 }
 
                 gcompute_subnetwork { 'resource(subnetwork,2)':
-                  ensure     => present,
-                  name       => 'test name#2 data',
-                  region     => 'resource(region,2)',
-                  project    => 'test project#2 data',
-                  credential => 'cred2',
+                  ensure        => present,
+                  ip_cidr_range => 'test ip_cidr_range#2 data',
+                  name          => 'test name#2 data',
+                  region        => 'resource(region,2)',
+                  project       => 'test project#2 data',
+                  credential    => 'cred2',
                 }
 
                 gcompute_zone { 'resource(zone,0)':
@@ -451,27 +454,30 @@ describe Puppet::Type.type(:gcompute_instance_group).provider(:google) do
                 }
 
                 gcompute_subnetwork { 'resource(subnetwork,0)':
-                  ensure     => present,
-                  name       => 'test name#0 data',
-                  region     => 'resource(region,0)',
-                  project    => 'test project#0 data',
-                  credential => 'cred0',
+                  ensure        => present,
+                  ip_cidr_range => 'test ip_cidr_range#0 data',
+                  name          => 'test name#0 data',
+                  region        => 'resource(region,0)',
+                  project       => 'test project#0 data',
+                  credential    => 'cred0',
                 }
 
                 gcompute_subnetwork { 'resource(subnetwork,1)':
-                  ensure     => present,
-                  name       => 'test name#1 data',
-                  region     => 'resource(region,1)',
-                  project    => 'test project#1 data',
-                  credential => 'cred1',
+                  ensure        => present,
+                  ip_cidr_range => 'test ip_cidr_range#1 data',
+                  name          => 'test name#1 data',
+                  region        => 'resource(region,1)',
+                  project       => 'test project#1 data',
+                  credential    => 'cred1',
                 }
 
                 gcompute_subnetwork { 'resource(subnetwork,2)':
-                  ensure     => present,
-                  name       => 'test name#2 data',
-                  region     => 'resource(region,2)',
-                  project    => 'test project#2 data',
-                  credential => 'cred2',
+                  ensure        => present,
+                  ip_cidr_range => 'test ip_cidr_range#2 data',
+                  name          => 'test name#2 data',
+                  region        => 'resource(region,2)',
+                  project       => 'test project#2 data',
+                  credential    => 'cred2',
                 }
 
                 gcompute_zone { 'resource(zone,0)':
@@ -816,11 +822,12 @@ describe Puppet::Type.type(:gcompute_instance_group).provider(:google) do
               }
 
               gcompute_subnetwork { 'resource(subnetwork,0)':
-                ensure     => present,
-                name       => 'test name#0 data',
-                region     => 'resource(region,0)',
-                project    => 'test project#0 data',
-                credential => 'cred0',
+                ensure        => present,
+                ip_cidr_range => 'test ip_cidr_range#0 data',
+                name          => 'test name#0 data',
+                region        => 'resource(region,0)',
+                project       => 'test project#0 data',
+                credential    => 'cred0',
               }
 
               gcompute_zone { 'resource(zone,0)':
@@ -940,11 +947,12 @@ describe Puppet::Type.type(:gcompute_instance_group).provider(:google) do
               }
 
               gcompute_subnetwork { 'resource(subnetwork,0)':
-                ensure     => present,
-                name       => 'test name#0 data',
-                region     => 'resource(region,0)',
-                project    => 'test project#0 data',
-                credential => 'cred0',
+                ensure        => present,
+                ip_cidr_range => 'test ip_cidr_range#0 data',
+                name          => 'test name#0 data',
+                region        => 'resource(region,0)',
+                project       => 'test project#0 data',
+                credential    => 'cred0',
               }
 
               gcompute_zone { 'resource(zone,0)':
