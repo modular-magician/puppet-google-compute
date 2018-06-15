@@ -77,12 +77,13 @@ Puppet::Type.type(:gcompute_subnetwork).provide(:google) do
         Google::Compute::Property::Time.api_munge(fetch['creationTimestamp']),
       description:
         Google::Compute::Property::String.api_munge(fetch['description']),
+      gateway_address:
+        Google::Compute::Property::String.api_munge(fetch['gatewayAddress']),
       id: Google::Compute::Property::Integer.api_munge(fetch['id']),
       name: Google::Compute::Property::String.api_munge(fetch['name']),
       private_ip_google_access: Google::Compute::Property::Boolean.api_munge(
         fetch['privateIpGoogleAccess']
       ),
-      gateway_address: resource[:gateway_address],
       ip_cidr_range: resource[:ip_cidr_range],
       network: resource[:network],
       region: resource[:region]
@@ -172,7 +173,6 @@ Puppet::Type.type(:gcompute_subnetwork).provide(:google) do
     request = {
       kind: 'compute#subnetwork',
       description: @resource[:description],
-      gatewayAddress: @resource[:gateway_address],
       ipCidrRange: @resource[:ip_cidr_range],
       name: @resource[:name],
       network: @resource[:network],
