@@ -1951,7 +1951,6 @@ gcompute_forwarding_rule { 'id-of-resource':
   ],
   region                => reference to gcompute_region,
   subnetwork            => reference to gcompute_subnetwork,
-  target                => reference to gcompute_target_pool,
   project               => string,
   credential            => reference to gauth_credential,
 }
@@ -2072,15 +2071,6 @@ Required.  Name of the resource; provided by the client when the resource is
   optional. However, if the network is in custom subnet mode, a
   subnetwork must be specified.
   This field is not used for external load balancing.
-
-##### `target`
-
-  A reference to a TargetPool resource to receive the matched traffic.
-  For regional forwarding rules, this target must live in the same
-  region as the forwarding rule. For global forwarding rules, this
-  target must be a global load balancing resource. The forwarded traffic
-  must be of a type appropriate to the target object.
-  This field is not used for internal load balancing.
 
 ##### `region`
 
