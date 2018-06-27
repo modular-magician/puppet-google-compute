@@ -153,21 +153,21 @@ scheduling:
   onHostMaintenance: test on_host_maintenance#0 data
   preemptible: true
 serviceAccounts:
-- email: test email#0 data
+- email: true
   scopes:
   - rr
   - ss
   - tt
   - uu
   - vv
-- email: test email#1 data
+- email: false
   scopes:
   - ll
   - mm
   - nn
   - oo
   - pp
-- email: test email#2 data
+- email: true
   scopes:
   - ee
   - ff
