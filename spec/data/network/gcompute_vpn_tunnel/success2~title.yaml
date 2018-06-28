@@ -26,15 +26,31 @@
 # ----------------------------------------------------------------------------
 
 ---
-kind: compute#targetHttpsProxy
-name: title2
-id: 6448502614
-creationTimestamp: '2196-03-05T12:24:32+00:00'
-description: test description#2 data
-project: "'test project#2 data'"
-sslCertificates:
-- selflink(resource(ssl_certificate,0))
-- selflink(resource(ssl_certificate,1))
-- selflink(resource(ssl_certificate,2))
-urlMap: selflink(resource(url_map,2))
-selfLink: selflink(resource(target_https_proxy,2))
+kind: compute#vpnTunnel
+name: title1
+creationTimestamp: '2120-10-14T00:16:21+00:00'
+description: test description#1 data
+ikeVersion: 2
+labels:
+  test labels#2 data: test labels#2 data
+  test labels#3 data: 8175001379
+  test labels#4 data: test labels#4 data
+localTrafficSelector:
+- vv
+- ww
+- xx
+- yy
+- zz
+peerIp: test peer_ip#1 data
+project: "'test project#1 data'"
+region: test name#1 data
+remoteTrafficSelector:
+- ww
+- xx
+- yy
+- zz
+router: test router#1 data
+sharedSecret: test shared_secret#1 data
+sharedSecretHash: test shared_secret_hash#1 data
+targetVpnGateway: selflink(resource(target_vpn_gateway,1))
+selfLink: selflink(resource(vpn_tunnel,1))

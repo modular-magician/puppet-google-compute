@@ -27,7 +27,7 @@
 
 require 'spec_helper'
 
-describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
+describe Puppet::Type.type(:gcompute_target_vpn_gateway).provider(:google) do
   before(:all) do
     cred = Google::FakeAuthorization.new
     Puppet::Type.type(:gauth_credential)
@@ -51,122 +51,98 @@ describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
               allow(Time).to receive(:now).and_return(
                 Time.new(2017, 1, 2, 3, 4, 5)
               )
-              expect_network_get_success 1, name: 'title0'
-              expect_network_get_success 2, name: 'title1'
-              expect_network_get_success 3, name: 'title2'
-              expect_network_get_success_ssl_certificate 1
-              expect_network_get_success_ssl_certificate 2
-              expect_network_get_success_ssl_certificate 3
-              expect_network_get_success_backend_service 1
-              expect_network_get_success_backend_service 2
-              expect_network_get_success_backend_service 3
-              expect_network_get_success_url_map 1
-              expect_network_get_success_url_map 2
-              expect_network_get_success_url_map 3
+              expect_network_get_success 1,
+                                         name: 'title0',
+                                         region: 'test name#0 data'
+              expect_network_get_success 2,
+                                         name: 'title1',
+                                         region: 'test name#1 data'
+              expect_network_get_success 3,
+                                         name: 'title2',
+                                         region: 'test name#2 data'
+              expect_network_get_success_network 1
+              expect_network_get_success_network 2
+              expect_network_get_success_network 3
+              expect_network_get_success_region 1
+              expect_network_get_success_region 2
+              expect_network_get_success_region 3
             end
 
             let(:catalog) do
               apply_with_error_check(
                 <<-MANIFEST
-                gcompute_ssl_certificate { 'resource(ssl_certificate,0)':
+                gcompute_network { 'resource(network,0)':
                   ensure     => present,
                   name       => 'test name#0 data',
                   project    => 'test project#0 data',
                   credential => 'cred0',
                 }
 
-                gcompute_ssl_certificate { 'resource(ssl_certificate,1)':
+                gcompute_network { 'resource(network,1)':
                   ensure     => present,
                   name       => 'test name#1 data',
                   project    => 'test project#1 data',
                   credential => 'cred1',
                 }
 
-                gcompute_ssl_certificate { 'resource(ssl_certificate,2)':
+                gcompute_network { 'resource(network,2)':
                   ensure     => present,
                   name       => 'test name#2 data',
                   project    => 'test project#2 data',
                   credential => 'cred2',
                 }
 
-                gcompute_backend_service { 'resource(backend_service,0)':
-                  ensure     => present,
+                gcompute_region { 'resource(region,0)':
                   name       => 'test name#0 data',
                   project    => 'test project#0 data',
                   credential => 'cred0',
                 }
 
-                gcompute_backend_service { 'resource(backend_service,1)':
-                  ensure     => present,
+                gcompute_region { 'resource(region,1)':
                   name       => 'test name#1 data',
                   project    => 'test project#1 data',
                   credential => 'cred1',
                 }
 
-                gcompute_backend_service { 'resource(backend_service,2)':
-                  ensure     => present,
+                gcompute_region { 'resource(region,2)':
                   name       => 'test name#2 data',
                   project    => 'test project#2 data',
                   credential => 'cred2',
                 }
 
-                gcompute_url_map { 'resource(url_map,0)':
-                  ensure          => present,
-                  default_service => 'resource(backend_service,0)',
-                  name            => 'test name#0 data',
-                  project         => 'test project#0 data',
-                  credential      => 'cred0',
+                gcompute_target_vpn_gateway { 'title0':
+                  ensure      => present,
+                  description => 'test description#0 data',
+                  network     => 'resource(network,0)',
+                  region      => 'resource(region,0)',
+                  project     => 'test project#0 data',
+                  credential  => 'cred0',
                 }
 
-                gcompute_url_map { 'resource(url_map,1)':
-                  ensure          => present,
-                  default_service => 'resource(backend_service,1)',
-                  name            => 'test name#1 data',
-                  project         => 'test project#1 data',
-                  credential      => 'cred1',
+                gcompute_target_vpn_gateway { 'title1':
+                  ensure      => present,
+                  description => 'test description#1 data',
+                  network     => 'resource(network,1)',
+                  region      => 'resource(region,1)',
+                  project     => 'test project#1 data',
+                  credential  => 'cred1',
                 }
 
-                gcompute_url_map { 'resource(url_map,2)':
-                  ensure          => present,
-                  default_service => 'resource(backend_service,2)',
-                  name            => 'test name#2 data',
-                  project         => 'test project#2 data',
-                  credential      => 'cred2',
-                }
-
-                gcompute_target_https_proxy { 'title0':
-                  ensure           => present,
-                  description      => 'test description#0 data',
-                  ssl_certificates => ['resource(ssl_certificate,0)'],
-                  url_map          => 'resource(url_map,0)',
-                  project          => 'test project#0 data',
-                  credential       => 'cred0',
-                }
-
-                gcompute_target_https_proxy { 'title1':
-                  ensure           => present,
-                  description      => 'test description#1 data',
-                  ssl_certificates => ['resource(ssl_certificate,0)', 'resource(ssl_certificate,1)'],
-                  url_map          => 'resource(url_map,1)',
-                  project          => 'test project#1 data',
-                  credential       => 'cred1',
-                }
-
-                gcompute_target_https_proxy { 'title2':
-                  ensure           => present,
-                  description      => 'test description#2 data',
-                  ssl_certificates => ['resource(ssl_certificate,0)', 'resource(ssl_certificate,1)', 'resource(ssl_certificate,2)'],
-                  url_map          => 'resource(url_map,2)',
-                  project          => 'test project#2 data',
-                  credential       => 'cred2',
+                gcompute_target_vpn_gateway { 'title2':
+                  ensure      => present,
+                  description => 'test description#2 data',
+                  network     => 'resource(network,2)',
+                  region      => 'resource(region,2)',
+                  project     => 'test project#2 data',
+                  credential  => 'cred2',
                 }
                 MANIFEST
               ).catalog
             end
 
-            context 'Gcompute_target_https_proxy[title0]' do
+            context 'Gcompute_target_vpn_gateway[title0]' do
               subject do
-                catalog.resource('Gcompute_target_https_proxy[title0]').provider
+                catalog.resource('Gcompute_target_vpn_gateway[title0]').provider
               end
 
               it do
@@ -180,21 +156,22 @@ describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
                 is_expected
                   .to have_attributes(description: 'test description#0 data')
               end
-              it { is_expected.to have_attributes(id: 2_149_500_871) }
               it { is_expected.to have_attributes(name: 'title0') }
-              # TODO(nelsonjr): Implement complex array object test.
-              # it 'sslCertificates' do
+              it { is_expected.to have_attributes(id: 2_149_500_871) }
+              # TODO(alexstephen): Implement resourceref test.
+              # it 'network' do
               #   # Add test code here
               # end
-              # TODO(alexstephen): Implement resourceref test.
-              # it 'urlMap' do
+              it { is_expected.to have_attributes(tunnels: %w[pp qq rr]) }
+              # TODO(nelsonjr): Implement complex array object test.
+              # it 'forwardingRules' do
               #   # Add test code here
               # end
             end
 
-            context 'Gcompute_target_https_proxy[title1]' do
+            context 'Gcompute_target_vpn_gateway[title1]' do
               subject do
-                catalog.resource('Gcompute_target_https_proxy[title1]').provider
+                catalog.resource('Gcompute_target_vpn_gateway[title1]').provider
               end
 
               it do
@@ -208,21 +185,22 @@ describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
                 is_expected
                   .to have_attributes(description: 'test description#1 data')
               end
-              it { is_expected.to have_attributes(id: 4_299_001_743) }
               it { is_expected.to have_attributes(name: 'title1') }
-              # TODO(nelsonjr): Implement complex array object test.
-              # it 'sslCertificates' do
+              it { is_expected.to have_attributes(id: 4_299_001_743) }
+              # TODO(alexstephen): Implement resourceref test.
+              # it 'network' do
               #   # Add test code here
               # end
-              # TODO(alexstephen): Implement resourceref test.
-              # it 'urlMap' do
+              it { is_expected.to have_attributes(tunnels: %w[hh ii jj kk ll]) }
+              # TODO(nelsonjr): Implement complex array object test.
+              # it 'forwardingRules' do
               #   # Add test code here
               # end
             end
 
-            context 'Gcompute_target_https_proxy[title2]' do
+            context 'Gcompute_target_vpn_gateway[title2]' do
               subject do
-                catalog.resource('Gcompute_target_https_proxy[title2]').provider
+                catalog.resource('Gcompute_target_vpn_gateway[title2]').provider
               end
 
               it do
@@ -236,14 +214,15 @@ describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
                 is_expected
                   .to have_attributes(description: 'test description#2 data')
               end
-              it { is_expected.to have_attributes(id: 6_448_502_614) }
               it { is_expected.to have_attributes(name: 'title2') }
-              # TODO(nelsonjr): Implement complex array object test.
-              # it 'sslCertificates' do
+              it { is_expected.to have_attributes(id: 6_448_502_614) }
+              # TODO(alexstephen): Implement resourceref test.
+              # it 'network' do
               #   # Add test code here
               # end
-              # TODO(alexstephen): Implement resourceref test.
-              # it 'urlMap' do
+              it { is_expected.to have_attributes(tunnels: %w[xx yy zz]) }
+              # TODO(nelsonjr): Implement complex array object test.
+              # it 'forwardingRules' do
               #   # Add test code here
               # end
             end
@@ -265,125 +244,95 @@ describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
               allow(Time).to receive(:now).and_return(
                 Time.new(2017, 1, 2, 3, 4, 5)
               )
-              expect_network_get_success 1
-              expect_network_get_success 2
-              expect_network_get_success 3
-              expect_network_get_success_ssl_certificate 1
-              expect_network_get_success_ssl_certificate 2
-              expect_network_get_success_ssl_certificate 3
-              expect_network_get_success_backend_service 1
-              expect_network_get_success_backend_service 2
-              expect_network_get_success_backend_service 3
-              expect_network_get_success_url_map 1
-              expect_network_get_success_url_map 2
-              expect_network_get_success_url_map 3
+              expect_network_get_success 1, region: 'test name#0 data'
+              expect_network_get_success 2, region: 'test name#1 data'
+              expect_network_get_success 3, region: 'test name#2 data'
+              expect_network_get_success_network 1
+              expect_network_get_success_network 2
+              expect_network_get_success_network 3
+              expect_network_get_success_region 1
+              expect_network_get_success_region 2
+              expect_network_get_success_region 3
             end
 
             let(:catalog) do
               apply_with_error_check(
                 <<-MANIFEST
-                gcompute_ssl_certificate { 'resource(ssl_certificate,0)':
+                gcompute_network { 'resource(network,0)':
                   ensure     => present,
                   name       => 'test name#0 data',
                   project    => 'test project#0 data',
                   credential => 'cred0',
                 }
 
-                gcompute_ssl_certificate { 'resource(ssl_certificate,1)':
+                gcompute_network { 'resource(network,1)':
                   ensure     => present,
                   name       => 'test name#1 data',
                   project    => 'test project#1 data',
                   credential => 'cred1',
                 }
 
-                gcompute_ssl_certificate { 'resource(ssl_certificate,2)':
+                gcompute_network { 'resource(network,2)':
                   ensure     => present,
                   name       => 'test name#2 data',
                   project    => 'test project#2 data',
                   credential => 'cred2',
                 }
 
-                gcompute_backend_service { 'resource(backend_service,0)':
-                  ensure     => present,
+                gcompute_region { 'resource(region,0)':
                   name       => 'test name#0 data',
                   project    => 'test project#0 data',
                   credential => 'cred0',
                 }
 
-                gcompute_backend_service { 'resource(backend_service,1)':
-                  ensure     => present,
+                gcompute_region { 'resource(region,1)':
                   name       => 'test name#1 data',
                   project    => 'test project#1 data',
                   credential => 'cred1',
                 }
 
-                gcompute_backend_service { 'resource(backend_service,2)':
-                  ensure     => present,
+                gcompute_region { 'resource(region,2)':
                   name       => 'test name#2 data',
                   project    => 'test project#2 data',
                   credential => 'cred2',
                 }
 
-                gcompute_url_map { 'resource(url_map,0)':
-                  ensure          => present,
-                  default_service => 'resource(backend_service,0)',
-                  name            => 'test name#0 data',
-                  project         => 'test project#0 data',
-                  credential      => 'cred0',
+                gcompute_target_vpn_gateway { 'title0':
+                  ensure      => present,
+                  description => 'test description#0 data',
+                  name        => 'test name#0 data',
+                  network     => 'resource(network,0)',
+                  region      => 'resource(region,0)',
+                  project     => 'test project#0 data',
+                  credential  => 'cred0',
                 }
 
-                gcompute_url_map { 'resource(url_map,1)':
-                  ensure          => present,
-                  default_service => 'resource(backend_service,1)',
-                  name            => 'test name#1 data',
-                  project         => 'test project#1 data',
-                  credential      => 'cred1',
+                gcompute_target_vpn_gateway { 'title1':
+                  ensure      => present,
+                  description => 'test description#1 data',
+                  name        => 'test name#1 data',
+                  network     => 'resource(network,1)',
+                  region      => 'resource(region,1)',
+                  project     => 'test project#1 data',
+                  credential  => 'cred1',
                 }
 
-                gcompute_url_map { 'resource(url_map,2)':
-                  ensure          => present,
-                  default_service => 'resource(backend_service,2)',
-                  name            => 'test name#2 data',
-                  project         => 'test project#2 data',
-                  credential      => 'cred2',
-                }
-
-                gcompute_target_https_proxy { 'title0':
-                  ensure           => present,
-                  description      => 'test description#0 data',
-                  name             => 'test name#0 data',
-                  ssl_certificates => ['resource(ssl_certificate,0)'],
-                  url_map          => 'resource(url_map,0)',
-                  project          => 'test project#0 data',
-                  credential       => 'cred0',
-                }
-
-                gcompute_target_https_proxy { 'title1':
-                  ensure           => present,
-                  description      => 'test description#1 data',
-                  name             => 'test name#1 data',
-                  ssl_certificates => ['resource(ssl_certificate,0)', 'resource(ssl_certificate,1)'],
-                  url_map          => 'resource(url_map,1)',
-                  project          => 'test project#1 data',
-                  credential       => 'cred1',
-                }
-
-                gcompute_target_https_proxy { 'title2':
-                  ensure           => present,
-                  description      => 'test description#2 data',
-                  name             => 'test name#2 data',
-                  ssl_certificates => ['resource(ssl_certificate,0)', 'resource(ssl_certificate,1)', 'resource(ssl_certificate,2)'],
-                  url_map          => 'resource(url_map,2)',
-                  project          => 'test project#2 data',
-                  credential       => 'cred2',
+                gcompute_target_vpn_gateway { 'title2':
+                  ensure      => present,
+                  description => 'test description#2 data',
+                  name        => 'test name#2 data',
+                  network     => 'resource(network,2)',
+                  region      => 'resource(region,2)',
+                  project     => 'test project#2 data',
+                  credential  => 'cred2',
                 }
                 MANIFEST
               ).catalog
             end
 
-            context 'Gcompute_target_https_proxy[title0]' do
+            context 'Gcompute_target_vpn_gateway[title0]' do
               subject do
-                catalog.resource('Gcompute_target_https_proxy[title0]').provider
+                catalog.resource('Gcompute_target_vpn_gateway[title0]').provider
               end
 
               it do
@@ -397,21 +346,22 @@ describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
                 is_expected
                   .to have_attributes(description: 'test description#0 data')
               end
-              it { is_expected.to have_attributes(id: 2_149_500_871) }
               it { is_expected.to have_attributes(name: 'test name#0 data') }
-              # TODO(nelsonjr): Implement complex array object test.
-              # it 'sslCertificates' do
+              it { is_expected.to have_attributes(id: 2_149_500_871) }
+              # TODO(alexstephen): Implement resourceref test.
+              # it 'network' do
               #   # Add test code here
               # end
-              # TODO(alexstephen): Implement resourceref test.
-              # it 'urlMap' do
+              it { is_expected.to have_attributes(tunnels: %w[pp qq rr]) }
+              # TODO(nelsonjr): Implement complex array object test.
+              # it 'forwardingRules' do
               #   # Add test code here
               # end
             end
 
-            context 'Gcompute_target_https_proxy[title1]' do
+            context 'Gcompute_target_vpn_gateway[title1]' do
               subject do
-                catalog.resource('Gcompute_target_https_proxy[title1]').provider
+                catalog.resource('Gcompute_target_vpn_gateway[title1]').provider
               end
 
               it do
@@ -425,21 +375,22 @@ describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
                 is_expected
                   .to have_attributes(description: 'test description#1 data')
               end
-              it { is_expected.to have_attributes(id: 4_299_001_743) }
               it { is_expected.to have_attributes(name: 'test name#1 data') }
-              # TODO(nelsonjr): Implement complex array object test.
-              # it 'sslCertificates' do
+              it { is_expected.to have_attributes(id: 4_299_001_743) }
+              # TODO(alexstephen): Implement resourceref test.
+              # it 'network' do
               #   # Add test code here
               # end
-              # TODO(alexstephen): Implement resourceref test.
-              # it 'urlMap' do
+              it { is_expected.to have_attributes(tunnels: %w[hh ii jj kk ll]) }
+              # TODO(nelsonjr): Implement complex array object test.
+              # it 'forwardingRules' do
               #   # Add test code here
               # end
             end
 
-            context 'Gcompute_target_https_proxy[title2]' do
+            context 'Gcompute_target_vpn_gateway[title2]' do
               subject do
-                catalog.resource('Gcompute_target_https_proxy[title2]').provider
+                catalog.resource('Gcompute_target_vpn_gateway[title2]').provider
               end
 
               it do
@@ -453,14 +404,15 @@ describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
                 is_expected
                   .to have_attributes(description: 'test description#2 data')
               end
-              it { is_expected.to have_attributes(id: 6_448_502_614) }
               it { is_expected.to have_attributes(name: 'test name#2 data') }
-              # TODO(nelsonjr): Implement complex array object test.
-              # it 'sslCertificates' do
+              it { is_expected.to have_attributes(id: 6_448_502_614) }
+              # TODO(alexstephen): Implement resourceref test.
+              # it 'network' do
               #   # Add test code here
               # end
-              # TODO(alexstephen): Implement resourceref test.
-              # it 'urlMap' do
+              it { is_expected.to have_attributes(tunnels: %w[xx yy zz]) }
+              # TODO(nelsonjr): Implement complex array object test.
+              # it 'forwardingRules' do
               #   # Add test code here
               # end
             end
@@ -515,60 +467,52 @@ describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
         # Ensure present: resource missing, ignore, no name, pass
         context 'title == name (pass)' do
           before(:each) do
-            expect_network_get_failed 1, name: 'title0'
+            expect_network_get_failed 1,
+                                      name: 'title0',
+                                      region: 'test name#0 data'
             expect_network_create \
               1,
               {
-                'kind' => 'compute#targetHttpsProxy',
+                'kind' => 'compute#targetVpnGateway',
                 'description' => 'test description#0 data',
                 'name' => 'title0',
-                'sslCertificates' => [
-                  'selflink(resource(ssl_certificate,0))'
-                ],
-                'urlMap' => 'selflink(resource(url_map,0))'
+                'network' => 'selflink(resource(network,0))'
               },
-              name: 'title0'
-            expect_network_get_async 1, name: 'title0'
-            expect_network_get_success_ssl_certificate 1
-            expect_network_get_success_backend_service 1
-            expect_network_get_success_url_map 1
+              name: 'title0',
+              region: 'test name#0 data'
+            expect_network_get_async 1,
+                                     name: 'title0',
+                                     region: 'test name#0 data'
+            expect_network_get_success_network 1
+            expect_network_get_success_region 1
           end
 
           subject do
             apply_with_error_check(
               <<-MANIFEST
-              gcompute_ssl_certificate { 'resource(ssl_certificate,0)':
+              gcompute_network { 'resource(network,0)':
                 ensure     => present,
                 name       => 'test name#0 data',
                 project    => 'test project#0 data',
                 credential => 'cred0',
               }
 
-              gcompute_backend_service { 'resource(backend_service,0)':
-                ensure     => present,
+              gcompute_region { 'resource(region,0)':
                 name       => 'test name#0 data',
                 project    => 'test project#0 data',
                 credential => 'cred0',
               }
 
-              gcompute_url_map { 'resource(url_map,0)':
-                ensure          => present,
-                default_service => 'resource(backend_service,0)',
-                name            => 'test name#0 data',
-                project         => 'test project#0 data',
-                credential      => 'cred0',
-              }
-
-              gcompute_target_https_proxy { 'title0':
-                ensure           => present,
-                description      => 'test description#0 data',
-                ssl_certificates => ['resource(ssl_certificate,0)'],
-                url_map          => 'resource(url_map,0)',
-                project          => 'test project#0 data',
-                credential       => 'cred0',
+              gcompute_target_vpn_gateway { 'title0':
+                ensure      => present,
+                description => 'test description#0 data',
+                network     => 'resource(network,0)',
+                region      => 'resource(region,0)',
+                project     => 'test project#0 data',
+                credential  => 'cred0',
               }
               MANIFEST
-            ).catalog.resource('Gcompute_target_https_proxy[title0]').provider
+            ).catalog.resource('Gcompute_target_vpn_gateway[title0]').provider
               .ensure
           end
 
@@ -588,58 +532,48 @@ describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
         # Ensure present: resource missing, ignore, has name, pass
         context 'title != name (pass)' do
           before(:each) do
-            expect_network_get_failed 1
+            expect_network_get_failed 1, region: 'test name#0 data'
             expect_network_create \
               1,
-              'kind' => 'compute#targetHttpsProxy',
-              'description' => 'test description#0 data',
-              'name' => 'test name#0 data',
-              'sslCertificates' => [
-                'selflink(resource(ssl_certificate,0))'
-              ],
-              'urlMap' => 'selflink(resource(url_map,0))'
-            expect_network_get_async 1
-            expect_network_get_success_ssl_certificate 1
-            expect_network_get_success_backend_service 1
-            expect_network_get_success_url_map 1
+              {
+                'kind' => 'compute#targetVpnGateway',
+                'description' => 'test description#0 data',
+                'name' => 'test name#0 data',
+                'network' => 'selflink(resource(network,0))'
+              },
+              region: 'test name#0 data'
+            expect_network_get_async 1, region: 'test name#0 data'
+            expect_network_get_success_network 1
+            expect_network_get_success_region 1
           end
 
           subject do
             apply_with_error_check(
               <<-MANIFEST
-              gcompute_ssl_certificate { 'resource(ssl_certificate,0)':
+              gcompute_network { 'resource(network,0)':
                 ensure     => present,
                 name       => 'test name#0 data',
                 project    => 'test project#0 data',
                 credential => 'cred0',
               }
 
-              gcompute_backend_service { 'resource(backend_service,0)':
-                ensure     => present,
+              gcompute_region { 'resource(region,0)':
                 name       => 'test name#0 data',
                 project    => 'test project#0 data',
                 credential => 'cred0',
               }
 
-              gcompute_url_map { 'resource(url_map,0)':
-                ensure          => present,
-                default_service => 'resource(backend_service,0)',
-                name            => 'test name#0 data',
-                project         => 'test project#0 data',
-                credential      => 'cred0',
-              }
-
-              gcompute_target_https_proxy { 'title0':
-                ensure           => present,
-                description      => 'test description#0 data',
-                name             => 'test name#0 data',
-                ssl_certificates => ['resource(ssl_certificate,0)'],
-                url_map          => 'resource(url_map,0)',
-                project          => 'test project#0 data',
-                credential       => 'cred0',
+              gcompute_target_vpn_gateway { 'title0':
+                ensure      => present,
+                description => 'test description#0 data',
+                name        => 'test name#0 data',
+                network     => 'resource(network,0)',
+                region      => 'resource(region,0)',
+                project     => 'test project#0 data',
+                credential  => 'cred0',
               }
               MANIFEST
-            ).catalog.resource('Gcompute_target_https_proxy[title0]').provider
+            ).catalog.resource('Gcompute_target_vpn_gateway[title0]').provider
               .ensure
           end
 
@@ -663,46 +597,38 @@ describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
         # Ensure absent: resource missing, ignore, no name, pass
         context 'title == name (pass)' do
           before(:each) do
-            expect_network_get_failed 1, name: 'title0'
-            expect_network_get_success_ssl_certificate 1
-            expect_network_get_success_backend_service 1
-            expect_network_get_success_url_map 1
+            expect_network_get_failed 1,
+                                      name: 'title0',
+                                      region: 'test name#0 data'
+            expect_network_get_success_network 1
+            expect_network_get_success_region 1
           end
 
           subject do
             apply_with_error_check(
               <<-MANIFEST
-              gcompute_ssl_certificate { 'resource(ssl_certificate,0)':
+              gcompute_network { 'resource(network,0)':
                 ensure     => present,
                 name       => 'test name#0 data',
                 project    => 'test project#0 data',
                 credential => 'cred0',
               }
 
-              gcompute_backend_service { 'resource(backend_service,0)':
-                ensure     => present,
+              gcompute_region { 'resource(region,0)':
                 name       => 'test name#0 data',
                 project    => 'test project#0 data',
                 credential => 'cred0',
               }
 
-              gcompute_url_map { 'resource(url_map,0)':
-                ensure          => present,
-                default_service => 'resource(backend_service,0)',
-                name            => 'test name#0 data',
-                project         => 'test project#0 data',
-                credential      => 'cred0',
-              }
-
-              gcompute_target_https_proxy { 'title0':
-                ensure           => absent,
-                ssl_certificates => ['resource(ssl_certificate,0)'],
-                url_map          => 'resource(url_map,0)',
-                project          => 'test project#0 data',
-                credential       => 'cred0',
+              gcompute_target_vpn_gateway { 'title0':
+                ensure     => absent,
+                network    => 'resource(network,0)',
+                region     => 'resource(region,0)',
+                project    => 'test project#0 data',
+                credential => 'cred0',
               }
               MANIFEST
-            ).catalog.resource('Gcompute_target_https_proxy[title0]')
+            ).catalog.resource('Gcompute_target_vpn_gateway[title0]')
               .provider.ensure
           end
 
@@ -722,47 +648,37 @@ describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
         # Ensure absent: resource missing, ignore, has name, pass
         context 'title != name (pass)' do
           before(:each) do
-            expect_network_get_failed 1
-            expect_network_get_success_ssl_certificate 1
-            expect_network_get_success_backend_service 1
-            expect_network_get_success_url_map 1
+            expect_network_get_failed 1, region: 'test name#0 data'
+            expect_network_get_success_network 1
+            expect_network_get_success_region 1
           end
 
           subject do
             apply_with_error_check(
               <<-MANIFEST
-              gcompute_ssl_certificate { 'resource(ssl_certificate,0)':
+              gcompute_network { 'resource(network,0)':
                 ensure     => present,
                 name       => 'test name#0 data',
                 project    => 'test project#0 data',
                 credential => 'cred0',
               }
 
-              gcompute_backend_service { 'resource(backend_service,0)':
-                ensure     => present,
+              gcompute_region { 'resource(region,0)':
                 name       => 'test name#0 data',
                 project    => 'test project#0 data',
                 credential => 'cred0',
               }
 
-              gcompute_url_map { 'resource(url_map,0)':
-                ensure          => present,
-                default_service => 'resource(backend_service,0)',
-                name            => 'test name#0 data',
-                project         => 'test project#0 data',
-                credential      => 'cred0',
-              }
-
-              gcompute_target_https_proxy { 'title0':
-                ensure           => absent,
-                name             => 'test name#0 data',
-                ssl_certificates => ['resource(ssl_certificate,0)'],
-                url_map          => 'resource(url_map,0)',
-                project          => 'test project#0 data',
-                credential       => 'cred0',
+              gcompute_target_vpn_gateway { 'title0':
+                ensure     => absent,
+                name       => 'test name#0 data',
+                network    => 'resource(network,0)',
+                region     => 'resource(region,0)',
+                project    => 'test project#0 data',
+                credential => 'cred0',
               }
               MANIFEST
-            ).catalog.resource('Gcompute_target_https_proxy[title0]')
+            ).catalog.resource('Gcompute_target_vpn_gateway[title0]')
               .provider.ensure
           end
 
@@ -784,48 +700,42 @@ describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
         # Ensure absent: resource exists, ignore, no name, pass
         context 'title == name (pass)' do
           before(:each) do
-            expect_network_get_success 1, name: 'title0'
-            expect_network_delete 1, 'title0'
-            expect_network_get_async 1, name: 'title0'
-            expect_network_get_success_ssl_certificate 1
-            expect_network_get_success_backend_service 1
-            expect_network_get_success_url_map 1
+            expect_network_get_success 1,
+                                       name: 'title0',
+                                       region: 'test name#0 data'
+            expect_network_delete 1, 'title0', region: 'test name#0 data'
+            expect_network_get_async 1,
+                                     name: 'title0',
+                                     region: 'test name#0 data'
+            expect_network_get_success_network 1
+            expect_network_get_success_region 1
           end
 
           subject do
             apply_with_error_check(
               <<-MANIFEST
-              gcompute_ssl_certificate { 'resource(ssl_certificate,0)':
+              gcompute_network { 'resource(network,0)':
                 ensure     => present,
                 name       => 'test name#0 data',
                 project    => 'test project#0 data',
                 credential => 'cred0',
               }
 
-              gcompute_backend_service { 'resource(backend_service,0)':
-                ensure     => present,
+              gcompute_region { 'resource(region,0)':
                 name       => 'test name#0 data',
                 project    => 'test project#0 data',
                 credential => 'cred0',
               }
 
-              gcompute_url_map { 'resource(url_map,0)':
-                ensure          => present,
-                default_service => 'resource(backend_service,0)',
-                name            => 'test name#0 data',
-                project         => 'test project#0 data',
-                credential      => 'cred0',
-              }
-
-              gcompute_target_https_proxy { 'title0':
-                ensure           => absent,
-                ssl_certificates => ['resource(ssl_certificate,0)'],
-                url_map          => 'resource(url_map,0)',
-                project          => 'test project#0 data',
-                credential       => 'cred0',
+              gcompute_target_vpn_gateway { 'title0':
+                ensure     => absent,
+                network    => 'resource(network,0)',
+                region     => 'resource(region,0)',
+                project    => 'test project#0 data',
+                credential => 'cred0',
               }
               MANIFEST
-            ).catalog.resource('Gcompute_target_https_proxy[title0]')
+            ).catalog.resource('Gcompute_target_vpn_gateway[title0]')
               .provider.ensure
           end
 
@@ -845,49 +755,39 @@ describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
         # Ensure absent: resource exists, ignore, has name, pass
         context 'title != name (pass)' do
           before(:each) do
-            expect_network_get_success 1
-            expect_network_delete 1
-            expect_network_get_async 1
-            expect_network_get_success_ssl_certificate 1
-            expect_network_get_success_backend_service 1
-            expect_network_get_success_url_map 1
+            expect_network_get_success 1, region: 'test name#0 data'
+            expect_network_delete 1, nil, region: 'test name#0 data'
+            expect_network_get_async 1, region: 'test name#0 data'
+            expect_network_get_success_network 1
+            expect_network_get_success_region 1
           end
 
           subject do
             apply_with_error_check(
               <<-MANIFEST
-              gcompute_ssl_certificate { 'resource(ssl_certificate,0)':
+              gcompute_network { 'resource(network,0)':
                 ensure     => present,
                 name       => 'test name#0 data',
                 project    => 'test project#0 data',
                 credential => 'cred0',
               }
 
-              gcompute_backend_service { 'resource(backend_service,0)':
-                ensure     => present,
+              gcompute_region { 'resource(region,0)':
                 name       => 'test name#0 data',
                 project    => 'test project#0 data',
                 credential => 'cred0',
               }
 
-              gcompute_url_map { 'resource(url_map,0)':
-                ensure          => present,
-                default_service => 'resource(backend_service,0)',
-                name            => 'test name#0 data',
-                project         => 'test project#0 data',
-                credential      => 'cred0',
-              }
-
-              gcompute_target_https_proxy { 'title0':
-                ensure           => absent,
-                name             => 'test name#0 data',
-                ssl_certificates => ['resource(ssl_certificate,0)'],
-                url_map          => 'resource(url_map,0)',
-                project          => 'test project#0 data',
-                credential       => 'cred0',
+              gcompute_target_vpn_gateway { 'title0':
+                ensure     => absent,
+                name       => 'test name#0 data',
+                network    => 'resource(network,0)',
+                region     => 'resource(region,0)',
+                project    => 'test project#0 data',
+                credential => 'cred0',
               }
               MANIFEST
-            ).catalog.resource('Gcompute_target_https_proxy[title0]')
+            ).catalog.resource('Gcompute_target_vpn_gateway[title0]')
               .provider.ensure
           end
 
@@ -906,7 +806,7 @@ describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
 
   context '#flush' do
     subject do
-      Puppet::Type.type(:gcompute_target_https_proxy).new(
+      Puppet::Type.type(:gcompute_target_vpn_gateway).new(
         ensure: :present,
         name: 'my-name'
       ).provider
@@ -955,7 +855,7 @@ describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
   end
 
   def expect_network_get_async(id, data = {})
-    body = { kind: 'compute#targetHttpsProxy' }.to_json
+    body = { kind: 'compute#targetVpnGateway' }.to_json
 
     request = double('request')
     allow(request).to receive(:send).and_return(http_success(body))
@@ -1029,7 +929,7 @@ describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
 
   def load_network_result(file)
     results = File.join(File.dirname(__FILE__), 'data', 'network',
-                        'gcompute_target_https_proxy', file)
+                        'gcompute_target_vpn_gateway', file)
     debug("Loading result file: #{results}")
     raise "Network result data file #{results}" unless File.exist?(results)
     data = YAML.safe_load(File.read(results))
@@ -1037,28 +937,28 @@ describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
     data
   end
 
-  def expect_network_get_success_ssl_certificate(id, data = {})
+  def expect_network_get_success_network(id, data = {})
     id_data = data.fetch(:name, '').include?('title') ? 'title' : 'name'
-    body = load_network_result_ssl_certificate("success#{id}~" \
+    body = load_network_result_network("success#{id}~" \
                                                            "#{id_data}.yaml")
            .to_json
-    uri = uri_data_ssl_certificate(id).merge(data)
+    uri = uri_data_network(id).merge(data)
 
     request = double('request')
     allow(request).to receive(:send).and_return(http_success(body))
 
     debug_network "!! GET #{uri}"
     expect(Google::Compute::Network::Get).to receive(:new)
-      .with(self_link_ssl_certificate(uri),
+      .with(self_link_network(uri),
             instance_of(Google::FakeAuthorization)) do |args|
       debug_network ">> GET #{args}"
       request
     end
   end
 
-  def load_network_result_ssl_certificate(file)
+  def load_network_result_network(file)
     results = File.join(File.dirname(__FILE__), 'data', 'network',
-                        'gcompute_ssl_certificate', file)
+                        'gcompute_network', file)
     raise "Network result data file #{results}" unless File.exist?(results)
     data = YAML.safe_load(File.read(results))
     raise "Invalid network results #{results}" unless data.class <= Hash
@@ -1066,48 +966,48 @@ describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
   end
 
   # Creates variable test data to comply with self_link URI parameters
-  # Only used for gcompute_ssl_certificate objects
-  def uri_data_ssl_certificate(id)
+  # Only used for gcompute_network objects
+  def uri_data_network(id)
     {
-      project: GoogleTests::Constants::SC_PROJECT_DATA[(id - 1) \
-        % GoogleTests::Constants::SC_PROJECT_DATA.size],
-      name: GoogleTests::Constants::SC_NAME_DATA[(id - 1) \
-        % GoogleTests::Constants::SC_NAME_DATA.size]
+      project: GoogleTests::Constants::N_PROJECT_DATA[(id - 1) \
+        % GoogleTests::Constants::N_PROJECT_DATA.size],
+      name: GoogleTests::Constants::N_NAME_DATA[(id - 1) \
+        % GoogleTests::Constants::N_NAME_DATA.size]
     }
   end
 
-  def self_link_ssl_certificate(data)
+  def self_link_network(data)
     URI.join(
       'https://www.googleapis.com/compute/v1/',
-      expand_variables_ssl_certificate(
-        'projects/{{project}}/global/sslCertificates/{{name}}',
+      expand_variables_network(
+        'projects/{{project}}/global/networks/{{name}}',
         data
       )
     )
   end
 
-  def expect_network_get_success_url_map(id, data = {})
+  def expect_network_get_success_forwarding_rule(id, data = {})
     id_data = data.fetch(:name, '').include?('title') ? 'title' : 'name'
-    body = load_network_result_url_map("success#{id}~" \
+    body = load_network_result_forwarding_rule("success#{id}~" \
                                                            "#{id_data}.yaml")
            .to_json
-    uri = uri_data_url_map(id).merge(data)
+    uri = uri_data_forwarding_rule(id).merge(data)
 
     request = double('request')
     allow(request).to receive(:send).and_return(http_success(body))
 
     debug_network "!! GET #{uri}"
     expect(Google::Compute::Network::Get).to receive(:new)
-      .with(self_link_url_map(uri),
+      .with(self_link_forwarding_rule(uri),
             instance_of(Google::FakeAuthorization)) do |args|
       debug_network ">> GET #{args}"
       request
     end
   end
 
-  def load_network_result_url_map(file)
+  def load_network_result_forwarding_rule(file)
     results = File.join(File.dirname(__FILE__), 'data', 'network',
-                        'gcompute_url_map', file)
+                        'gcompute_forwarding_rule', file)
     raise "Network result data file #{results}" unless File.exist?(results)
     data = YAML.safe_load(File.read(results))
     raise "Invalid network results #{results}" unless data.class <= Hash
@@ -1115,48 +1015,50 @@ describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
   end
 
   # Creates variable test data to comply with self_link URI parameters
-  # Only used for gcompute_url_map objects
-  def uri_data_url_map(id)
+  # Only used for gcompute_forwarding_rule objects
+  def uri_data_forwarding_rule(id)
     {
-      project: GoogleTests::Constants::UM_PROJECT_DATA[(id - 1) \
-        % GoogleTests::Constants::UM_PROJECT_DATA.size],
-      name: GoogleTests::Constants::UM_NAME_DATA[(id - 1) \
-        % GoogleTests::Constants::UM_NAME_DATA.size]
+      project: GoogleTests::Constants::FR_PROJECT_DATA[(id - 1) \
+        % GoogleTests::Constants::FR_PROJECT_DATA.size],
+      region: GoogleTests::Constants::FR_REGION_DATA[(id - 1) \
+        % GoogleTests::Constants::FR_REGION_DATA.size],
+      name: GoogleTests::Constants::FR_NAME_DATA[(id - 1) \
+        % GoogleTests::Constants::FR_NAME_DATA.size]
     }
   end
 
-  def self_link_url_map(data)
+  def self_link_forwarding_rule(data)
     URI.join(
       'https://www.googleapis.com/compute/v1/',
-      expand_variables_url_map(
-        'projects/{{project}}/global/urlMaps/{{name}}',
+      expand_variables_forwarding_rule(
+        'projects/{{project}}/regions/{{region}}/forwardingRules/{{name}}',
         data
       )
     )
   end
 
-  def expect_network_get_success_backend_service(id, data = {})
+  def expect_network_get_success_region(id, data = {})
     id_data = data.fetch(:name, '').include?('title') ? 'title' : 'name'
-    body = load_network_result_backend_service("success#{id}~" \
+    body = load_network_result_region("success#{id}~" \
                                                            "#{id_data}.yaml")
            .to_json
-    uri = uri_data_backend_service(id).merge(data)
+    uri = uri_data_region(id).merge(data)
 
     request = double('request')
     allow(request).to receive(:send).and_return(http_success(body))
 
     debug_network "!! GET #{uri}"
     expect(Google::Compute::Network::Get).to receive(:new)
-      .with(self_link_backend_service(uri),
+      .with(self_link_region(uri),
             instance_of(Google::FakeAuthorization)) do |args|
       debug_network ">> GET #{args}"
       request
     end
   end
 
-  def load_network_result_backend_service(file)
+  def load_network_result_region(file)
     results = File.join(File.dirname(__FILE__), 'data', 'network',
-                        'gcompute_backend_service', file)
+                        'gcompute_region', file)
     raise "Network result data file #{results}" unless File.exist?(results)
     data = YAML.safe_load(File.read(results))
     raise "Invalid network results #{results}" unless data.class <= Hash
@@ -1164,21 +1066,70 @@ describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
   end
 
   # Creates variable test data to comply with self_link URI parameters
-  # Only used for gcompute_backend_service objects
-  def uri_data_backend_service(id)
+  # Only used for gcompute_region objects
+  def uri_data_region(id)
     {
-      project: GoogleTests::Constants::BS_PROJECT_DATA[(id - 1) \
-        % GoogleTests::Constants::BS_PROJECT_DATA.size],
-      name: GoogleTests::Constants::BS_NAME_DATA[(id - 1) \
-        % GoogleTests::Constants::BS_NAME_DATA.size]
+      project: GoogleTests::Constants::R_PROJECT_DATA[(id - 1) \
+        % GoogleTests::Constants::R_PROJECT_DATA.size],
+      name: GoogleTests::Constants::R_NAME_DATA[(id - 1) \
+        % GoogleTests::Constants::R_NAME_DATA.size]
     }
   end
 
-  def self_link_backend_service(data)
+  def self_link_region(data)
     URI.join(
       'https://www.googleapis.com/compute/v1/',
-      expand_variables_backend_service(
-        'projects/{{project}}/global/backendServices/{{name}}',
+      expand_variables_region(
+        'projects/{{project}}/regions/{{name}}',
+        data
+      )
+    )
+  end
+
+  def expect_network_get_success_region(id, data = {})
+    id_data = data.fetch(:name, '').include?('title') ? 'title' : 'name'
+    body = load_network_result_region("success#{id}~" \
+                                                           "#{id_data}.yaml")
+           .to_json
+    uri = uri_data_region(id).merge(data)
+
+    request = double('request')
+    allow(request).to receive(:send).and_return(http_success(body))
+
+    debug_network "!! GET #{uri}"
+    expect(Google::Compute::Network::Get).to receive(:new)
+      .with(self_link_region(uri),
+            instance_of(Google::FakeAuthorization)) do |args|
+      debug_network ">> GET #{args}"
+      request
+    end
+  end
+
+  def load_network_result_region(file)
+    results = File.join(File.dirname(__FILE__), 'data', 'network',
+                        'gcompute_region', file)
+    raise "Network result data file #{results}" unless File.exist?(results)
+    data = YAML.safe_load(File.read(results))
+    raise "Invalid network results #{results}" unless data.class <= Hash
+    data
+  end
+
+  # Creates variable test data to comply with self_link URI parameters
+  # Only used for gcompute_region objects
+  def uri_data_region(id)
+    {
+      project: GoogleTests::Constants::R_PROJECT_DATA[(id - 1) \
+        % GoogleTests::Constants::R_PROJECT_DATA.size],
+      name: GoogleTests::Constants::R_NAME_DATA[(id - 1) \
+        % GoogleTests::Constants::R_NAME_DATA.size]
+    }
+  end
+
+  def self_link_region(data)
+    URI.join(
+      'https://www.googleapis.com/compute/v1/',
+      expand_variables_region(
+        'projects/{{project}}/regions/{{name}}',
         data
       )
     )
@@ -1193,35 +1144,42 @@ describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
       if ENV['RSPEC_DEBUG'] || ENV['RSPEC_HTTP_VERBOSE']
   end
 
-  def expand_variables_ssl_certificate(template, data, ext_dat = {})
-    Puppet::Type.type(:gcompute_ssl_certificate).provider(:google)
+  def expand_variables_network(template, data, ext_dat = {})
+    Puppet::Type.type(:gcompute_network).provider(:google)
                 .expand_variables(template, data, ext_dat)
   end
 
-  def expand_variables_url_map(template, data, ext_dat = {})
-    Puppet::Type.type(:gcompute_url_map).provider(:google)
+  def expand_variables_forwarding_rule(template, data, ext_dat = {})
+    Puppet::Type.type(:gcompute_forwarding_rule).provider(:google)
                 .expand_variables(template, data, ext_dat)
   end
 
-  def expand_variables_backend_service(template, data, ext_dat = {})
-    Puppet::Type.type(:gcompute_backend_service).provider(:google)
+  def expand_variables_region(template, data, ext_dat = {})
+    Puppet::Type.type(:gcompute_region).provider(:google)
+                .expand_variables(template, data, ext_dat)
+  end
+
+  def expand_variables_region(template, data, ext_dat = {})
+    Puppet::Type.type(:gcompute_region).provider(:google)
                 .expand_variables(template, data, ext_dat)
   end
 
   def create_type(id)
-    Puppet::Type.type(:gcompute_target_https_proxy).new(
+    Puppet::Type.type(:gcompute_target_vpn_gateway).new(
       ensure: :present,
       title: "title#{id - 1}",
       credential: "cred#{id - 1}",
-      project: GoogleTests::Constants::THP_PROJECT_DATA[(id - 1) \
-        % GoogleTests::Constants::THP_PROJECT_DATA.size],
-      name: GoogleTests::Constants::THP_NAME_DATA[(id - 1) \
-        % GoogleTests::Constants::THP_NAME_DATA.size]
+      project: GoogleTests::Constants::TVG_PROJECT_DATA[(id - 1) \
+        % GoogleTests::Constants::TVG_PROJECT_DATA.size],
+      region: GoogleTests::Constants::TVG_REGION_DATA[(id - 1) \
+        % GoogleTests::Constants::TVG_REGION_DATA.size],
+      name: GoogleTests::Constants::TVG_NAME_DATA[(id - 1) \
+        % GoogleTests::Constants::TVG_NAME_DATA.size]
     )
   end
 
   def expand_variables(template, data, extra_data = {})
-    Puppet::Type.type(:gcompute_target_https_proxy).provider(:google)
+    Puppet::Type.type(:gcompute_target_vpn_gateway).provider(:google)
                 .expand_variables(template, data, extra_data)
   end
 
@@ -1229,7 +1187,7 @@ describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
     URI.join(
       'https://www.googleapis.com/compute/v1/',
       expand_variables(
-        'projects/{{project}}/global/targetHttpsProxies',
+        'projects/{{project}}/regions/{{region}}/targetVpnGateways',
         data
       )
     )
@@ -1239,7 +1197,7 @@ describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
     URI.join(
       'https://www.googleapis.com/compute/v1/',
       expand_variables(
-        'projects/{{project}}/global/targetHttpsProxies/{{name}}',
+        'projects/{{project}}/regions/{{region}}/targetVpnGateways/{{name}}',
         data
       )
     )
@@ -1248,10 +1206,12 @@ describe Puppet::Type.type(:gcompute_target_https_proxy).provider(:google) do
   # Creates variable test data to comply with self_link URI parameters
   def uri_data(id)
     {
-      project: GoogleTests::Constants::THP_PROJECT_DATA[(id - 1) \
-        % GoogleTests::Constants::THP_PROJECT_DATA.size],
-      name: GoogleTests::Constants::THP_NAME_DATA[(id - 1) \
-        % GoogleTests::Constants::THP_NAME_DATA.size]
+      project: GoogleTests::Constants::TVG_PROJECT_DATA[(id - 1) \
+        % GoogleTests::Constants::TVG_PROJECT_DATA.size],
+      region: GoogleTests::Constants::TVG_REGION_DATA[(id - 1) \
+        % GoogleTests::Constants::TVG_REGION_DATA.size],
+      name: GoogleTests::Constants::TVG_NAME_DATA[(id - 1) \
+        % GoogleTests::Constants::TVG_NAME_DATA.size]
     }
   end
 end

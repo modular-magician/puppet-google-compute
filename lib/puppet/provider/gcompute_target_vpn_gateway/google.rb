@@ -29,16 +29,18 @@ require 'google/compute/network/delete'
 require 'google/compute/network/get'
 require 'google/compute/network/post'
 require 'google/compute/network/put'
+require 'google/compute/property/forwardingrule_selflink'
 require 'google/compute/property/integer'
-require 'google/compute/property/sslcertificate_selflink'
+require 'google/compute/property/network_selflink'
+require 'google/compute/property/region_name'
 require 'google/compute/property/string'
+require 'google/compute/property/string_array'
 require 'google/compute/property/time'
-require 'google/compute/property/urlmap_selflink'
 require 'google/hash_utils'
 require 'google/object_store'
 require 'puppet'
 
-Puppet::Type.type(:gcompute_target_https_proxy).provide(:google) do
+Puppet::Type.type(:gcompute_target_vpn_gateway).provide(:google) do
   mk_resource_methods
 
   def self.instances
@@ -56,9 +58,9 @@ Puppet::Type.type(:gcompute_target_https_proxy).provide(:google) do
       debug("prefetch #{name}") if project.nil?
       debug("prefetch #{name} @ #{project}") unless project.nil?
       fetch = fetch_resource(resource, self_link(resource),
-                             'compute#targetHttpsProxy')
+                             'compute#targetVpnGateway')
       resource.provider = present(name, fetch, resource) unless fetch.nil?
-      Google::ObjectStore.instance.add(:gcompute_target_https_proxy, resource)
+      Google::ObjectStore.instance.add(:gcompute_target_vpn_gateway, resource)
     end
   end
 
@@ -75,14 +77,15 @@ Puppet::Type.type(:gcompute_target_https_proxy).provide(:google) do
       creation_timestamp:
         Google::Compute::Property::Time.api_munge(fetch['creationTimestamp']),
       id: Google::Compute::Property::Integer.api_munge(fetch['id']),
-      ssl_certificates:
-        Google::Compute::Property::SslCertSelfLinkRefArray.api_munge(
-          fetch['sslCertificates']
+      tunnels:
+        Google::Compute::Property::StringArray.api_munge(fetch['tunnels']),
+      forwarding_rules:
+        Google::Compute::Property::ForwRuleSelfLinkRefArray.api_munge(
+          fetch['forwardingRules']
         ),
-      url_map:
-        Google::Compute::Property::UrlMapSelfLinkRef.api_munge(fetch['urlMap']),
       description: resource[:description],
-      name: resource[:name]
+      name: resource[:name],
+      network: resource[:network]
     }.reject { |_, v| v.nil? }
   end
 
@@ -142,22 +145,23 @@ Puppet::Type.type(:gcompute_target_https_proxy).provide(:google) do
     {
       project: resource[:project],
       name: resource[:name],
-      kind: 'compute#targetHttpsProxy',
+      kind: 'compute#targetVpnGateway',
       creation_timestamp: resource[:creation_timestamp],
       description: resource[:description],
       id: resource[:id],
-      ssl_certificates: resource[:ssl_certificates],
-      url_map: resource[:url_map]
+      network: resource[:network],
+      tunnels: resource[:tunnels],
+      forwarding_rules: resource[:forwarding_rules],
+      region: resource[:region]
     }.reject { |_, v| v.nil? }
   end
 
   def resource_to_request
     request = {
-      kind: 'compute#targetHttpsProxy',
+      kind: 'compute#targetVpnGateway',
       description: @resource[:description],
       name: @resource[:name],
-      sslCertificates: @resource[:ssl_certificates],
-      urlMap: @resource[:url_map]
+      network: @resource[:network]
     }.reject { |_, v| v.nil? }
     debug "request: #{request}" unless ENV['PUPPET_HTTP_DEBUG'].nil?
     request.to_json
@@ -180,7 +184,7 @@ Puppet::Type.type(:gcompute_target_https_proxy).provide(:google) do
     URI.join(
       'https://www.googleapis.com/compute/v1/',
       expand_variables(
-        'projects/{{project}}/global/targetHttpsProxies',
+        'projects/{{project}}/regions/{{region}}/targetVpnGateways',
         data
       )
     )
@@ -194,7 +198,7 @@ Puppet::Type.type(:gcompute_target_https_proxy).provide(:google) do
     URI.join(
       'https://www.googleapis.com/compute/v1/',
       expand_variables(
-        'projects/{{project}}/global/targetHttpsProxies/{{name}}',
+        'projects/{{project}}/regions/{{region}}/targetVpnGateways/{{name}}',
         data
       )
     )
@@ -257,7 +261,7 @@ Puppet::Type.type(:gcompute_target_https_proxy).provide(:google) do
     URI.join(
       'https://www.googleapis.com/compute/v1/',
       expand_variables(
-        'projects/{{project}}/global/operations/{{op_id}}',
+        'projects/{{project}}/regions/{{region}}/operations/{{op_id}}',
         data, extra_data
       )
     )
@@ -273,7 +277,7 @@ Puppet::Type.type(:gcompute_target_https_proxy).provide(:google) do
                                                                  op_result,
                                                                  resource),
                                              %w[targetLink])),
-      'compute#targetHttpsProxy'
+      'compute#targetVpnGateway'
     )
   end
 
@@ -284,7 +288,7 @@ Puppet::Type.type(:gcompute_target_https_proxy).provide(:google) do
       debug("Waiting for completion of operation #{op_id}")
       raise_if_errors op_result, %w[error errors], 'message'
       sleep 1.0
-      raise "Invalid result '#{status}' on gcompute_target_https_proxy." \
+      raise "Invalid result '#{status}' on gcompute_target_vpn_gateway." \
         unless %w[PENDING RUNNING DONE].include?(status)
       op_result = fetch_resource(resource, op_uri, 'compute#operation')
       status = ::Google::HashUtils.navigate(op_result, %w[status])

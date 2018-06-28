@@ -25,24 +25,32 @@
 #
 # ----------------------------------------------------------------------------
 
+require 'google/compute/property/forwardingrule_selflink'
 require 'google/compute/property/integer'
-require 'google/compute/property/sslcertificate_selflink'
+require 'google/compute/property/network_selflink'
+require 'google/compute/property/region_name'
 require 'google/compute/property/string'
+require 'google/compute/property/string_array'
 require 'google/compute/property/time'
-require 'google/compute/property/urlmap_selflink'
 require 'google/object_store'
 require 'puppet'
 
-Puppet::Type.newtype(:gcompute_target_https_proxy) do
+Puppet::Type.newtype(:gcompute_target_vpn_gateway) do
   @doc = <<-DOC
-    Represents a TargetHttpsProxy resource, which is used by one or more global
-    forwarding rule to route incoming HTTPS requests to a URL map.
+    Represents a VPN gateway running in GCP. This virtual device is managed by
+    Google, but used only by you.
   DOC
 
   autorequire(:gauth_credential) do
     credential = self[:credential]
     raise "#{ref}: required property 'credential' is missing" if credential.nil?
     [credential]
+  end
+
+  autorequire(:gcompute_region) do
+    reference = self[:region]
+    raise "#{ref} required property 'region' is missing" if reference.nil?
+    reference.autorequires
   end
 
   ensurable
@@ -60,7 +68,11 @@ Puppet::Type.newtype(:gcompute_target_https_proxy) do
 
   newparam(:name, namevar: true) do
     # TODO(nelsona): Make this description to match the key of the object.
-    desc 'The name of the TargetHttpsProxy.'
+    desc 'The name of the TargetVpnGateway.'
+  end
+
+  newparam(:region, parent: Google::Compute::Property::RegionNameRef) do
+    desc 'The region this gateway should sit in.'
   end
 
   newproperty(:creation_timestamp, parent: Google::Compute::Property::Time) do
@@ -69,10 +81,6 @@ Puppet::Type.newtype(:gcompute_target_https_proxy) do
 
   newproperty(:description, parent: Google::Compute::Property::String) do
     desc 'An optional description of this resource.'
-  end
-
-  newproperty(:id, parent: Google::Compute::Property::Integer) do
-    desc 'The unique identifier for the resource. (output only)'
   end
 
   newproperty(:name, parent: Google::Compute::Property::String) do
@@ -87,19 +95,26 @@ Puppet::Type.newtype(:gcompute_target_https_proxy) do
     DOC
   end
 
-  newproperty(:ssl_certificates,
-              parent: Google::Compute::Property::SslCertSelfLinkRefArray) do
+  newproperty(:id, parent: Google::Compute::Property::Integer) do
+    desc 'The unique identifier for the resource. (output only)'
+  end
+
+  newproperty(:network, parent: Google::Compute::Property::NetwoSelfLinkRef) do
+    desc 'The network this VPN gateway is accepting traffic for.'
+  end
+
+  newproperty(:tunnels, parent: Google::Compute::Property::StringArray) do
     desc <<-DOC
-      A list of SslCertificate resources that are used to authenticate
-      connections between users and the load balancer. Currently, exactly one
-      SSL certificate must be specified.
+      A list of references to VpnTunnel resources associated to this VPN
+      gateway. (output only)
     DOC
   end
 
-  newproperty(:url_map, parent: Google::Compute::Property::UrlMapSelfLinkRef) do
+  newproperty(:forwarding_rules,
+              parent: Google::Compute::Property::ForwRuleSelfLinkRefArray) do
     desc <<-DOC
-      A reference to the UrlMap resource that defines the mapping from URL to
-      the BackendService.
+      A list of references to the ForwardingRule resources associated to this
+      VPN gateway. (output only)
     DOC
   end
 
