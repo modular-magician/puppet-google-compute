@@ -26,15 +26,20 @@
 # ----------------------------------------------------------------------------
 
 ---
-kind: compute#targetHttpsProxy
-name: title2
-id: 6448502614
-creationTimestamp: '2196-03-05T12:24:32+00:00'
-description: test description#2 data
-project: "'test project#2 data'"
-sslCertificates:
-- selflink(resource(ssl_certificate,0))
-- selflink(resource(ssl_certificate,1))
-- selflink(resource(ssl_certificate,2))
-urlMap: selflink(resource(url_map,2))
-selfLink: selflink(resource(target_https_proxy,2))
+kind: compute#targetVpnGateway
+name: test name#0 data
+id: 2149500871
+creationTimestamp: '2045-05-23T12:08:10+00:00'
+description: test description#0 data
+forwardingRules:
+- selflink(resource(forwarding_rule,0))
+- selflink(resource(forwarding_rule,1))
+- selflink(resource(forwarding_rule,2))
+network: selflink(resource(network,0))
+project: "'test project#0 data'"
+region: test name#0 data
+tunnels:
+- pp
+- qq
+- rr
+selfLink: selflink(resource(target_vpn_gateway,0))
