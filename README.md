@@ -5111,7 +5111,8 @@ Required.  The network this subnet belongs to.
 
 ##### `region`
 
-Required.  URL of the GCP region for this subnetwork.
+Required.  URL of the region where the regional address resides.
+  This field is not applicable to global addresses.
 
 
 ##### Output-only properties
