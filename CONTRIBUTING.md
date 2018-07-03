@@ -306,6 +306,7 @@ puppet-codegen:
   * lib/google/compute/property/zone_name.rb
   * lib/puppet/functions/gcompute_address_ip.rb
   * lib/puppet/functions/gcompute_address_ref.rb
+  * lib/puppet/functions/gcompute_external_resource.rb
   * lib/puppet/functions/gcompute_global_address_ref.rb
   * lib/puppet/functions/gcompute_health_check_ref.rb
   * lib/puppet/functions/gcompute_image_family.rb
