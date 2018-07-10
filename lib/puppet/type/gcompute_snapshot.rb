@@ -58,12 +58,14 @@ Puppet::Type.newtype(:gcompute_snapshot) do
 
   autorequire(:gcompute_disk) do
     reference = self[:source]
-    reference.autorequires unless reference.nil?
+    raise "#{ref} required property 'source' is missing" if reference.nil?
+    reference.autorequires
   end
 
   autorequire(:gcompute_zone) do
     reference = self[:zone]
-    reference.autorequires unless reference.nil?
+    raise "#{ref} required property 'zone' is missing" if reference.nil?
+    reference.autorequires
   end
 
   ensurable

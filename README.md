@@ -1651,7 +1651,7 @@ Required.  A reference to the zone where the disk resides.
 
 ##### `disk_encryption_key`
 
-  Encrypts the disk using a customer-supplied encryption key.
+Required.  Encrypts the disk using a customer-supplied encryption key.
   After you encrypt a disk with a customer-supplied key, you must
   provide the same key if you use the disk later (e.g. to create a disk
   snapshot or an image, or to attach the disk to a virtual machine).
@@ -1671,7 +1671,7 @@ Output only.  The RFC 4648 base64 encoded SHA-256 hash of the customer-supplied
 
 ##### `source_image_encryption_key`
 
-  The customer-supplied encryption key of the source image. Required if
+Required.  The customer-supplied encryption key of the source image. Required if
   the source image is protected by a customer-supplied encryption key.
 
 ##### source_image_encryption_key/raw_key
@@ -1684,7 +1684,7 @@ Output only.  The RFC 4648 base64 encoded SHA-256 hash of the customer-supplied
 
 ##### `source_snapshot`
 
-  The source snapshot used to create this disk. You can provide this as
+Required.  The source snapshot used to create this disk. You can provide this as
   a partial or full URL to the resource. For example, the following are
   valid values:
   * https://www.googleapis.com/compute/v1/projects/project/global/
@@ -1694,7 +1694,7 @@ Output only.  The RFC 4648 base64 encoded SHA-256 hash of the customer-supplied
 
 ##### `source_snapshot_encryption_key`
 
-  The customer-supplied encryption key of the source snapshot. Required
+Required.  The customer-supplied encryption key of the source snapshot. Required
   if the source snapshot is protected by a customer-supplied encryption
   key.
 
@@ -4862,15 +4862,15 @@ Required.  Name of the resource; provided by the client when the resource is
 
 ##### `source`
 
-  A reference to the disk used to create this snapshot.
+Required.  A reference to the disk used to create this snapshot.
 
 ##### `zone`
 
-  A reference to the zone where the disk is hosted.
+Required.  A reference to the zone where the disk is hosted.
 
 ##### `snapshot_encryption_key`
 
-  The customer-supplied encryption key of the snapshot. Required if the
+Required.  The customer-supplied encryption key of the snapshot. Required if the
   source snapshot is protected by a customer-supplied encryption key.
 
 ##### snapshot_encryption_key/raw_key
@@ -4883,7 +4883,7 @@ Output only.  The RFC 4648 base64 encoded SHA-256 hash of the customer-supplied
 
 ##### `source_disk_encryption_key`
 
-  The customer-supplied encryption key of the source snapshot. Required
+Required.  The customer-supplied encryption key of the source snapshot. Required
   if the source snapshot is protected by a customer-supplied encryption
   key.
 

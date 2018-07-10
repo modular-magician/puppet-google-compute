@@ -105,27 +105,66 @@ describe Puppet::Type.type(:gcompute_snapshot).provider(:google) do
                 }
 
                 gcompute_disk { 'resource(disk,0)':
-                  ensure     => present,
-                  name       => 'test name#0 data',
-                  zone       => 'resource(zone,0)',
-                  project    => 'test project#0 data',
-                  credential => 'cred0',
+                  ensure                         => present,
+                  disk_encryption_key            => {
+                    raw_key => 'test raw_key#0 data',
+                    sha256  => 'test sha256#0 data',
+                  },
+                  name                           => 'test name#0 data',
+                  source_image_encryption_key    => {
+                    raw_key => 'test raw_key#0 data',
+                    sha256  => 'test sha256#0 data',
+                  },
+                  source_snapshot                => 'test source_snapshot#0 data',
+                  source_snapshot_encryption_key => {
+                    raw_key => 'test raw_key#0 data',
+                    sha256  => 'test sha256#0 data',
+                  },
+                  zone                           => 'resource(zone,0)',
+                  project                        => 'test project#0 data',
+                  credential                     => 'cred0',
                 }
 
                 gcompute_disk { 'resource(disk,1)':
-                  ensure     => present,
-                  name       => 'test name#1 data',
-                  zone       => 'resource(zone,1)',
-                  project    => 'test project#1 data',
-                  credential => 'cred1',
+                  ensure                         => present,
+                  disk_encryption_key            => {
+                    raw_key => 'test raw_key#1 data',
+                    sha256  => 'test sha256#1 data',
+                  },
+                  name                           => 'test name#1 data',
+                  source_image_encryption_key    => {
+                    raw_key => 'test raw_key#1 data',
+                    sha256  => 'test sha256#1 data',
+                  },
+                  source_snapshot                => 'test source_snapshot#1 data',
+                  source_snapshot_encryption_key => {
+                    raw_key => 'test raw_key#1 data',
+                    sha256  => 'test sha256#1 data',
+                  },
+                  zone                           => 'resource(zone,1)',
+                  project                        => 'test project#1 data',
+                  credential                     => 'cred1',
                 }
 
                 gcompute_disk { 'resource(disk,2)':
-                  ensure     => present,
-                  name       => 'test name#2 data',
-                  zone       => 'resource(zone,2)',
-                  project    => 'test project#2 data',
-                  credential => 'cred2',
+                  ensure                         => present,
+                  disk_encryption_key            => {
+                    raw_key => 'test raw_key#2 data',
+                    sha256  => 'test sha256#2 data',
+                  },
+                  name                           => 'test name#2 data',
+                  source_image_encryption_key    => {
+                    raw_key => 'test raw_key#2 data',
+                    sha256  => 'test sha256#2 data',
+                  },
+                  source_snapshot                => 'test source_snapshot#2 data',
+                  source_snapshot_encryption_key => {
+                    raw_key => 'test raw_key#2 data',
+                    sha256  => 'test sha256#2 data',
+                  },
+                  zone                           => 'resource(zone,2)',
+                  project                        => 'test project#2 data',
+                  credential                     => 'cred2',
                 }
 
                 gcompute_snapshot { 'title0':
@@ -342,27 +381,66 @@ describe Puppet::Type.type(:gcompute_snapshot).provider(:google) do
                 }
 
                 gcompute_disk { 'resource(disk,0)':
-                  ensure     => present,
-                  name       => 'test name#0 data',
-                  zone       => 'resource(zone,0)',
-                  project    => 'test project#0 data',
-                  credential => 'cred0',
+                  ensure                         => present,
+                  disk_encryption_key            => {
+                    raw_key => 'test raw_key#0 data',
+                    sha256  => 'test sha256#0 data',
+                  },
+                  name                           => 'test name#0 data',
+                  source_image_encryption_key    => {
+                    raw_key => 'test raw_key#0 data',
+                    sha256  => 'test sha256#0 data',
+                  },
+                  source_snapshot                => 'test source_snapshot#0 data',
+                  source_snapshot_encryption_key => {
+                    raw_key => 'test raw_key#0 data',
+                    sha256  => 'test sha256#0 data',
+                  },
+                  zone                           => 'resource(zone,0)',
+                  project                        => 'test project#0 data',
+                  credential                     => 'cred0',
                 }
 
                 gcompute_disk { 'resource(disk,1)':
-                  ensure     => present,
-                  name       => 'test name#1 data',
-                  zone       => 'resource(zone,1)',
-                  project    => 'test project#1 data',
-                  credential => 'cred1',
+                  ensure                         => present,
+                  disk_encryption_key            => {
+                    raw_key => 'test raw_key#1 data',
+                    sha256  => 'test sha256#1 data',
+                  },
+                  name                           => 'test name#1 data',
+                  source_image_encryption_key    => {
+                    raw_key => 'test raw_key#1 data',
+                    sha256  => 'test sha256#1 data',
+                  },
+                  source_snapshot                => 'test source_snapshot#1 data',
+                  source_snapshot_encryption_key => {
+                    raw_key => 'test raw_key#1 data',
+                    sha256  => 'test sha256#1 data',
+                  },
+                  zone                           => 'resource(zone,1)',
+                  project                        => 'test project#1 data',
+                  credential                     => 'cred1',
                 }
 
                 gcompute_disk { 'resource(disk,2)':
-                  ensure     => present,
-                  name       => 'test name#2 data',
-                  zone       => 'resource(zone,2)',
-                  project    => 'test project#2 data',
-                  credential => 'cred2',
+                  ensure                         => present,
+                  disk_encryption_key            => {
+                    raw_key => 'test raw_key#2 data',
+                    sha256  => 'test sha256#2 data',
+                  },
+                  name                           => 'test name#2 data',
+                  source_image_encryption_key    => {
+                    raw_key => 'test raw_key#2 data',
+                    sha256  => 'test sha256#2 data',
+                  },
+                  source_snapshot                => 'test source_snapshot#2 data',
+                  source_snapshot_encryption_key => {
+                    raw_key => 'test raw_key#2 data',
+                    sha256  => 'test sha256#2 data',
+                  },
+                  zone                           => 'resource(zone,2)',
+                  project                        => 'test project#2 data',
+                  credential                     => 'cred2',
                 }
 
                 gcompute_snapshot { 'title0':
@@ -622,11 +700,24 @@ describe Puppet::Type.type(:gcompute_snapshot).provider(:google) do
               }
 
               gcompute_disk { 'resource(disk,0)':
-                ensure     => present,
-                name       => 'test name#0 data',
-                zone       => 'resource(zone,0)',
-                project    => 'test project#0 data',
-                credential => 'cred0',
+                ensure                         => present,
+                disk_encryption_key            => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                name                           => 'test name#0 data',
+                source_image_encryption_key    => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                source_snapshot                => 'test source_snapshot#0 data',
+                source_snapshot_encryption_key => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                zone                           => 'resource(zone,0)',
+                project                        => 'test project#0 data',
+                credential                     => 'cred0',
               }
 
               gcompute_snapshot { 'title0':
@@ -728,11 +819,24 @@ describe Puppet::Type.type(:gcompute_snapshot).provider(:google) do
               }
 
               gcompute_disk { 'resource(disk,0)':
-                ensure     => present,
-                name       => 'test name#0 data',
-                zone       => 'resource(zone,0)',
-                project    => 'test project#0 data',
-                credential => 'cred0',
+                ensure                         => present,
+                disk_encryption_key            => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                name                           => 'test name#0 data',
+                source_image_encryption_key    => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                source_snapshot                => 'test source_snapshot#0 data',
+                source_snapshot_encryption_key => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                zone                           => 'resource(zone,0)',
+                project                        => 'test project#0 data',
+                credential                     => 'cred0',
               }
 
               gcompute_snapshot { 'title0':
@@ -779,15 +883,54 @@ describe Puppet::Type.type(:gcompute_snapshot).provider(:google) do
         context 'title == name (pass)' do
           before(:each) do
             expect_network_get_failed 1, name: 'title0'
+            expect_network_get_success_zone 1
+            expect_network_get_success_disk 1, zone: 'test name#0 data'
           end
 
           subject do
             apply_with_error_check(
               <<-MANIFEST
-              gcompute_snapshot { 'title0':
-                ensure     => absent,
+              gcompute_zone { 'resource(zone,0)':
+                name       => 'test name#0 data',
                 project    => 'test project#0 data',
                 credential => 'cred0',
+              }
+
+              gcompute_disk { 'resource(disk,0)':
+                ensure                         => present,
+                disk_encryption_key            => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                name                           => 'test name#0 data',
+                source_image_encryption_key    => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                source_snapshot                => 'test source_snapshot#0 data',
+                source_snapshot_encryption_key => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                zone                           => 'resource(zone,0)',
+                project                        => 'test project#0 data',
+                credential                     => 'cred0',
+              }
+
+              gcompute_snapshot { 'title0':
+                ensure                     => absent,
+                snapshot_encryption_key    => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                source                     => 'resource(disk,0)',
+                source_disk_encryption_key => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                zone                       => 'resource(zone,0)',
+                project                    => 'test project#0 data',
+                credential                 => 'cred0',
               }
               MANIFEST
             ).catalog.resource('Gcompute_snapshot[title0]')
@@ -811,16 +954,55 @@ describe Puppet::Type.type(:gcompute_snapshot).provider(:google) do
         context 'title != name (pass)' do
           before(:each) do
             expect_network_get_failed 1
+            expect_network_get_success_zone 1
+            expect_network_get_success_disk 1, zone: 'test name#0 data'
           end
 
           subject do
             apply_with_error_check(
               <<-MANIFEST
-              gcompute_snapshot { 'title0':
-                ensure     => absent,
+              gcompute_zone { 'resource(zone,0)':
                 name       => 'test name#0 data',
                 project    => 'test project#0 data',
                 credential => 'cred0',
+              }
+
+              gcompute_disk { 'resource(disk,0)':
+                ensure                         => present,
+                disk_encryption_key            => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                name                           => 'test name#0 data',
+                source_image_encryption_key    => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                source_snapshot                => 'test source_snapshot#0 data',
+                source_snapshot_encryption_key => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                zone                           => 'resource(zone,0)',
+                project                        => 'test project#0 data',
+                credential                     => 'cred0',
+              }
+
+              gcompute_snapshot { 'title0':
+                ensure                     => absent,
+                name                       => 'test name#0 data',
+                snapshot_encryption_key    => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                source                     => 'resource(disk,0)',
+                source_disk_encryption_key => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                zone                       => 'resource(zone,0)',
+                project                    => 'test project#0 data',
+                credential                 => 'cred0',
               }
               MANIFEST
             ).catalog.resource('Gcompute_snapshot[title0]')
@@ -848,15 +1030,54 @@ describe Puppet::Type.type(:gcompute_snapshot).provider(:google) do
             expect_network_get_success 1, name: 'title0'
             expect_network_delete 1, 'title0'
             expect_network_get_async 1, name: 'title0'
+            expect_network_get_success_zone 1
+            expect_network_get_success_disk 1, zone: 'test name#0 data'
           end
 
           subject do
             apply_with_error_check(
               <<-MANIFEST
-              gcompute_snapshot { 'title0':
-                ensure     => absent,
+              gcompute_zone { 'resource(zone,0)':
+                name       => 'test name#0 data',
                 project    => 'test project#0 data',
                 credential => 'cred0',
+              }
+
+              gcompute_disk { 'resource(disk,0)':
+                ensure                         => present,
+                disk_encryption_key            => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                name                           => 'test name#0 data',
+                source_image_encryption_key    => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                source_snapshot                => 'test source_snapshot#0 data',
+                source_snapshot_encryption_key => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                zone                           => 'resource(zone,0)',
+                project                        => 'test project#0 data',
+                credential                     => 'cred0',
+              }
+
+              gcompute_snapshot { 'title0':
+                ensure                     => absent,
+                snapshot_encryption_key    => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                source                     => 'resource(disk,0)',
+                source_disk_encryption_key => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                zone                       => 'resource(zone,0)',
+                project                    => 'test project#0 data',
+                credential                 => 'cred0',
               }
               MANIFEST
             ).catalog.resource('Gcompute_snapshot[title0]')
@@ -882,16 +1103,55 @@ describe Puppet::Type.type(:gcompute_snapshot).provider(:google) do
             expect_network_get_success 1
             expect_network_delete 1
             expect_network_get_async 1
+            expect_network_get_success_zone 1
+            expect_network_get_success_disk 1, zone: 'test name#0 data'
           end
 
           subject do
             apply_with_error_check(
               <<-MANIFEST
-              gcompute_snapshot { 'title0':
-                ensure     => absent,
+              gcompute_zone { 'resource(zone,0)':
                 name       => 'test name#0 data',
                 project    => 'test project#0 data',
                 credential => 'cred0',
+              }
+
+              gcompute_disk { 'resource(disk,0)':
+                ensure                         => present,
+                disk_encryption_key            => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                name                           => 'test name#0 data',
+                source_image_encryption_key    => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                source_snapshot                => 'test source_snapshot#0 data',
+                source_snapshot_encryption_key => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                zone                           => 'resource(zone,0)',
+                project                        => 'test project#0 data',
+                credential                     => 'cred0',
+              }
+
+              gcompute_snapshot { 'title0':
+                ensure                     => absent,
+                name                       => 'test name#0 data',
+                snapshot_encryption_key    => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                source                     => 'resource(disk,0)',
+                source_disk_encryption_key => {
+                  raw_key => 'test raw_key#0 data',
+                  sha256  => 'test sha256#0 data',
+                },
+                zone                       => 'resource(zone,0)',
+                project                    => 'test project#0 data',
+                credential                 => 'cred0',
               }
               MANIFEST
             ).catalog.resource('Gcompute_snapshot[title0]')
