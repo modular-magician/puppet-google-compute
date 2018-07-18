@@ -25,7 +25,7 @@
 #
 # ----------------------------------------------------------------------------
 
-require 'google/compute/property/enum'
+require 'google/compute/property/global_address_ip_version'
 require 'google/compute/property/integer'
 require 'google/compute/property/region_selflink'
 require 'google/compute/property/string'
@@ -93,7 +93,7 @@ Puppet::Type.newtype(:gcompute_global_address) do
     DOC
   end
 
-  newproperty(:ip_version, parent: Google::Compute::Property::Enum) do
+  newproperty(:ip_version, parent: Google::Compute::Property::IpVersionEnum) do
     desc <<-DOC
       The IP Version that will be used by this address. Valid options are IPV4 or IPV6. The default
       value is IPV4.

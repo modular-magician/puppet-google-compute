@@ -26,12 +26,15 @@
 # ----------------------------------------------------------------------------
 
 require 'google/compute/property/disk_selflink'
-require 'google/compute/property/enum'
+require 'google/compute/property/image_container_type'
 require 'google/compute/property/image_deprecated'
 require 'google/compute/property/image_guest_os_features'
 require 'google/compute/property/image_image_encryption_key'
 require 'google/compute/property/image_raw_disk'
 require 'google/compute/property/image_source_disk_encryption_key'
+require 'google/compute/property/image_source_type'
+require 'google/compute/property/image_state'
+require 'google/compute/property/image_type'
 require 'google/compute/property/integer'
 require 'google/compute/property/string'
 require 'google/compute/property/string_array'
@@ -172,7 +175,7 @@ Puppet::Type.newtype(:gcompute_image) do
     DOC
   end
 
-  newproperty(:source_type, parent: Google::Compute::Property::Enum) do
+  newproperty(:source_type, parent: Google::Compute::Property::SourceTypeEnum) do
     desc 'The type of the image used to create this disk. The default and only value is RAW'
     newvalue(:RAW)
   end

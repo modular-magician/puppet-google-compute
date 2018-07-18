@@ -29,7 +29,8 @@ require 'google/compute/network/delete'
 require 'google/compute/network/get'
 require 'google/compute/network/post'
 require 'google/compute/network/put'
-require 'google/compute/property/enum'
+require 'google/compute/property/health_check_proxy_header'
+require 'google/compute/property/health_check_type'
 require 'google/compute/property/healthcheck_http_health_check'
 require 'google/compute/property/healthcheck_https_health_check'
 require 'google/compute/property/healthcheck_ssl_health_check'
@@ -79,7 +80,7 @@ Puppet::Type.type(:gcompute_health_check).provide(:google) do
       timeout_sec: Google::Compute::Property::Integer.api_munge(fetch['timeoutSec']),
       unhealthy_threshold:
         Google::Compute::Property::Integer.api_munge(fetch['unhealthyThreshold']),
-      type: Google::Compute::Property::Enum.api_munge(fetch['type']),
+      type: Google::Compute::Property::TypeEnum.api_munge(fetch['type']),
       http_health_check:
         Google::Compute::Property::HealChecHttpHealChec.api_munge(fetch['httpHealthCheck']),
       https_health_check:

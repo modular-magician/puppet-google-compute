@@ -25,12 +25,13 @@
 #
 # ----------------------------------------------------------------------------
 
-require 'google/compute/property/enum'
 require 'google/compute/property/integer'
 require 'google/compute/property/region_selflink'
 require 'google/compute/property/string'
 require 'google/compute/property/time'
 require 'google/compute/property/zone_deprecated'
+require 'google/compute/property/zone_state'
+require 'google/compute/property/zone_status'
 require 'google/object_store'
 require 'puppet'
 
@@ -83,7 +84,7 @@ Puppet::Type.newtype(:gcompute_zone) do
     desc 'The region where the zone is located. (output only)'
   end
 
-  newproperty(:status, parent: Google::Compute::Property::Enum) do
+  newproperty(:status, parent: Google::Compute::Property::StatusEnum) do
     desc 'The status of the zone. (output only)'
     newvalue(:UP)
     newvalue(:DOWN)

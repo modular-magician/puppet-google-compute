@@ -30,12 +30,15 @@ require 'google/compute/network/get'
 require 'google/compute/network/post'
 require 'google/compute/network/put'
 require 'google/compute/property/disk_selflink'
-require 'google/compute/property/enum'
+require 'google/compute/property/image_container_type'
 require 'google/compute/property/image_deprecated'
 require 'google/compute/property/image_guest_os_features'
 require 'google/compute/property/image_image_encryption_key'
 require 'google/compute/property/image_raw_disk'
 require 'google/compute/property/image_source_disk_encryption_key'
+require 'google/compute/property/image_source_type'
+require 'google/compute/property/image_state'
+require 'google/compute/property/image_type'
 require 'google/compute/property/integer'
 require 'google/compute/property/string'
 require 'google/compute/property/string_array'
@@ -92,7 +95,7 @@ Puppet::Type.type(:gcompute_image).provide(:google) do
       source_disk_encryption_key:
         Google::Compute::Property::ImagSourDiskEncrKey.api_munge(fetch['sourceDiskEncryptionKey']),
       source_disk_id: Google::Compute::Property::String.api_munge(fetch['sourceDiskId']),
-      source_type: Google::Compute::Property::Enum.api_munge(fetch['sourceType'])
+      source_type: Google::Compute::Property::SourceTypeEnum.api_munge(fetch['sourceType'])
     }.reject { |_, v| v.nil? }
   end
   # rubocop:enable Metrics/MethodLength

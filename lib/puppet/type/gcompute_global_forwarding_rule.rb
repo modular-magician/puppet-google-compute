@@ -26,7 +26,9 @@
 # ----------------------------------------------------------------------------
 
 require 'google/compute/property/backendservice_selflink'
-require 'google/compute/property/enum'
+require 'google/compute/property/global_forwarding_rule_ip_protocol'
+require 'google/compute/property/global_forwarding_rule_ip_version'
+require 'google/compute/property/global_forwarding_rule_load_balancing_scheme'
 require 'google/compute/property/integer'
 require 'google/compute/property/network_selflink'
 require 'google/compute/property/region_name'
@@ -102,7 +104,7 @@ Puppet::Type.newtype(:gcompute_global_forwarding_rule) do
     DOC
   end
 
-  newproperty(:ip_protocol, parent: Google::Compute::Property::Enum) do
+  newproperty(:ip_protocol, parent: Google::Compute::Property::IPProtocolEnum) do
     desc <<-DOC
       The IP protocol to which this rule applies. Valid options are TCP, UDP, ESP, AH, SCTP or
       ICMP. When the load balancing scheme is INTERNAL, only TCP and UDP are valid.
@@ -122,7 +124,7 @@ Puppet::Type.newtype(:gcompute_global_forwarding_rule) do
     DOC
   end
 
-  newproperty(:ip_version, parent: Google::Compute::Property::Enum) do
+  newproperty(:ip_version, parent: Google::Compute::Property::IpVersionEnum) do
     desc <<-DOC
       The IP Version that will be used by this forwarding rule. Valid options are IPV4 or IPV6.
       This can only be specified for a global forwarding rule.
@@ -131,7 +133,7 @@ Puppet::Type.newtype(:gcompute_global_forwarding_rule) do
     newvalue(:IPV6)
   end
 
-  newproperty(:load_balancing_scheme, parent: Google::Compute::Property::Enum) do
+  newproperty(:load_balancing_scheme, parent: Google::Compute::Property::LoadBalancingSchemeEnum) do
     desc <<-DOC
       This signifies what the ForwardingRule will be used for and can only take the following
       values: INTERNAL, EXTERNAL The value of INTERNAL means that this will be used for Internal

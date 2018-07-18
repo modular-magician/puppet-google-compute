@@ -81,7 +81,7 @@ module Google
       # Data is coming from the GCP API
       class ImageGuestOsFeatuApi < ImageGuestOsFeatu
         def initialize(args)
-          @type = Google::Compute::Property::Enum.api_munge(args['type'])
+          @type = Google::Compute::Property::TypeEnum.api_munge(args['type'])
         end
       end
 
@@ -89,7 +89,7 @@ module Google
       # Data is coming from the Puppet manifest
       class ImageGuestOsFeatuCatalog < ImageGuestOsFeatu
         def initialize(args)
-          @type = Google::Compute::Property::Enum.unsafe_munge(args['type'])
+          @type = Google::Compute::Property::TypeEnum.unsafe_munge(args['type'])
         end
       end
     end

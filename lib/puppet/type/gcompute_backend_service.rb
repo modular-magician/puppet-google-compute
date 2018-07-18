@@ -25,13 +25,15 @@
 #
 # ----------------------------------------------------------------------------
 
+require 'google/compute/property/backend_service_balancing_mode'
+require 'google/compute/property/backend_service_protocol'
+require 'google/compute/property/backend_service_session_affinity'
 require 'google/compute/property/backendservice_backends'
 require 'google/compute/property/backendservice_cache_key_policy'
 require 'google/compute/property/backendservice_cdn_policy'
 require 'google/compute/property/backendservice_connection_draining'
 require 'google/compute/property/boolean'
 require 'google/compute/property/double'
-require 'google/compute/property/enum'
 require 'google/compute/property/instancegroup_selflink'
 require 'google/compute/property/integer'
 require 'google/compute/property/region_selflink'
@@ -140,7 +142,7 @@ Puppet::Type.newtype(:gcompute_backend_service) do
     DOC
   end
 
-  newproperty(:protocol, parent: Google::Compute::Property::Enum) do
+  newproperty(:protocol, parent: Google::Compute::Property::ProtocolEnum) do
     desc <<-DOC
       The protocol this BackendService uses to communicate with backends. Possible values are HTTP,
       HTTPS, TCP, and SSL. The default is HTTP. For internal load balancing, the possible values
@@ -159,7 +161,7 @@ Puppet::Type.newtype(:gcompute_backend_service) do
     DOC
   end
 
-  newproperty(:session_affinity, parent: Google::Compute::Property::Enum) do
+  newproperty(:session_affinity, parent: Google::Compute::Property::SessionAffinityEnum) do
     desc <<-DOC
       Type of session affinity to use. The default is NONE. When the load balancing scheme is
       EXTERNAL, can be NONE, CLIENT_IP, or GENERATED_COOKIE. When the load balancing scheme is

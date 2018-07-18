@@ -25,10 +25,10 @@
 #
 # ----------------------------------------------------------------------------
 
-require 'google/compute/property/enum'
 require 'google/compute/property/integer'
 require 'google/compute/property/sslcertificate_selflink'
 require 'google/compute/property/string'
+require 'google/compute/property/target_https_proxy_quic_override'
 require 'google/compute/property/time'
 require 'google/compute/property/urlmap_selflink'
 require 'google/object_store'
@@ -86,7 +86,7 @@ Puppet::Type.newtype(:gcompute_target_https_proxy) do
     DOC
   end
 
-  newproperty(:quic_override, parent: Google::Compute::Property::Enum) do
+  newproperty(:quic_override, parent: Google::Compute::Property::QuicOverrideEnum) do
     desc <<-DOC
       Specifies the QUIC override policy for this resource. This determines whether the load
       balancer will attempt to negotiate QUIC with clients or not. Can specify one of NONE, ENABLE,

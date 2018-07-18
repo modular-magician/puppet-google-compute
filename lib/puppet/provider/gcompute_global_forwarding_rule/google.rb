@@ -30,7 +30,9 @@ require 'google/compute/network/get'
 require 'google/compute/network/post'
 require 'google/compute/network/put'
 require 'google/compute/property/backendservice_selflink'
-require 'google/compute/property/enum'
+require 'google/compute/property/global_forwarding_rule_ip_protocol'
+require 'google/compute/property/global_forwarding_rule_ip_version'
+require 'google/compute/property/global_forwarding_rule_load_balancing_scheme'
 require 'google/compute/property/integer'
 require 'google/compute/property/network_selflink'
 require 'google/compute/property/region_name'
@@ -76,12 +78,12 @@ Puppet::Type.type(:gcompute_global_forwarding_rule).provide(:google) do
       description: Google::Compute::Property::String.api_munge(fetch['description']),
       id: Google::Compute::Property::Integer.api_munge(fetch['id']),
       ip_address: Google::Compute::Property::String.api_munge(fetch['IPAddress']),
-      ip_protocol: Google::Compute::Property::Enum.api_munge(fetch['IPProtocol']),
+      ip_protocol: Google::Compute::Property::IPProtocolEnum.api_munge(fetch['IPProtocol']),
       backend_service:
         Google::Compute::Property::BackServSelfLinkRef.api_munge(fetch['backendService']),
-      ip_version: Google::Compute::Property::Enum.api_munge(fetch['ipVersion']),
+      ip_version: Google::Compute::Property::IpVersionEnum.api_munge(fetch['ipVersion']),
       load_balancing_scheme:
-        Google::Compute::Property::Enum.api_munge(fetch['loadBalancingScheme']),
+        Google::Compute::Property::LoadBalancingSchemeEnum.api_munge(fetch['loadBalancingScheme']),
       name: Google::Compute::Property::String.api_munge(fetch['name']),
       network: Google::Compute::Property::NetwoSelfLinkRef.api_munge(fetch['network']),
       port_range: Google::Compute::Property::String.api_munge(fetch['portRange']),

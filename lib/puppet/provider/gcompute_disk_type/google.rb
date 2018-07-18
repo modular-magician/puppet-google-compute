@@ -27,8 +27,8 @@
 
 require 'google/compute/network/get'
 require 'google/compute/network/put'
+require 'google/compute/property/disk_type_state'
 require 'google/compute/property/disktype_deprecated'
-require 'google/compute/property/enum'
 require 'google/compute/property/integer'
 require 'google/compute/property/string'
 require 'google/compute/property/time'

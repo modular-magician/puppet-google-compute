@@ -26,12 +26,12 @@
 # ----------------------------------------------------------------------------
 
 require 'google/compute/property/double'
-require 'google/compute/property/enum'
 require 'google/compute/property/httphealthcheck_selflink'
 require 'google/compute/property/instance_selflink'
 require 'google/compute/property/integer'
 require 'google/compute/property/region_name'
 require 'google/compute/property/string'
+require 'google/compute/property/target_pool_session_affinity'
 require 'google/compute/property/targetpool_selflink'
 require 'google/compute/property/time'
 require 'google/object_store'
@@ -139,7 +139,7 @@ Puppet::Type.newtype(:gcompute_target_pool) do
     DOC
   end
 
-  newproperty(:session_affinity, parent: Google::Compute::Property::Enum) do
+  newproperty(:session_affinity, parent: Google::Compute::Property::SessionAffinityEnum) do
     desc <<-DOC
       Session affinity option. Must be one of these values: - NONE: Connections from the same
       client IP may go to any instance in  the pool. - CLIENT_IP: Connections from the same client

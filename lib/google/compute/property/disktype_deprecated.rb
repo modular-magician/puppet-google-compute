@@ -100,7 +100,7 @@ module Google
           @deprecated = Google::Compute::Property::Time.api_munge(args['deprecated'])
           @obsolete = Google::Compute::Property::Time.api_munge(args['obsolete'])
           @replacement = Google::Compute::Property::String.api_munge(args['replacement'])
-          @state = Google::Compute::Property::Enum.api_munge(args['state'])
+          @state = Google::Compute::Property::StateEnum.api_munge(args['state'])
         end
       end
 
@@ -112,7 +112,7 @@ module Google
           @deprecated = Google::Compute::Property::Time.unsafe_munge(args['deprecated'])
           @obsolete = Google::Compute::Property::Time.unsafe_munge(args['obsolete'])
           @replacement = Google::Compute::Property::String.unsafe_munge(args['replacement'])
-          @state = Google::Compute::Property::Enum.unsafe_munge(args['state'])
+          @state = Google::Compute::Property::StateEnum.unsafe_munge(args['state'])
         end
       end
     end

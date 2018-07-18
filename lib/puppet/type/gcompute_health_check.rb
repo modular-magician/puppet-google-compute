@@ -25,7 +25,8 @@
 #
 # ----------------------------------------------------------------------------
 
-require 'google/compute/property/enum'
+require 'google/compute/property/health_check_proxy_header'
+require 'google/compute/property/health_check_type'
 require 'google/compute/property/healthcheck_http_health_check'
 require 'google/compute/property/healthcheck_https_health_check'
 require 'google/compute/property/healthcheck_ssl_health_check'
@@ -120,7 +121,7 @@ Puppet::Type.newtype(:gcompute_health_check) do
     defaultto 2
   end
 
-  newproperty(:type, parent: Google::Compute::Property::Enum) do
+  newproperty(:type, parent: Google::Compute::Property::TypeEnum) do
     desc <<-DOC
       Specifies the type of the healthCheck, either TCP, SSL, HTTP or HTTPS. If not specified, the
       default is TCP. Exactly one of the protocol-specific health check field must be specified,

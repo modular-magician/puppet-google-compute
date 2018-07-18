@@ -26,10 +26,10 @@
 # ----------------------------------------------------------------------------
 
 require 'google/compute/property/backendservice_selflink'
-require 'google/compute/property/enum'
 require 'google/compute/property/integer'
 require 'google/compute/property/sslcertificate_selflink'
 require 'google/compute/property/string'
+require 'google/compute/property/target_ssl_proxy_proxy_header'
 require 'google/compute/property/time'
 require 'google/object_store'
 require 'puppet'
@@ -86,7 +86,7 @@ Puppet::Type.newtype(:gcompute_target_ssl_proxy) do
     DOC
   end
 
-  newproperty(:proxy_header, parent: Google::Compute::Property::Enum) do
+  newproperty(:proxy_header, parent: Google::Compute::Property::ProxyHeaderEnum) do
     desc <<-DOC
       Specifies the type of proxy header to append before sending data to the backend, either NONE
       or PROXY_V1. The default is NONE.

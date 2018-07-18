@@ -27,12 +27,13 @@
 
 require 'google/compute/network/get'
 require 'google/compute/network/put'
-require 'google/compute/property/enum'
 require 'google/compute/property/integer'
 require 'google/compute/property/region_selflink'
 require 'google/compute/property/string'
 require 'google/compute/property/time'
 require 'google/compute/property/zone_deprecated'
+require 'google/compute/property/zone_state'
+require 'google/compute/property/zone_status'
 require 'google/hash_utils'
 require 'google/object_store'
 require 'puppet'
@@ -74,7 +75,7 @@ Puppet::Type.type(:gcompute_zone).provide(:google) do
       id: Google::Compute::Property::Integer.api_munge(fetch['id']),
       name: Google::Compute::Property::String.api_munge(fetch['name']),
       region: Google::Compute::Property::RegioSelfLinkRef.api_munge(fetch['region']),
-      status: Google::Compute::Property::Enum.api_munge(fetch['status'])
+      status: Google::Compute::Property::StatusEnum.api_munge(fetch['status'])
     }.reject { |_, v| v.nil? }
   end
 

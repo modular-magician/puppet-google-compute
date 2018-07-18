@@ -29,10 +29,10 @@ require 'google/compute/network/delete'
 require 'google/compute/network/get'
 require 'google/compute/network/post'
 require 'google/compute/network/put'
-require 'google/compute/property/enum'
 require 'google/compute/property/integer'
 require 'google/compute/property/sslcertificate_selflink'
 require 'google/compute/property/string'
+require 'google/compute/property/target_https_proxy_quic_override'
 require 'google/compute/property/time'
 require 'google/compute/property/urlmap_selflink'
 require 'google/hash_utils'
@@ -74,7 +74,7 @@ Puppet::Type.type(:gcompute_target_https_proxy).provide(:google) do
     {
       creation_timestamp: Google::Compute::Property::Time.api_munge(fetch['creationTimestamp']),
       id: Google::Compute::Property::Integer.api_munge(fetch['id']),
-      quic_override: Google::Compute::Property::Enum.api_munge(fetch['quicOverride']),
+      quic_override: Google::Compute::Property::QuicOverrideEnum.api_munge(fetch['quicOverride']),
       ssl_certificates:
         Google::Compute::Property::SslCertSelfLinkRefArray.api_munge(fetch['sslCertificates']),
       url_map: Google::Compute::Property::UrlMapSelfLinkRef.api_munge(fetch['urlMap']),

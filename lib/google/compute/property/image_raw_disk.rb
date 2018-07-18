@@ -88,7 +88,8 @@ module Google
       # Data is coming from the GCP API
       class ImageRawDiskApi < ImageRawDisk
         def initialize(args)
-          @container_type = Google::Compute::Property::Enum.api_munge(args['containerType'])
+          @container_type =
+            Google::Compute::Property::ContainerTypeEnum.api_munge(args['containerType'])
           @sha1_checksum = Google::Compute::Property::String.api_munge(args['sha1Checksum'])
           @source = Google::Compute::Property::String.api_munge(args['source'])
         end
@@ -98,7 +99,8 @@ module Google
       # Data is coming from the Puppet manifest
       class ImageRawDiskCatalog < ImageRawDisk
         def initialize(args)
-          @container_type = Google::Compute::Property::Enum.unsafe_munge(args['container_type'])
+          @container_type =
+            Google::Compute::Property::ContainerTypeEnum.unsafe_munge(args['container_type'])
           @sha1_checksum = Google::Compute::Property::String.unsafe_munge(args['sha1_checksum'])
           @source = Google::Compute::Property::String.unsafe_munge(args['source'])
         end

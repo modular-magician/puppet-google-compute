@@ -27,9 +27,9 @@
 
 require 'google/compute/network/get'
 require 'google/compute/network/put'
-require 'google/compute/property/enum'
 require 'google/compute/property/integer'
 require 'google/compute/property/region_deprecated'
+require 'google/compute/property/region_state'
 require 'google/compute/property/string'
 require 'google/compute/property/string_array'
 require 'google/compute/property/time'

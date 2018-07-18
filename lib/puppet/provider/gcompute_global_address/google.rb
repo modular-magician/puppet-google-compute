@@ -29,7 +29,7 @@ require 'google/compute/network/delete'
 require 'google/compute/network/get'
 require 'google/compute/network/post'
 require 'google/compute/network/put'
-require 'google/compute/property/enum'
+require 'google/compute/property/global_address_ip_version'
 require 'google/compute/property/integer'
 require 'google/compute/property/region_selflink'
 require 'google/compute/property/string'
@@ -74,7 +74,7 @@ Puppet::Type.type(:gcompute_global_address).provide(:google) do
       description: Google::Compute::Property::String.api_munge(fetch['description']),
       id: Google::Compute::Property::Integer.api_munge(fetch['id']),
       name: Google::Compute::Property::String.api_munge(fetch['name']),
-      ip_version: Google::Compute::Property::Enum.api_munge(fetch['ipVersion']),
+      ip_version: Google::Compute::Property::IpVersionEnum.api_munge(fetch['ipVersion']),
       region: Google::Compute::Property::RegioSelfLinkRef.api_munge(fetch['region'])
     }.reject { |_, v| v.nil? }
   end

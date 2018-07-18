@@ -29,13 +29,15 @@ require 'google/compute/network/delete'
 require 'google/compute/network/get'
 require 'google/compute/network/post'
 require 'google/compute/network/put'
+require 'google/compute/property/backend_service_balancing_mode'
+require 'google/compute/property/backend_service_protocol'
+require 'google/compute/property/backend_service_session_affinity'
 require 'google/compute/property/backendservice_backends'
 require 'google/compute/property/backendservice_cache_key_policy'
 require 'google/compute/property/backendservice_cdn_policy'
 require 'google/compute/property/backendservice_connection_draining'
 require 'google/compute/property/boolean'
 require 'google/compute/property/double'
-require 'google/compute/property/enum'
 require 'google/compute/property/instancegroup_selflink'
 require 'google/compute/property/integer'
 require 'google/compute/property/region_selflink'
@@ -92,9 +94,10 @@ Puppet::Type.type(:gcompute_backend_service).provide(:google) do
       id: Google::Compute::Property::Integer.api_munge(fetch['id']),
       name: Google::Compute::Property::String.api_munge(fetch['name']),
       port_name: Google::Compute::Property::String.api_munge(fetch['portName']),
-      protocol: Google::Compute::Property::Enum.api_munge(fetch['protocol']),
+      protocol: Google::Compute::Property::ProtocolEnum.api_munge(fetch['protocol']),
       region: Google::Compute::Property::RegioSelfLinkRef.api_munge(fetch['region']),
-      session_affinity: Google::Compute::Property::Enum.api_munge(fetch['sessionAffinity']),
+      session_affinity:
+        Google::Compute::Property::SessionAffinityEnum.api_munge(fetch['sessionAffinity']),
       timeout_sec: Google::Compute::Property::Integer.api_munge(fetch['timeoutSec'])
     }.reject { |_, v| v.nil? }
   end

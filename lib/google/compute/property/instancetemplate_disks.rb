@@ -126,10 +126,10 @@ module Google
           @index = Google::Compute::Property::Integer.api_munge(args['index'])
           @initialize_params =
             Google::Compute::Property::InstaTemplInitiParam.api_munge(args['initializeParams'])
-          @interface = Google::Compute::Property::Enum.api_munge(args['interface'])
-          @mode = Google::Compute::Property::Enum.api_munge(args['mode'])
+          @interface = Google::Compute::Property::InterfaceEnum.api_munge(args['interface'])
+          @mode = Google::Compute::Property::ModeEnum.api_munge(args['mode'])
           @source = Google::Compute::Property::DiskNameRef.api_munge(args['source'])
-          @type = Google::Compute::Property::Enum.api_munge(args['type'])
+          @type = Google::Compute::Property::TypeEnum.api_munge(args['type'])
         end
         # rubocop:enable Metrics/MethodLength
       end
@@ -147,10 +147,10 @@ module Google
           @index = Google::Compute::Property::Integer.unsafe_munge(args['index'])
           @initialize_params =
             Google::Compute::Property::InstaTemplInitiParam.unsafe_munge(args['initialize_params'])
-          @interface = Google::Compute::Property::Enum.unsafe_munge(args['interface'])
-          @mode = Google::Compute::Property::Enum.unsafe_munge(args['mode'])
+          @interface = Google::Compute::Property::InterfaceEnum.unsafe_munge(args['interface'])
+          @mode = Google::Compute::Property::ModeEnum.unsafe_munge(args['mode'])
           @source = Google::Compute::Property::DiskNameRef.unsafe_munge(args['source'])
-          @type = Google::Compute::Property::Enum.unsafe_munge(args['type'])
+          @type = Google::Compute::Property::TypeEnum.unsafe_munge(args['type'])
         end
         # rubocop:enable Metrics/MethodLength
       end

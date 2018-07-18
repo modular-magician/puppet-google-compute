@@ -30,10 +30,10 @@ require 'google/compute/network/get'
 require 'google/compute/network/post'
 require 'google/compute/network/put'
 require 'google/compute/property/backendservice_selflink'
-require 'google/compute/property/enum'
 require 'google/compute/property/integer'
 require 'google/compute/property/sslcertificate_selflink'
 require 'google/compute/property/string'
+require 'google/compute/property/target_ssl_proxy_proxy_header'
 require 'google/compute/property/time'
 require 'google/hash_utils'
 require 'google/object_store'
@@ -75,7 +75,7 @@ Puppet::Type.type(:gcompute_target_ssl_proxy).provide(:google) do
     {
       creation_timestamp: Google::Compute::Property::Time.api_munge(fetch['creationTimestamp']),
       id: Google::Compute::Property::Integer.api_munge(fetch['id']),
-      proxy_header: Google::Compute::Property::Enum.api_munge(fetch['proxyHeader']),
+      proxy_header: Google::Compute::Property::ProxyHeaderEnum.api_munge(fetch['proxyHeader']),
       service: Google::Compute::Property::BackServSelfLinkRef.api_munge(fetch['service']),
       ssl_certificates:
         Google::Compute::Property::SslCertSelfLinkRefArray.api_munge(fetch['sslCertificates']),
