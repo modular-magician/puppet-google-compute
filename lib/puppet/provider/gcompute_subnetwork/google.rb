@@ -114,6 +114,26 @@ Puppet::Type.type(:gcompute_subnetwork).provide(:google) do
     debug('flush')
     # return on !@dirty is for aiding testing (puppet already guarantees that)
     return if @created || @deleted || !@dirty
+    if @dirty[:ip_cidr_range)]:
+      Google::Compute::Network::Post.new(
+        https://www.googleapis.com/compute/v1/projects/{{project}}/regions/{{region}}/subnetworks/{{name}}/expandIpCidrRange,
+        {
+          ipCidrRange: @resource[:ip_cidr_range]
+        },
+        fetch_auth(@resource),
+        'application/json'
+      )
+    end
+    if @dirty[:private_ip_google_access)]:
+      Google::Compute::Network::Post.new(
+        https://www.googleapis.com/compute/v1/projects/{{project}}/regions/{{region}}/subnetworks/{{name}}/setPrivateIpGoogleAccess,
+        {
+          privateIpGoogleAccess: @resource[:private_ip_google_access]
+        },
+        fetch_auth(@resource),
+        'application/json'
+      )
+    end
     update_req = Google::Compute::Network::Put.new(self_link(@resource),
                                                    fetch_auth(@resource),
                                                    'application/json',

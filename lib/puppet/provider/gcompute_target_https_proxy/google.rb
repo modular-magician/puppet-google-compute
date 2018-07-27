@@ -112,6 +112,36 @@ Puppet::Type.type(:gcompute_target_https_proxy).provide(:google) do
     debug('flush')
     # return on !@dirty is for aiding testing (puppet already guarantees that)
     return if @created || @deleted || !@dirty
+    if @dirty[:quic_override)]:
+      Google::Compute::Network::Post.new(
+        https://www.googleapis.com/compute/v1/projects/{{project}}/global/targetHttpsProxies/{{name}}/setQuicOverride,
+        {
+          quicOverride: @resource[:quic_override]
+        },
+        fetch_auth(@resource),
+        'application/json'
+      )
+    end
+    if @dirty[:ssl_certificates)]:
+      Google::Compute::Network::Post.new(
+        https://www.googleapis.com/compute/v1/projects/{{project}}/targetHttpsProxies/{{name}}/setSslCertificates,
+        {
+          sslCertificates: @resource[:ssl_certificates]
+        },
+        fetch_auth(@resource),
+        'application/json'
+      )
+    end
+    if @dirty[:url_map)]:
+      Google::Compute::Network::Post.new(
+        https://www.googleapis.com/compute/v1/projects/{{project}}/targetHttpsProxies/{{name}}/setUrlMap,
+        {
+          urlMap: @resource[:url_map]
+        },
+        fetch_auth(@resource),
+        'application/json'
+      )
+    end
     update_req = Google::Compute::Network::Put.new(self_link(@resource),
                                                    fetch_auth(@resource),
                                                    'application/json',

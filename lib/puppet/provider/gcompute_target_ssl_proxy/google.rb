@@ -114,6 +114,36 @@ Puppet::Type.type(:gcompute_target_ssl_proxy).provide(:google) do
     debug('flush')
     # return on !@dirty is for aiding testing (puppet already guarantees that)
     return if @created || @deleted || !@dirty
+    if @dirty[:proxy_header)]:
+      Google::Compute::Network::Post.new(
+        https://www.googleapis.com/compute/v1/projects/{{project}}/global/targetSslProxies/{{name}}/setProxyHeader,
+        {
+          proxyHeader: @resource[:proxy_header]
+        },
+        fetch_auth(@resource),
+        'application/json'
+      )
+    end
+    if @dirty[:service)]:
+      Google::Compute::Network::Post.new(
+        https://www.googleapis.com/compute/v1/projects/{{project}}/global/targetSslProxies/{{name}}/setBackendService,
+        {
+          service: @resource[:service]
+        },
+        fetch_auth(@resource),
+        'application/json'
+      )
+    end
+    if @dirty[:ssl_certificates)]:
+      Google::Compute::Network::Post.new(
+        https://www.googleapis.com/compute/v1/projects/{{project}}/global/targetSslProxies/{{name}}/setSslCertificates,
+        {
+          sslCertificates: @resource[:ssl_certificates]
+        },
+        fetch_auth(@resource),
+        'application/json'
+      )
+    end
     update_req = Google::Compute::Network::Put.new(self_link(@resource),
                                                    fetch_auth(@resource),
                                                    'application/json',

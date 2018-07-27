@@ -126,6 +126,26 @@ Puppet::Type.type(:gcompute_disk).provide(:google) do
     debug('flush')
     # return on !@dirty is for aiding testing (puppet already guarantees that)
     return if @created || @deleted || !@dirty
+    if @dirty[:labels)]:
+      Google::Compute::Network::Post.new(
+        https://www.googleapis.com/compute/v1/projects/{{project}}/zones/{{zone}}/disks/{{name}}/setLabels,
+        {
+          labels: @resource[:labels]
+        },
+        fetch_auth(@resource),
+        'application/json'
+      )
+    end
+    if @dirty[:size_gb)]:
+      Google::Compute::Network::Post.new(
+        https://www.googleapis.com/compute/v1/projects/{{project}}/zones/{{zone}}/disks/{{name}}/resize,
+        {
+          sizeGb: @resource[:size_gb]
+        },
+        fetch_auth(@resource),
+        'application/json'
+      )
+    end
     raise 'Disk cannot be edited'
   end
 

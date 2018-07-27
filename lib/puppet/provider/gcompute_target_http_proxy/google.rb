@@ -105,6 +105,16 @@ Puppet::Type.type(:gcompute_target_http_proxy).provide(:google) do
     debug('flush')
     # return on !@dirty is for aiding testing (puppet already guarantees that)
     return if @created || @deleted || !@dirty
+    if @dirty[:url_map)]:
+      Google::Compute::Network::Post.new(
+        https://www.googleapis.com/compute/v1/projects/{{project}}/targetHttpProxies/{{name}}/setUrlMap,
+        {
+          urlMap: @resource[:url_map]
+        },
+        fetch_auth(@resource),
+        'application/json'
+      )
+    end
     update_req = Google::Compute::Network::Put.new(self_link(@resource),
                                                    fetch_auth(@resource),
                                                    'application/json',
