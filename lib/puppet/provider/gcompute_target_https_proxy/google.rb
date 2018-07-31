@@ -112,6 +112,9 @@ Puppet::Type.type(:gcompute_target_https_proxy).provide(:google) do
     debug('flush')
     # return on !@dirty is for aiding testing (puppet already guarantees that)
     return if @created || @deleted || !@dirty
+    quicoverride_update(@resource) if @dirty[:quic_override]
+    sslcertificates_update(@resource) if @dirty[:ssl_certificates]
+    urlmap_update(@resource) if @dirty[:url_map]
     update_req = Google::Compute::Network::Put.new(self_link(@resource),
                                                    fetch_auth(@resource),
                                                    'application/json',
@@ -127,6 +130,56 @@ Puppet::Type.type(:gcompute_target_https_proxy).provide(:google) do
     }
   end
 
+  def quicoverride_update(data)
+    Google::Compute::Network::Post.new(
+      URI.join(
+        'https://www.googleapis.com/compute/v1/',
+        expand_variables(
+          'projects/{{project}}/global/targetHttpsProxies/{{name}}/setQuicOverride',
+          data
+        )
+      ),
+      fetch_auth(@resource),
+      'application/json',
+      {
+        quicOverride: @resource[:quic_override]
+      }.to_json
+    ).send
+  end
+
+  def sslcertificates_update(data)
+    Google::Compute::Network::Post.new(
+      URI.join(
+        'https://www.googleapis.com/compute/v1/',
+        expand_variables(
+          'projects/{{project}}/targetHttpsProxies/{{name}}/setSslCertificates',
+          data
+        )
+      ),
+      fetch_auth(@resource),
+      'application/json',
+      {
+        sslCertificates: @resource[:ssl_certificates]
+      }.to_json
+    ).send
+  end
+
+  def urlmap_update(data)
+    Google::Compute::Network::Post.new(
+      URI.join(
+        'https://www.googleapis.com/compute/v1/',
+        expand_variables(
+          'projects/{{project}}/targetHttpsProxies/{{name}}/setUrlMap',
+          data
+        )
+      ),
+      fetch_auth(@resource),
+      'application/json',
+      {
+        urlMap: @resource[:url_map]
+      }.to_json
+    ).send
+  end
   def exports
     {
       self_link: @fetched['selfLink'],
