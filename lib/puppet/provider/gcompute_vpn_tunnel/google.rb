@@ -119,6 +119,7 @@ Puppet::Type.type(:gcompute_vpn_tunnel).provide(:google) do
     debug('flush')
     # return on !@dirty is for aiding testing (puppet already guarantees that)
     return if @created || @deleted || !@dirty
+    labels_update(@resource) if @dirty[:labels]
     update_req = Google::Compute::Network::Put.new(self_link(@resource),
                                                    fetch_auth(@resource),
                                                    'application/json',
@@ -134,6 +135,22 @@ Puppet::Type.type(:gcompute_vpn_tunnel).provide(:google) do
     }
   end
 
+  def labels_update(data)
+    Google::Compute::Network::Post.new(
+      URI.join(
+        'https://www.googleapis.com/compute/v1/',
+        expand_variables(
+          'projects/{{project}}/regions/{{region}}/vpnTunnels/{{name}}/setLabels',
+          data
+        )
+      ),
+      fetch_auth(@resource),
+      'application/json',
+      {
+        labels: @resource[:labels]
+      }.to_json
+    ).send
+  end
   def exports
     {
       self_link: @fetched['selfLink'],
