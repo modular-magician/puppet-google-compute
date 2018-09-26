@@ -36,7 +36,6 @@ require 'puppet'
 
 Puppet::Type.newtype(:gcompute_zone) do
   @doc = 'Represents a Zone resource.'
-
   autorequire(:gauth_credential) do
     credential = self[:credential]
     raise "#{ref}: required property 'credential' is missing" if credential.nil?

@@ -41,7 +41,6 @@ Puppet::Type.newtype(:gcompute_machine_type) do
     specifications of your virtual machine instances, such as the amount of memory or number of
     virtual CPUs.
   DOC
-
   autorequire(:gauth_credential) do
     credential = self[:credential]
     raise "#{ref}: required property 'credential' is missing" if credential.nil?

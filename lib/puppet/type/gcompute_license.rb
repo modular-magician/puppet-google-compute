@@ -35,7 +35,6 @@ Puppet::Type.newtype(:gcompute_license) do
     A License resource represents a software license. Licenses are used to track software usage in
     images, persistent disks, snapshots, and virtual machine instances.
   DOC
-
   autorequire(:gauth_credential) do
     credential = self[:credential]
     raise "#{ref}: required property 'credential' is missing" if credential.nil?

@@ -41,16 +41,45 @@ Puppet::Type.newtype(:gcompute_target_pool) do
   @doc = 'Represents a TargetPool resource, used for Load Balancing.'
 
   autorequire(:gauth_credential) do
-    credential = self[:credential]
-    raise "#{ref}: required property 'credential' is missing" if credential.nil?
-    [credential]
+    if self[:ensure] == :present
+      credential = self[:credential]
+      raise "#{ref}: required property 'credential' is missing" if credential.nil?
+      [credential]
+    else
+      []
+    end
+  end
+
+  autobefore(:gauth_credential) do
+    if self[:ensure] == :absent
+      credential = self[:credential]
+      raise "#{ref}: required property 'credential' is missing" if credential.nil?
+      [credential]
+    else
+      []
+    end
   end
 
   autorequire(:gcompute_region) do
-    reference = self[:region]
-    raise "#{ref} required property 'region' is missing" if reference.nil?
-    reference.autorequires
+    if self[:ensure] == :present
+      reference = self[:region]
+      raise "#{ref} required property 'region' is missing" if reference.nil?
+      reference.autorequires
+    else
+      []
+    end
   end
+
+  autobefore(:gcompute_region) do
+    if self[:ensure] == :absent
+      reference = self[:region]
+      raise "#{ref} required property 'region' is missing" if reference.nil?
+      reference.autorequires
+    else
+      []
+    end
+  end
+
 
   ensurable
 

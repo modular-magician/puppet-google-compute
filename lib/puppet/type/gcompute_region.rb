@@ -39,7 +39,6 @@ Puppet::Type.newtype(:gcompute_region) do
     Represents a Region resource. A region is a specific geographical location where you can run
     your resources. Each region has one or more zones
   DOC
-
   autorequire(:gauth_credential) do
     credential = self[:credential]
     raise "#{ref}: required property 'credential' is missing" if credential.nil?

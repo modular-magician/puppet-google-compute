@@ -39,7 +39,6 @@ Puppet::Type.newtype(:gcompute_disk_type) do
     Represents a DiskType resource. A DiskType resource represents the type of disk to use, such as
     a pd-ssd or pd-standard. To reference a disk type, use the disk type's full or partial URL.
   DOC
-
   autorequire(:gauth_credential) do
     credential = self[:credential]
     raise "#{ref}: required property 'credential' is missing" if credential.nil?
@@ -51,6 +50,13 @@ Puppet::Type.newtype(:gcompute_disk_type) do
     raise "#{ref} required property 'zone' is missing" if reference.nil?
     reference.autorequires
   end
+
+  autobefore(:gcompute_zone) do
+    reference = self[:zone]
+    raise "#{ref} required property 'zone' is missing" if reference.nil?
+    reference.autorequires
+  end
+
 
   newparam :credential do
     desc <<-DESC

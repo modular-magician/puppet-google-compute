@@ -49,20 +49,62 @@ Puppet::Type.newtype(:gcompute_snapshot) do
   DOC
 
   autorequire(:gauth_credential) do
-    credential = self[:credential]
-    raise "#{ref}: required property 'credential' is missing" if credential.nil?
-    [credential]
+    if self[:ensure] == :present
+      credential = self[:credential]
+      raise "#{ref}: required property 'credential' is missing" if credential.nil?
+      [credential]
+    else
+      []
+    end
+  end
+
+  autobefore(:gauth_credential) do
+    if self[:ensure] == :absent
+      credential = self[:credential]
+      raise "#{ref}: required property 'credential' is missing" if credential.nil?
+      [credential]
+    else
+      []
+    end
   end
 
   autorequire(:gcompute_disk) do
-    reference = self[:source]
-    reference.autorequires unless reference.nil?
+    if self[:ensure] == :present
+      reference = self[:source]
+      reference.autorequires unless reference.nil?
+    else
+      []
+    end
   end
 
-  autorequire(:gcompute_zone) do
-    reference = self[:zone]
-    reference.autorequires unless reference.nil?
+  autobefore(:gcompute_disk) do
+    if self[:ensure] == :absent
+      reference = self[:source]
+      reference.autorequires unless reference.nil?
+    else
+      []
+    end
   end
+
+
+  autorequire(:gcompute_zone) do
+    if self[:ensure] == :present
+      reference = self[:zone]
+      reference.autorequires unless reference.nil?
+    else
+      []
+    end
+  end
+
+  autobefore(:gcompute_zone) do
+    if self[:ensure] == :absent
+      reference = self[:zone]
+      reference.autorequires unless reference.nil?
+    else
+      []
+    end
+  end
+
 
   ensurable
 
