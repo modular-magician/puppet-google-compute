@@ -156,6 +156,7 @@ Puppet::Type.type(:gcompute_target_tcp_proxy).provide(:google) do
     ).send
   end
   def exports
+    raise "Must fetch before accessing exported values." if @fetched.nil?
     {
       self_link: @fetched['selfLink']
     }

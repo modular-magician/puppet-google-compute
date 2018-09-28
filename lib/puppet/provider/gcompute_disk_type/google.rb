@@ -105,6 +105,7 @@ Puppet::Type.type(:gcompute_disk_type).provide(:google) do
   end
 
   def exports
+    raise "Must fetch before accessing exported values." if @fetched.nil?
     {
       self_link: @fetched['selfLink']
     }

@@ -152,6 +152,7 @@ Puppet::Type.type(:gcompute_vpn_tunnel).provide(:google) do
     ).send
   end
   def exports
+    raise "Must fetch before accessing exported values." if @fetched.nil?
     {
       self_link: @fetched['selfLink']
     }

@@ -172,6 +172,7 @@ Puppet::Type.type(:gcompute_forwarding_rule).provide(:google) do
     ).send
   end
   def exports
+    raise "Must fetch before accessing exported values." if @fetched.nil?
     {
       self_link: @fetched['selfLink']
     }

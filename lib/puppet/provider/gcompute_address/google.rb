@@ -123,6 +123,7 @@ Puppet::Type.type(:gcompute_address).provide(:google) do
   end
 
   def exports
+    raise "Must fetch before accessing exported values." if @fetched.nil?
     {
       address: @fetched['address'],
       self_link: @fetched['selfLink']

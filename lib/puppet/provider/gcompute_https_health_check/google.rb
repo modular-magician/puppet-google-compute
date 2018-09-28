@@ -131,6 +131,7 @@ Puppet::Type.type(:gcompute_https_health_check).provide(:google) do
   end
 
   def exports
+    raise "Must fetch before accessing exported values." if @fetched.nil?
     {
       self_link: @fetched['selfLink']
     }

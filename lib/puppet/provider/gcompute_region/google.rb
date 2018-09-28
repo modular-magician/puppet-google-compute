@@ -104,6 +104,7 @@ Puppet::Type.type(:gcompute_region).provide(:google) do
   end
 
   def exports
+    raise "Must fetch before accessing exported values." if @fetched.nil?
     {
       name: resource[:name],
       self_link: @fetched['selfLink']
