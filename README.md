@@ -1154,6 +1154,13 @@ gcompute_backend_bucket { 'be-bucket-connection':
 ```puppet
 gcompute_backend_bucket { 'id-of-resource':
   bucket_name        => string,
+  cdn_policy         => {
+    signed_url_cache_max_age_sec => integer,
+    signed_url_key_names         => [
+      string,
+      ...
+    ],
+  },
   creation_timestamp => time,
   description        => string,
   enable_cdn         => boolean,
@@ -1167,6 +1174,25 @@ gcompute_backend_bucket { 'id-of-resource':
 ##### `bucket_name`
 
 Required.  Cloud Storage bucket name.
+
+##### `cdn_policy`
+
+  Cloud CDN configuration for this Backend Bucket.
+
+##### cdn_policy/signed_url_key_names
+Output only.  Names of the keys for signing request URLs.
+  Output only. To change, use the BackendBucketSignedUrlKey
+  resource instead.
+
+##### cdn_policy/signed_url_cache_max_age_sec
+  Maximum number of seconds the response to a signed URL request will
+  be considered fresh. Defaults to 1hr (3600s).
+  After this time period, the response will be revalidated before
+  being served. When serving responses to signed URL requests,
+  Cloud CDN will internally behave as though
+  all responses from this backend had a "Cache-Control: public,
+  max-age=[TTL]" header, regardless of any existing Cache-Control
+  header. The actual headers served in responses will not be altered.
 
 ##### `description`
 

@@ -229,6 +229,7 @@ puppet-codegen:
   * lib/google/compute/property/address_address.rb
   * lib/google/compute/property/address_address_type.rb
   * lib/google/compute/property/array.rb
+  * lib/google/compute/property/backendbucket_cdn_policy.rb
   * lib/google/compute/property/backendservice_backends.rb
   * lib/google/compute/property/backendservice_cache_key_policy.rb
   * lib/google/compute/property/backendservice_cdn_policy.rb

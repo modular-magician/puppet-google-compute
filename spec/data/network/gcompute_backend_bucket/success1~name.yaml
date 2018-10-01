@@ -30,6 +30,12 @@ kind: compute#backendBucket
 name: test name#0 data
 id: 2149500871
 bucketName: test bucket_name#0 data
+cdnPolicy:
+  signedUrlKeyNames:
+  - jj
+  - kk
+  - ll
+  signedUrlCacheMaxAgeSec: 3600
 creationTimestamp: '2045-05-23T12:08:10+00:00'
 description: test description#0 data
 enableCdn: true

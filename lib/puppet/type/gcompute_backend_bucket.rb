@@ -25,9 +25,11 @@
 #
 # ----------------------------------------------------------------------------
 
+require 'google/compute/property/backendbucket_cdn_policy'
 require 'google/compute/property/boolean'
 require 'google/compute/property/integer'
 require 'google/compute/property/string'
+require 'google/compute/property/string_array'
 require 'google/compute/property/time'
 require 'google/object_store'
 require 'puppet'
@@ -66,6 +68,10 @@ Puppet::Type.newtype(:gcompute_backend_bucket) do
 
   newproperty(:bucket_name, parent: Google::Compute::Property::String) do
     desc 'Cloud Storage bucket name.'
+  end
+
+  newproperty(:cdn_policy, parent: Google::Compute::Property::BackendBucketCdnPolicy) do
+    desc 'Cloud CDN configuration for this Backend Bucket.'
   end
 
   newproperty(:creation_timestamp, parent: Google::Compute::Property::Time) do

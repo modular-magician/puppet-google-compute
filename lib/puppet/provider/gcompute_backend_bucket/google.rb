@@ -29,9 +29,11 @@ require 'google/compute/network/delete'
 require 'google/compute/network/get'
 require 'google/compute/network/post'
 require 'google/compute/network/put'
+require 'google/compute/property/backendbucket_cdn_policy'
 require 'google/compute/property/boolean'
 require 'google/compute/property/integer'
 require 'google/compute/property/string'
+require 'google/compute/property/string_array'
 require 'google/compute/property/time'
 require 'google/hash_utils'
 require 'google/object_store'
@@ -71,6 +73,7 @@ Puppet::Type.type(:gcompute_backend_bucket).provide(:google) do
   def self.fetch_to_hash(fetch, resource)
     {
       bucket_name: Google::Compute::Property::String.api_munge(fetch['bucketName']),
+      cdn_policy: Google::Compute::Property::BackendBucketCdnPolicy.api_munge(fetch['cdnPolicy']),
       creation_timestamp: Google::Compute::Property::Time.api_munge(fetch['creationTimestamp']),
       description: Google::Compute::Property::String.api_munge(fetch['description']),
       enable_cdn: Google::Compute::Property::Boolean.api_munge(fetch['enableCdn']),
@@ -125,6 +128,7 @@ Puppet::Type.type(:gcompute_backend_bucket).provide(:google) do
 
   def exports
     {
+      name: resource[:name],
       self_link: @fetched['selfLink']
     }
   end
@@ -148,6 +152,7 @@ Puppet::Type.type(:gcompute_backend_bucket).provide(:google) do
       name: resource[:name],
       kind: 'compute#backendBucket',
       bucket_name: resource[:bucket_name],
+      cdn_policy: resource[:cdn_policy],
       creation_timestamp: resource[:creation_timestamp],
       description: resource[:description],
       enable_cdn: resource[:enable_cdn],
@@ -159,6 +164,7 @@ Puppet::Type.type(:gcompute_backend_bucket).provide(:google) do
     request = {
       kind: 'compute#backendBucket',
       bucketName: @resource[:bucket_name],
+      cdnPolicy: @resource[:cdn_policy],
       description: @resource[:description],
       enableCdn: @resource[:enable_cdn],
       name: @resource[:name]
