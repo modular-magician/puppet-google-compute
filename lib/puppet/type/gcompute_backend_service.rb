@@ -85,12 +85,12 @@ Puppet::Type.newtype(:gcompute_backend_service) do
     desc 'The list of backends that serve this BackendService.'
   end
 
-  newproperty(:cdn_policy, parent: Google::Compute::Property::BackendServiceCdnPolicy) do
+  newproperty(:cdn_policy, parent: Google::Compute::Property::BackendServiceCdnpolicy) do
     desc 'Cloud CDN configuration for this BackendService.'
   end
 
   newproperty(:connection_draining,
-              parent: Google::Compute::Property::BackendServiceConnectionDraining) do
+              parent: Google::Compute::Property::BackendServiceConnectiondraining) do
     desc 'Settings for connection draining'
   end
 
@@ -167,7 +167,7 @@ Puppet::Type.newtype(:gcompute_backend_service) do
     newvalue(:SSL)
   end
 
-  newproperty(:region, parent: Google::Compute::Property::RegionSelfLinkRef) do
+  newproperty(:region, parent: Google::Compute::Property::RegionSelflinkRef) do
     desc <<-DOC
       The region where the regional backend service resides. This field is not applicable to global
       backend services.

@@ -76,8 +76,8 @@ Puppet::Type.type(:gcompute_target_ssl_proxy).provide(:google) do
       creation_timestamp: Google::Compute::Property::Time.api_munge(fetch['creationTimestamp']),
       id: Google::Compute::Property::Integer.api_munge(fetch['id']),
       proxy_header: Google::Compute::Property::Enum.api_munge(fetch['proxyHeader']),
-      service: Google::Compute::Property::BackendServiceSelfLinkRef.api_munge(fetch['service']),
-      ssl_certificates: Google::Compute::Property::SslCertificateSelfLinkRefArray.api_munge(
+      service: Google::Compute::Property::BackendServiceSelflinkRef.api_munge(fetch['service']),
+      ssl_certificates: Google::Compute::Property::SslCertificateSelflinkRefArray.api_munge(
         fetch['sslCertificates']
       ),
       description: resource[:description],

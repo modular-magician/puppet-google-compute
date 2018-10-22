@@ -32,7 +32,7 @@ module Google
   module Compute
     module Data
       # A class to manage data for ServiceAccounts for instance.
-      class InstanceServiceAccounts
+      class InstanceServiceaccounts
         include Comparable
 
         attr_reader :email
@@ -53,7 +53,7 @@ module Google
         end
 
         def ==(other)
-          return false unless other.is_a? InstanceServiceAccounts
+          return false unless other.is_a? InstanceServiceaccounts
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             return false if compare[:self] != compare[:other]
@@ -62,7 +62,7 @@ module Google
         end
 
         def <=>(other)
-          return false unless other.is_a? InstanceServiceAccounts
+          return false unless other.is_a? InstanceServiceaccounts
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             result = compare[:self] <=> compare[:other]
@@ -81,18 +81,18 @@ module Google
         end
       end
 
-      # Manages a InstanceServiceAccounts nested object
+      # Manages a InstanceServiceaccounts nested object
       # Data is coming from the GCP API
-      class InstanceServiceAccountsApi < InstanceServiceAccounts
+      class InstanceServiceaccountsApi < InstanceServiceaccounts
         def initialize(args)
           @email = Google::Compute::Property::String.api_munge(args['email'])
           @scopes = Google::Compute::Property::StringArray.api_munge(args['scopes'])
         end
       end
 
-      # Manages a InstanceServiceAccounts nested object
+      # Manages a InstanceServiceaccounts nested object
       # Data is coming from the Puppet manifest
-      class InstanceServiceAccountsCatalog < InstanceServiceAccounts
+      class InstanceServiceaccountsCatalog < InstanceServiceaccounts
         def initialize(args)
           @email = Google::Compute::Property::String.unsafe_munge(args['email'])
           @scopes = Google::Compute::Property::StringArray.unsafe_munge(args['scopes'])
@@ -102,7 +102,7 @@ module Google
 
     module Property
       # A class to manage input to ServiceAccounts for instance.
-      class InstanceServiceAccounts < Google::Compute::Property::Base
+      class InstanceServiceaccounts < Google::Compute::Property::Base
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -111,18 +111,18 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          Data::InstanceServiceAccountsCatalog.new(value)
+          Data::InstanceServiceaccountsCatalog.new(value)
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          Data::InstanceServiceAccountsApi.new(value)
+          Data::InstanceServiceaccountsApi.new(value)
         end
       end
 
       # A Puppet property that holds an integer
-      class InstanceServiceAccountsArray < Google::Compute::Property::Array
+      class InstanceServiceaccountsArray < Google::Compute::Property::Array
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -131,17 +131,17 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          return InstanceServiceAccounts.unsafe_munge(value) \
+          return InstanceServiceaccounts.unsafe_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| InstanceServiceAccounts.unsafe_munge(v) }
+          value.map { |v| InstanceServiceaccounts.unsafe_munge(v) }
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          return InstanceServiceAccounts.api_munge(value) \
+          return InstanceServiceaccounts.api_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| InstanceServiceAccounts.api_munge(v) }
+          value.map { |v| InstanceServiceaccounts.api_munge(v) }
         end
       end
     end

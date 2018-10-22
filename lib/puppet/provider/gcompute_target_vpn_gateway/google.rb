@@ -76,7 +76,7 @@ Puppet::Type.type(:gcompute_target_vpn_gateway).provide(:google) do
       creation_timestamp: Google::Compute::Property::Time.api_munge(fetch['creationTimestamp']),
       id: Google::Compute::Property::Integer.api_munge(fetch['id']),
       tunnels: Google::Compute::Property::StringArray.api_munge(fetch['tunnels']),
-      forwarding_rules: Google::Compute::Property::ForwardingRuleSelfLinkRefArray.api_munge(
+      forwarding_rules: Google::Compute::Property::ForwardingRuleSelflinkRefArray.api_munge(
         fetch['forwardingRules']
       ),
       description: resource[:description],

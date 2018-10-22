@@ -117,7 +117,7 @@ module Google
           @balancing_mode = Google::Compute::Property::Enum.api_munge(args['balancingMode'])
           @capacity_scaler = Google::Compute::Property::Double.api_munge(args['capacityScaler'])
           @description = Google::Compute::Property::String.api_munge(args['description'])
-          @group = Google::Compute::Property::InstanceGroupSelfLinkRef.api_munge(args['group'])
+          @group = Google::Compute::Property::InstanceGroupSelflinkRef.api_munge(args['group'])
           @max_connections = Google::Compute::Property::Integer.api_munge(args['maxConnections'])
           @max_connections_per_instance =
             Google::Compute::Property::Integer.api_munge(args['maxConnectionsPerInstance'])
@@ -137,7 +137,7 @@ module Google
           @balancing_mode = Google::Compute::Property::Enum.unsafe_munge(args['balancing_mode'])
           @capacity_scaler = Google::Compute::Property::Double.unsafe_munge(args['capacity_scaler'])
           @description = Google::Compute::Property::String.unsafe_munge(args['description'])
-          @group = Google::Compute::Property::InstanceGroupSelfLinkRef.unsafe_munge(args['group'])
+          @group = Google::Compute::Property::InstanceGroupSelflinkRef.unsafe_munge(args['group'])
           @max_connections =
             Google::Compute::Property::Integer.unsafe_munge(args['max_connections'])
           @max_connections_per_instance =

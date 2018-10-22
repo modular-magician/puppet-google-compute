@@ -31,7 +31,7 @@ module Google
   module Compute
     module Data
       # A class to manage data for RawDisk for image.
-      class ImageRawDisk
+      class ImageRawdisk
         include Comparable
 
         attr_reader :container_type
@@ -55,7 +55,7 @@ module Google
         end
 
         def ==(other)
-          return false unless other.is_a? ImageRawDisk
+          return false unless other.is_a? ImageRawdisk
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             return false if compare[:self] != compare[:other]
@@ -64,7 +64,7 @@ module Google
         end
 
         def <=>(other)
-          return false unless other.is_a? ImageRawDisk
+          return false unless other.is_a? ImageRawdisk
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             result = compare[:self] <=> compare[:other]
@@ -84,9 +84,9 @@ module Google
         end
       end
 
-      # Manages a ImageRawDisk nested object
+      # Manages a ImageRawdisk nested object
       # Data is coming from the GCP API
-      class ImageRawDiskApi < ImageRawDisk
+      class ImageRawdiskApi < ImageRawdisk
         def initialize(args)
           @container_type = Google::Compute::Property::Enum.api_munge(args['containerType'])
           @sha1_checksum = Google::Compute::Property::String.api_munge(args['sha1Checksum'])
@@ -94,9 +94,9 @@ module Google
         end
       end
 
-      # Manages a ImageRawDisk nested object
+      # Manages a ImageRawdisk nested object
       # Data is coming from the Puppet manifest
-      class ImageRawDiskCatalog < ImageRawDisk
+      class ImageRawdiskCatalog < ImageRawdisk
         def initialize(args)
           @container_type = Google::Compute::Property::Enum.unsafe_munge(args['container_type'])
           @sha1_checksum = Google::Compute::Property::String.unsafe_munge(args['sha1_checksum'])
@@ -107,7 +107,7 @@ module Google
 
     module Property
       # A class to manage input to RawDisk for image.
-      class ImageRawDisk < Google::Compute::Property::Base
+      class ImageRawdisk < Google::Compute::Property::Base
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -116,13 +116,13 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          Data::ImageRawDiskCatalog.new(value)
+          Data::ImageRawdiskCatalog.new(value)
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          Data::ImageRawDiskApi.new(value)
+          Data::ImageRawdiskApi.new(value)
         end
       end
     end

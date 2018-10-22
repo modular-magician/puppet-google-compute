@@ -32,7 +32,7 @@ module Google
   module Compute
     module Data
       # A class to manage data for AliasIpRanges for instance_template.
-      class InstanceTemplateAliasIpRanges
+      class InstanceTemplateAliasipranges
         include Comparable
 
         attr_reader :ip_cidr_range
@@ -53,7 +53,7 @@ module Google
         end
 
         def ==(other)
-          return false unless other.is_a? InstanceTemplateAliasIpRanges
+          return false unless other.is_a? InstanceTemplateAliasipranges
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             return false if compare[:self] != compare[:other]
@@ -62,7 +62,7 @@ module Google
         end
 
         def <=>(other)
-          return false unless other.is_a? InstanceTemplateAliasIpRanges
+          return false unless other.is_a? InstanceTemplateAliasipranges
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             result = compare[:self] <=> compare[:other]
@@ -81,9 +81,9 @@ module Google
         end
       end
 
-      # Manages a InstanceTemplateAliasIpRanges nested object
+      # Manages a InstanceTemplateAliasipranges nested object
       # Data is coming from the GCP API
-      class InstanceTemplateAliasIpRangesApi < InstanceTemplateAliasIpRanges
+      class InstanceTemplateAliasiprangesApi < InstanceTemplateAliasipranges
         def initialize(args)
           @ip_cidr_range = Google::Compute::Property::String.api_munge(args['ipCidrRange'])
           @subnetwork_range_name =
@@ -91,9 +91,9 @@ module Google
         end
       end
 
-      # Manages a InstanceTemplateAliasIpRanges nested object
+      # Manages a InstanceTemplateAliasipranges nested object
       # Data is coming from the Puppet manifest
-      class InstanceTemplateAliasIpRangesCatalog < InstanceTemplateAliasIpRanges
+      class InstanceTemplateAliasiprangesCatalog < InstanceTemplateAliasipranges
         def initialize(args)
           @ip_cidr_range = Google::Compute::Property::String.unsafe_munge(args['ip_cidr_range'])
           @subnetwork_range_name =
@@ -104,7 +104,7 @@ module Google
 
     module Property
       # A class to manage input to AliasIpRanges for instance_template.
-      class InstanceTemplateAliasIpRanges < Google::Compute::Property::Base
+      class InstanceTemplateAliasipranges < Google::Compute::Property::Base
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -113,18 +113,18 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          Data::InstanceTemplateAliasIpRangesCatalog.new(value)
+          Data::InstanceTemplateAliasiprangesCatalog.new(value)
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          Data::InstanceTemplateAliasIpRangesApi.new(value)
+          Data::InstanceTemplateAliasiprangesApi.new(value)
         end
       end
 
       # A Puppet property that holds an integer
-      class InstanceTemplateAliasIpRangesArray < Google::Compute::Property::Array
+      class InstanceTemplateAliasiprangesArray < Google::Compute::Property::Array
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -133,17 +133,17 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          return InstanceTemplateAliasIpRanges.unsafe_munge(value) \
+          return InstanceTemplateAliasipranges.unsafe_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| InstanceTemplateAliasIpRanges.unsafe_munge(v) }
+          value.map { |v| InstanceTemplateAliasipranges.unsafe_munge(v) }
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          return InstanceTemplateAliasIpRanges.api_munge(value) \
+          return InstanceTemplateAliasipranges.api_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| InstanceTemplateAliasIpRanges.api_munge(v) }
+          value.map { |v| InstanceTemplateAliasipranges.api_munge(v) }
         end
       end
     end

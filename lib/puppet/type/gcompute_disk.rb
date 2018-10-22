@@ -94,7 +94,7 @@ Puppet::Type.newtype(:gcompute_disk) do
   end
 
   newparam(:source_image_encryption_key,
-           parent: Google::Compute::Property::DiskSourceImageEncryptionKey) do
+           parent: Google::Compute::Property::DiskSourceimageencryptionkey) do
     desc <<-DOC
       The customer-supplied encryption key of the source image. Required if the source image is
       protected by a customer-supplied encryption key.
@@ -110,7 +110,7 @@ Puppet::Type.newtype(:gcompute_disk) do
     DOC
   end
 
-  newparam(:disk_encryption_key, parent: Google::Compute::Property::DiskDiskEncryptionKey) do
+  newparam(:disk_encryption_key, parent: Google::Compute::Property::DiskDiskencryptionkey) do
     desc <<-DOC
       Encrypts the disk using a customer-supplied encryption key. After you encrypt a disk with a
       customer-supplied key, you must provide the same key if you use the disk later (e.g. to
@@ -121,7 +121,7 @@ Puppet::Type.newtype(:gcompute_disk) do
     DOC
   end
 
-  newparam(:source_snapshot, parent: Google::Compute::Property::SnapshotSelfLinkRef) do
+  newparam(:source_snapshot, parent: Google::Compute::Property::SnapshotSelflinkRef) do
     desc <<-DOC
       The source snapshot used to create this disk. You can provide this as a partial or full URL
       to the resource. For example, the following are valid values: *
@@ -131,7 +131,7 @@ Puppet::Type.newtype(:gcompute_disk) do
   end
 
   newparam(:source_snapshot_encryption_key,
-           parent: Google::Compute::Property::DiskSourceSnapshotEncryptionKey) do
+           parent: Google::Compute::Property::DiskSourcesnapshotencryptionkey) do
     desc <<-DOC
       The customer-supplied encryption key of the source snapshot. Required if the source snapshot
       is protected by a customer-supplied encryption key.
@@ -204,14 +204,14 @@ Puppet::Type.newtype(:gcompute_disk) do
     DOC
   end
 
-  newproperty(:users, parent: Google::Compute::Property::InstanceSelfLinkRefArray) do
+  newproperty(:users, parent: Google::Compute::Property::InstanceSelflinkRefArray) do
     desc <<-DOC
       Links to the users of the disk (attached instances) in form:
       project/zones/zone/instances/instance (output only)
     DOC
   end
 
-  newproperty(:type, parent: Google::Compute::Property::DiskTypeSelfLinkRef) do
+  newproperty(:type, parent: Google::Compute::Property::DiskTypeSelflinkRef) do
     desc <<-DOC
       URL of the disk type resource describing which disk type to use to create the disk. Provide
       this when creating the disk.

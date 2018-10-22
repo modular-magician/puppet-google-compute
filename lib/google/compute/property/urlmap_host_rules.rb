@@ -32,7 +32,7 @@ module Google
   module Compute
     module Data
       # A class to manage data for HostRules for url_map.
-      class UrlMapHostRules
+      class UrlMapHostrules
         include Comparable
 
         attr_reader :description
@@ -56,7 +56,7 @@ module Google
         end
 
         def ==(other)
-          return false unless other.is_a? UrlMapHostRules
+          return false unless other.is_a? UrlMapHostrules
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             return false if compare[:self] != compare[:other]
@@ -65,7 +65,7 @@ module Google
         end
 
         def <=>(other)
-          return false unless other.is_a? UrlMapHostRules
+          return false unless other.is_a? UrlMapHostrules
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             result = compare[:self] <=> compare[:other]
@@ -85,9 +85,9 @@ module Google
         end
       end
 
-      # Manages a UrlMapHostRules nested object
+      # Manages a UrlMapHostrules nested object
       # Data is coming from the GCP API
-      class UrlMapHostRulesApi < UrlMapHostRules
+      class UrlMapHostrulesApi < UrlMapHostrules
         def initialize(args)
           @description = Google::Compute::Property::String.api_munge(args['description'])
           @hosts = Google::Compute::Property::StringArray.api_munge(args['hosts'])
@@ -95,9 +95,9 @@ module Google
         end
       end
 
-      # Manages a UrlMapHostRules nested object
+      # Manages a UrlMapHostrules nested object
       # Data is coming from the Puppet manifest
-      class UrlMapHostRulesCatalog < UrlMapHostRules
+      class UrlMapHostrulesCatalog < UrlMapHostrules
         def initialize(args)
           @description = Google::Compute::Property::String.unsafe_munge(args['description'])
           @hosts = Google::Compute::Property::StringArray.unsafe_munge(args['hosts'])
@@ -108,7 +108,7 @@ module Google
 
     module Property
       # A class to manage input to HostRules for url_map.
-      class UrlMapHostRules < Google::Compute::Property::Base
+      class UrlMapHostrules < Google::Compute::Property::Base
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -117,18 +117,18 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          Data::UrlMapHostRulesCatalog.new(value)
+          Data::UrlMapHostrulesCatalog.new(value)
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          Data::UrlMapHostRulesApi.new(value)
+          Data::UrlMapHostrulesApi.new(value)
         end
       end
 
       # A Puppet property that holds an integer
-      class UrlMapHostRulesArray < Google::Compute::Property::Array
+      class UrlMapHostrulesArray < Google::Compute::Property::Array
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -137,17 +137,17 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          return UrlMapHostRules.unsafe_munge(value) \
+          return UrlMapHostrules.unsafe_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| UrlMapHostRules.unsafe_munge(v) }
+          value.map { |v| UrlMapHostrules.unsafe_munge(v) }
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          return UrlMapHostRules.api_munge(value) \
+          return UrlMapHostrules.api_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| UrlMapHostRules.api_munge(v) }
+          value.map { |v| UrlMapHostrules.api_munge(v) }
         end
       end
     end

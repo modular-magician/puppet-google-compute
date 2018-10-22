@@ -32,7 +32,7 @@ module Google
   module Compute
     module Data
       # A class to manage data for AdvertisedIpRanges for router.
-      class RouterAdvertisedIpRanges
+      class RouterAdvertisedipranges
         include Comparable
 
         attr_reader :range
@@ -53,7 +53,7 @@ module Google
         end
 
         def ==(other)
-          return false unless other.is_a? RouterAdvertisedIpRanges
+          return false unless other.is_a? RouterAdvertisedipranges
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             return false if compare[:self] != compare[:other]
@@ -62,7 +62,7 @@ module Google
         end
 
         def <=>(other)
-          return false unless other.is_a? RouterAdvertisedIpRanges
+          return false unless other.is_a? RouterAdvertisedipranges
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             result = compare[:self] <=> compare[:other]
@@ -81,18 +81,18 @@ module Google
         end
       end
 
-      # Manages a RouterAdvertisedIpRanges nested object
+      # Manages a RouterAdvertisedipranges nested object
       # Data is coming from the GCP API
-      class RouterAdvertisedIpRangesApi < RouterAdvertisedIpRanges
+      class RouterAdvertisediprangesApi < RouterAdvertisedipranges
         def initialize(args)
           @range = Google::Compute::Property::String.api_munge(args['range'])
           @description = Google::Compute::Property::String.api_munge(args['description'])
         end
       end
 
-      # Manages a RouterAdvertisedIpRanges nested object
+      # Manages a RouterAdvertisedipranges nested object
       # Data is coming from the Puppet manifest
-      class RouterAdvertisedIpRangesCatalog < RouterAdvertisedIpRanges
+      class RouterAdvertisediprangesCatalog < RouterAdvertisedipranges
         def initialize(args)
           @range = Google::Compute::Property::String.unsafe_munge(args['range'])
           @description = Google::Compute::Property::String.unsafe_munge(args['description'])
@@ -102,7 +102,7 @@ module Google
 
     module Property
       # A class to manage input to AdvertisedIpRanges for router.
-      class RouterAdvertisedIpRanges < Google::Compute::Property::Base
+      class RouterAdvertisedipranges < Google::Compute::Property::Base
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -111,18 +111,18 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          Data::RouterAdvertisedIpRangesCatalog.new(value)
+          Data::RouterAdvertisediprangesCatalog.new(value)
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          Data::RouterAdvertisedIpRangesApi.new(value)
+          Data::RouterAdvertisediprangesApi.new(value)
         end
       end
 
       # A Puppet property that holds an integer
-      class RouterAdvertisedIpRangesArray < Google::Compute::Property::Array
+      class RouterAdvertisediprangesArray < Google::Compute::Property::Array
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -131,17 +131,17 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          return RouterAdvertisedIpRanges.unsafe_munge(value) \
+          return RouterAdvertisedipranges.unsafe_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| RouterAdvertisedIpRanges.unsafe_munge(v) }
+          value.map { |v| RouterAdvertisedipranges.unsafe_munge(v) }
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          return RouterAdvertisedIpRanges.api_munge(value) \
+          return RouterAdvertisedipranges.api_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| RouterAdvertisedIpRanges.api_munge(v) }
+          value.map { |v| RouterAdvertisedipranges.api_munge(v) }
         end
       end
     end

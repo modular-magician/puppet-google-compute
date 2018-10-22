@@ -95,7 +95,7 @@ Puppet::Type.newtype(:gcompute_route) do
     DOC
   end
 
-  newproperty(:network, parent: Google::Compute::Property::NetworkSelfLinkRef) do
+  newproperty(:network, parent: Google::Compute::Property::NetworkSelflinkRef) do
     desc 'The network that this route applies to.'
   end
 

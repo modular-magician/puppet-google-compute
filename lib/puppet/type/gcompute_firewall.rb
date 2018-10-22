@@ -138,7 +138,7 @@ Puppet::Type.newtype(:gcompute_firewall) do
     DOC
   end
 
-  newproperty(:network, parent: Google::Compute::Property::NetworkSelfLinkRef) do
+  newproperty(:network, parent: Google::Compute::Property::NetworkSelflinkRef) do
     desc <<-DOC
       URL of the network resource for this firewall rule. If not specified when creating a firewall
       rule, the default network is used:  global/networks/default If you choose to specify this

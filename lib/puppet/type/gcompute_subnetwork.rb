@@ -117,7 +117,7 @@ Puppet::Type.newtype(:gcompute_subnetwork) do
     DOC
   end
 
-  newproperty(:network, parent: Google::Compute::Property::NetworkSelfLinkRef) do
+  newproperty(:network, parent: Google::Compute::Property::NetworkSelflinkRef) do
     desc <<-DOC
       The network this subnet belongs to. Only networks that are in the distributed mode can have
       subnetworks.
@@ -138,7 +138,7 @@ Puppet::Type.newtype(:gcompute_subnetwork) do
   end
 
   newproperty(:secondary_ip_ranges,
-              parent: Google::Compute::Property::SubnetworkSecondaryIpRangesArray) do
+              parent: Google::Compute::Property::SubnetworkSecondaryiprangesArray) do
     desc <<-DOC
       An array of configurations for secondary IP ranges for VM instances contained in this
       subnetwork. The primary IP of such VM must belong to the primary ipCidrRange of the

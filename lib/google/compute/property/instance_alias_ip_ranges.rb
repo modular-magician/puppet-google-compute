@@ -32,7 +32,7 @@ module Google
   module Compute
     module Data
       # A class to manage data for AliasIpRanges for instance.
-      class InstanceAliasIpRanges
+      class InstanceAliasipranges
         include Comparable
 
         attr_reader :ip_cidr_range
@@ -53,7 +53,7 @@ module Google
         end
 
         def ==(other)
-          return false unless other.is_a? InstanceAliasIpRanges
+          return false unless other.is_a? InstanceAliasipranges
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             return false if compare[:self] != compare[:other]
@@ -62,7 +62,7 @@ module Google
         end
 
         def <=>(other)
-          return false unless other.is_a? InstanceAliasIpRanges
+          return false unless other.is_a? InstanceAliasipranges
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             result = compare[:self] <=> compare[:other]
@@ -81,9 +81,9 @@ module Google
         end
       end
 
-      # Manages a InstanceAliasIpRanges nested object
+      # Manages a InstanceAliasipranges nested object
       # Data is coming from the GCP API
-      class InstanceAliasIpRangesApi < InstanceAliasIpRanges
+      class InstanceAliasiprangesApi < InstanceAliasipranges
         def initialize(args)
           @ip_cidr_range = Google::Compute::Property::String.api_munge(args['ipCidrRange'])
           @subnetwork_range_name =
@@ -91,9 +91,9 @@ module Google
         end
       end
 
-      # Manages a InstanceAliasIpRanges nested object
+      # Manages a InstanceAliasipranges nested object
       # Data is coming from the Puppet manifest
-      class InstanceAliasIpRangesCatalog < InstanceAliasIpRanges
+      class InstanceAliasiprangesCatalog < InstanceAliasipranges
         def initialize(args)
           @ip_cidr_range = Google::Compute::Property::String.unsafe_munge(args['ip_cidr_range'])
           @subnetwork_range_name =
@@ -104,7 +104,7 @@ module Google
 
     module Property
       # A class to manage input to AliasIpRanges for instance.
-      class InstanceAliasIpRanges < Google::Compute::Property::Base
+      class InstanceAliasipranges < Google::Compute::Property::Base
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -113,18 +113,18 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          Data::InstanceAliasIpRangesCatalog.new(value)
+          Data::InstanceAliasiprangesCatalog.new(value)
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          Data::InstanceAliasIpRangesApi.new(value)
+          Data::InstanceAliasiprangesApi.new(value)
         end
       end
 
       # A Puppet property that holds an integer
-      class InstanceAliasIpRangesArray < Google::Compute::Property::Array
+      class InstanceAliasiprangesArray < Google::Compute::Property::Array
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -133,17 +133,17 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          return InstanceAliasIpRanges.unsafe_munge(value) \
+          return InstanceAliasipranges.unsafe_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| InstanceAliasIpRanges.unsafe_munge(v) }
+          value.map { |v| InstanceAliasipranges.unsafe_munge(v) }
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          return InstanceAliasIpRanges.api_munge(value) \
+          return InstanceAliasipranges.api_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| InstanceAliasIpRanges.api_munge(v) }
+          value.map { |v| InstanceAliasipranges.api_munge(v) }
         end
       end
     end

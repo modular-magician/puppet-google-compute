@@ -99,14 +99,14 @@ Puppet::Type.newtype(:gcompute_target_https_proxy) do
   end
 
   newproperty(:ssl_certificates,
-              parent: Google::Compute::Property::SslCertificateSelfLinkRefArray) do
+              parent: Google::Compute::Property::SslCertificateSelflinkRefArray) do
     desc <<-DOC
       A list of SslCertificate resources that are used to authenticate connections between users
       and the load balancer. Currently, exactly one SSL certificate must be specified.
     DOC
   end
 
-  newproperty(:url_map, parent: Google::Compute::Property::UrlMapSelfLinkRef) do
+  newproperty(:url_map, parent: Google::Compute::Property::UrlMapSelflinkRef) do
     desc <<-DOC
       A reference to the UrlMap resource that defines the mapping from URL to the BackendService.
     DOC

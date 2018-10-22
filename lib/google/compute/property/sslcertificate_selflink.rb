@@ -34,11 +34,11 @@ module Google
     module Data
       # Base class for ResourceRefs
       # Imports self_link from ssl_certificate
-      class SslCertificateSelfLinkRef
+      class SslCertificateSelflinkRef
         include Comparable
 
         def ==(other)
-          return false unless other.is_a? SslCertificateSelfLinkRef
+          return false unless other.is_a? SslCertificateSelflinkRef
           return false if resource != other.resource
           true
         end
@@ -50,7 +50,7 @@ module Google
 
       # A class to fetch the resource value from a referenced block
       # Will return the value exported from a different Puppet resource
-      class SslCertificateSelfLinkRefCatalog < SslCertificateSelfLinkRef
+      class SslCertificateSelflinkRefCatalog < SslCertificateSelflinkRef
         def initialize(title, resource)
           @title = title
           @resource = resource
@@ -80,7 +80,7 @@ module Google
 
       # A class to manage a JSON blob from GCP API
       # Will immediately return value from JSON blob without changes
-      class SslCertificateSelfLinkRefApi < SslCertificateSelfLinkRef
+      class SslCertificateSelflinkRefApi < SslCertificateSelflinkRef
         attr_reader :resource
 
         def initialize(resource)
@@ -99,7 +99,7 @@ module Google
 
     module Property
       # A class to manage fetching self_link from a ssl_certificate
-      class SslCertificateSelfLinkRef < Puppet::Property
+      class SslCertificateSelflinkRef < Puppet::Property
         # Used for catalog values
         def unsafe_munge(value)
           self.class.unsafe_munge(value, @resource)
@@ -107,18 +107,18 @@ module Google
 
         def self.unsafe_munge(value, resource = nil)
           return if value.nil?
-          Data::SslCertificateSelfLinkRefCatalog.new(value, resource)
+          Data::SslCertificateSelflinkRefCatalog.new(value, resource)
         end
 
         # Used for fetched JSON values
         def self.api_munge(value)
           return if value.nil?
-          Data::SslCertificateSelfLinkRefApi.new(value)
+          Data::SslCertificateSelflinkRefApi.new(value)
         end
       end
 
       # A Puppet property that holds an integer
-      class SslCertificateSelfLinkRefArray < Google::Compute::Property::Array
+      class SslCertificateSelflinkRefArray < Google::Compute::Property::Array
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value, @resource)
@@ -127,17 +127,17 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value, resource = nil)
           return if value.nil?
-          return SslCertificateSelfLinkRef.unsafe_munge(value) \
+          return SslCertificateSelflinkRef.unsafe_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| SslCertificateSelfLinkRef.unsafe_munge(v, resource) }
+          value.map { |v| SslCertificateSelflinkRef.unsafe_munge(v, resource) }
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          return SslCertificateSelfLinkRef.api_munge(value) \
+          return SslCertificateSelflinkRef.api_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| SslCertificateSelfLinkRef.api_munge(v) }
+          value.map { |v| SslCertificateSelflinkRef.api_munge(v) }
         end
       end
     end

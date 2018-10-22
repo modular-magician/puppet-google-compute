@@ -122,12 +122,12 @@ module Google
           @boot = Google::Compute::Property::Boolean.api_munge(args['boot'])
           @device_name = Google::Compute::Property::String.api_munge(args['deviceName'])
           @disk_encryption_key =
-            Google::Compute::Property::InstanceTemplateDiskEncryptionKey.api_munge(
+            Google::Compute::Property::InstanceTemplateDiskencryptionkey.api_munge(
               args['diskEncryptionKey']
             )
           @index = Google::Compute::Property::Integer.api_munge(args['index'])
           @initialize_params =
-            Google::Compute::Property::InstanceTemplateInitializeParams.api_munge(
+            Google::Compute::Property::InstanceTemplateInitializeparams.api_munge(
               args['initializeParams']
             )
           @interface = Google::Compute::Property::Enum.api_munge(args['interface'])
@@ -147,12 +147,12 @@ module Google
           @boot = Google::Compute::Property::Boolean.unsafe_munge(args['boot'])
           @device_name = Google::Compute::Property::String.unsafe_munge(args['device_name'])
           @disk_encryption_key =
-            Google::Compute::Property::InstanceTemplateDiskEncryptionKey.unsafe_munge(
+            Google::Compute::Property::InstanceTemplateDiskencryptionkey.unsafe_munge(
               args['disk_encryption_key']
             )
           @index = Google::Compute::Property::Integer.unsafe_munge(args['index'])
           @initialize_params =
-            Google::Compute::Property::InstanceTemplateInitializeParams.unsafe_munge(
+            Google::Compute::Property::InstanceTemplateInitializeparams.unsafe_munge(
               args['initialize_params']
             )
           @interface = Google::Compute::Property::Enum.unsafe_munge(args['interface'])

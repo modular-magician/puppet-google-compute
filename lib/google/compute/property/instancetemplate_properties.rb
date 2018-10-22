@@ -134,17 +134,17 @@ module Google
             Google::Compute::Property::MachineTypeNameRef.api_munge(args['machineType'])
           @metadata = Google::Compute::Property::NameValues.api_munge(args['metadata'])
           @guest_accelerators =
-            Google::Compute::Property::InstanceTemplateGuestAcceleratorsArray.api_munge(
+            Google::Compute::Property::InstanceTemplateGuestacceleratorsArray.api_munge(
               args['guestAccelerators']
             )
           @network_interfaces =
-            Google::Compute::Property::InstanceTemplateNetworkInterfacesArray.api_munge(
+            Google::Compute::Property::InstanceTemplateNetworkinterfacesArray.api_munge(
               args['networkInterfaces']
             )
           @scheduling =
             Google::Compute::Property::InstanceTemplateScheduling.api_munge(args['scheduling'])
           @service_accounts =
-            Google::Compute::Property::InstanceTemplateServiceAccountsArray.api_munge(
+            Google::Compute::Property::InstanceTemplateServiceaccountsArray.api_munge(
               args['serviceAccounts']
             )
           @tags = Google::Compute::Property::InstanceTemplateTags.api_munge(args['tags'])
@@ -164,17 +164,17 @@ module Google
             Google::Compute::Property::MachineTypeNameRef.unsafe_munge(args['machine_type'])
           @metadata = Google::Compute::Property::NameValues.unsafe_munge(args['metadata'])
           @guest_accelerators =
-            Google::Compute::Property::InstanceTemplateGuestAcceleratorsArray.unsafe_munge(
+            Google::Compute::Property::InstanceTemplateGuestacceleratorsArray.unsafe_munge(
               args['guest_accelerators']
             )
           @network_interfaces =
-            Google::Compute::Property::InstanceTemplateNetworkInterfacesArray.unsafe_munge(
+            Google::Compute::Property::InstanceTemplateNetworkinterfacesArray.unsafe_munge(
               args['network_interfaces']
             )
           @scheduling =
             Google::Compute::Property::InstanceTemplateScheduling.unsafe_munge(args['scheduling'])
           @service_accounts =
-            Google::Compute::Property::InstanceTemplateServiceAccountsArray.unsafe_munge(
+            Google::Compute::Property::InstanceTemplateServiceaccountsArray.unsafe_munge(
               args['service_accounts']
             )
           @tags = Google::Compute::Property::InstanceTemplateTags.unsafe_munge(args['tags'])

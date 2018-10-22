@@ -33,11 +33,11 @@ module Google
     module Data
       # Base class for ResourceRefs
       # Imports self_link from region
-      class RegionSelfLinkRef
+      class RegionSelflinkRef
         include Comparable
 
         def ==(other)
-          return false unless other.is_a? RegionSelfLinkRef
+          return false unless other.is_a? RegionSelflinkRef
           return false if resource != other.resource
           true
         end
@@ -49,7 +49,7 @@ module Google
 
       # A class to fetch the resource value from a referenced block
       # Will return the value exported from a different Puppet resource
-      class RegionSelfLinkRefCatalog < RegionSelfLinkRef
+      class RegionSelflinkRefCatalog < RegionSelflinkRef
         def initialize(title, resource)
           @title = title
           @resource = resource
@@ -87,7 +87,7 @@ module Google
 
       # A class to manage a JSON blob from GCP API
       # Will immediately return value from JSON blob without changes
-      class RegionSelfLinkRefApi < RegionSelfLinkRef
+      class RegionSelflinkRefApi < RegionSelflinkRef
         attr_reader :resource
 
         def initialize(resource)
@@ -106,7 +106,7 @@ module Google
 
     module Property
       # A class to manage fetching self_link from a region
-      class RegionSelfLinkRef < Puppet::Property
+      class RegionSelflinkRef < Puppet::Property
         # Used for catalog values
         def unsafe_munge(value)
           self.class.unsafe_munge(value, @resource)
@@ -114,13 +114,13 @@ module Google
 
         def self.unsafe_munge(value, resource = nil)
           return if value.nil?
-          Data::RegionSelfLinkRefCatalog.new(value, resource)
+          Data::RegionSelflinkRefCatalog.new(value, resource)
         end
 
         # Used for fetched JSON values
         def self.api_munge(value)
           return if value.nil?
-          Data::RegionSelfLinkRefApi.new(value)
+          Data::RegionSelflinkRefApi.new(value)
         end
       end
     end

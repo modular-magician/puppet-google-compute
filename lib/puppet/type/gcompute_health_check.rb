@@ -141,20 +141,20 @@ Puppet::Type.newtype(:gcompute_health_check) do
     newvalue(:HTTPS)
   end
 
-  newproperty(:http_health_check, parent: Google::Compute::Property::HealthCheckHttpHealthCheck) do
+  newproperty(:http_health_check, parent: Google::Compute::Property::HealthCheckHttphealthcheck) do
     desc 'A nested object resource'
   end
 
   newproperty(:https_health_check,
-              parent: Google::Compute::Property::HealthCheckHttpsHealthCheck) do
+              parent: Google::Compute::Property::HealthCheckHttpshealthcheck) do
     desc 'A nested object resource'
   end
 
-  newproperty(:tcp_health_check, parent: Google::Compute::Property::HealthCheckTcpHealthCheck) do
+  newproperty(:tcp_health_check, parent: Google::Compute::Property::HealthCheckTcphealthcheck) do
     desc 'A nested object resource'
   end
 
-  newproperty(:ssl_health_check, parent: Google::Compute::Property::HealthCheckSslHealthCheck) do
+  newproperty(:ssl_health_check, parent: Google::Compute::Property::HealthCheckSslhealthcheck) do
     desc 'A nested object resource'
   end
 

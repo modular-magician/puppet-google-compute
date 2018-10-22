@@ -81,7 +81,7 @@ Puppet::Type.type(:gcompute_subnetwork).provide(:google) do
       name: Google::Compute::Property::String.api_munge(fetch['name']),
       enable_flow_logs: Google::Compute::Property::Boolean.api_munge(fetch['enableFlowLogs']),
       fingerprint: Google::Compute::Property::String.api_munge(fetch['fingerprint']),
-      secondary_ip_ranges: Google::Compute::Property::SubnetworkSecondaryIpRangesArray.api_munge(
+      secondary_ip_ranges: Google::Compute::Property::SubnetworkSecondaryiprangesArray.api_munge(
         fetch['secondaryIpRanges']
       ),
       private_ip_google_access:

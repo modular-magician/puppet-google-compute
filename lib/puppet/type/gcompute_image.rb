@@ -105,7 +105,7 @@ Puppet::Type.newtype(:gcompute_image) do
     DOC
   end
 
-  newproperty(:guest_os_features, parent: Google::Compute::Property::ImageGuestOsFeaturesArray) do
+  newproperty(:guest_os_features, parent: Google::Compute::Property::ImageGuestosfeaturesArray) do
     desc <<-DOC
       A list of features to enable on the guest OS. Applicable for bootable images only. Currently,
       only one feature can be enabled, VIRTIO_SCSI_MULTIQUEUE, which allows each virtual CPU to
@@ -124,7 +124,7 @@ Puppet::Type.newtype(:gcompute_image) do
     DOC
   end
 
-  newproperty(:image_encryption_key, parent: Google::Compute::Property::ImageImageEncryptionKey) do
+  newproperty(:image_encryption_key, parent: Google::Compute::Property::ImageImageencryptionkey) do
     desc <<-DOC
       Encrypts the image using a customer-supplied encryption key. After you encrypt an image with
       a customer-supplied key, you must provide the same key if you use the image later (e.g. to
@@ -146,11 +146,11 @@ Puppet::Type.newtype(:gcompute_image) do
     DOC
   end
 
-  newproperty(:raw_disk, parent: Google::Compute::Property::ImageRawDisk) do
+  newproperty(:raw_disk, parent: Google::Compute::Property::ImageRawdisk) do
     desc 'The parameters of the raw disk image.'
   end
 
-  newproperty(:source_disk, parent: Google::Compute::Property::DiskSelfLinkRef) do
+  newproperty(:source_disk, parent: Google::Compute::Property::DiskSelflinkRef) do
     desc <<-DOC
       Refers to a gcompute_disk object You must provide either this property or the rawDisk.source
       property but not both to create an image.
@@ -158,7 +158,7 @@ Puppet::Type.newtype(:gcompute_image) do
   end
 
   newproperty(:source_disk_encryption_key,
-              parent: Google::Compute::Property::ImageSourceDiskEncryptionKey) do
+              parent: Google::Compute::Property::ImageSourcediskencryptionkey) do
     desc <<-DOC
       The customer-supplied encryption key of the source disk. Required if the source disk is
       protected by a customer-supplied encryption key.

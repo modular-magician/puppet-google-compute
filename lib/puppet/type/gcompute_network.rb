@@ -128,7 +128,7 @@ Puppet::Type.newtype(:gcompute_network) do
     desc 'Creation timestamp in RFC3339 text format. (output only)'
   end
 
-  newproperty(:routing_config, parent: Google::Compute::Property::NetworkRoutingConfigArray) do
+  newproperty(:routing_config, parent: Google::Compute::Property::NetworkRoutingconfigArray) do
     desc <<-DOC
       The network-level routing configuration for this network. Used by Cloud Router to determine
       what type of network-wide routing behavior to enforce.

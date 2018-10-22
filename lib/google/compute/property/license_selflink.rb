@@ -34,11 +34,11 @@ module Google
     module Data
       # Base class for ResourceRefs
       # Imports self_link from license
-      class LicenseSelfLinkRef
+      class LicenseSelflinkRef
         include Comparable
 
         def ==(other)
-          return false unless other.is_a? LicenseSelfLinkRef
+          return false unless other.is_a? LicenseSelflinkRef
           return false if resource != other.resource
           true
         end
@@ -50,7 +50,7 @@ module Google
 
       # A class to fetch the resource value from a referenced block
       # Will return the value exported from a different Puppet resource
-      class LicenseSelfLinkRefCatalog < LicenseSelfLinkRef
+      class LicenseSelflinkRefCatalog < LicenseSelflinkRef
         def initialize(title, resource)
           @title = title
           @resource = resource
@@ -88,7 +88,7 @@ module Google
 
       # A class to manage a JSON blob from GCP API
       # Will immediately return value from JSON blob without changes
-      class LicenseSelfLinkRefApi < LicenseSelfLinkRef
+      class LicenseSelflinkRefApi < LicenseSelflinkRef
         attr_reader :resource
 
         def initialize(resource)
@@ -107,7 +107,7 @@ module Google
 
     module Property
       # A class to manage fetching self_link from a license
-      class LicenseSelfLinkRef < Puppet::Property
+      class LicenseSelflinkRef < Puppet::Property
         # Used for catalog values
         def unsafe_munge(value)
           self.class.unsafe_munge(value, @resource)
@@ -115,18 +115,18 @@ module Google
 
         def self.unsafe_munge(value, resource = nil)
           return if value.nil?
-          Data::LicenseSelfLinkRefCatalog.new(value, resource)
+          Data::LicenseSelflinkRefCatalog.new(value, resource)
         end
 
         # Used for fetched JSON values
         def self.api_munge(value)
           return if value.nil?
-          Data::LicenseSelfLinkRefApi.new(value)
+          Data::LicenseSelflinkRefApi.new(value)
         end
       end
 
       # A Puppet property that holds an integer
-      class LicenseSelfLinkRefArray < Google::Compute::Property::Array
+      class LicenseSelflinkRefArray < Google::Compute::Property::Array
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value, @resource)
@@ -135,17 +135,17 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value, resource = nil)
           return if value.nil?
-          return LicenseSelfLinkRef.unsafe_munge(value) \
+          return LicenseSelflinkRef.unsafe_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| LicenseSelfLinkRef.unsafe_munge(v, resource) }
+          value.map { |v| LicenseSelflinkRef.unsafe_munge(v, resource) }
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          return LicenseSelfLinkRef.api_munge(value) \
+          return LicenseSelflinkRef.api_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| LicenseSelfLinkRef.api_munge(v) }
+          value.map { |v| LicenseSelflinkRef.api_munge(v) }
         end
       end
     end

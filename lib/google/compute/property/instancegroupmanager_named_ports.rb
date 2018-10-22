@@ -32,7 +32,7 @@ module Google
   module Compute
     module Data
       # A class to manage data for NamedPorts for instance_group_manager.
-      class InstanceGroupManagerNamedPorts
+      class InstanceGroupManagerNamedports
         include Comparable
 
         attr_reader :name
@@ -53,7 +53,7 @@ module Google
         end
 
         def ==(other)
-          return false unless other.is_a? InstanceGroupManagerNamedPorts
+          return false unless other.is_a? InstanceGroupManagerNamedports
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             return false if compare[:self] != compare[:other]
@@ -62,7 +62,7 @@ module Google
         end
 
         def <=>(other)
-          return false unless other.is_a? InstanceGroupManagerNamedPorts
+          return false unless other.is_a? InstanceGroupManagerNamedports
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             result = compare[:self] <=> compare[:other]
@@ -81,18 +81,18 @@ module Google
         end
       end
 
-      # Manages a InstanceGroupManagerNamedPorts nested object
+      # Manages a InstanceGroupManagerNamedports nested object
       # Data is coming from the GCP API
-      class InstanceGroupManagerNamedPortsApi < InstanceGroupManagerNamedPorts
+      class InstanceGroupManagerNamedportsApi < InstanceGroupManagerNamedports
         def initialize(args)
           @name = Google::Compute::Property::String.api_munge(args['name'])
           @port = Google::Compute::Property::Integer.api_munge(args['port'])
         end
       end
 
-      # Manages a InstanceGroupManagerNamedPorts nested object
+      # Manages a InstanceGroupManagerNamedports nested object
       # Data is coming from the Puppet manifest
-      class InstanceGroupManagerNamedPortsCatalog < InstanceGroupManagerNamedPorts
+      class InstanceGroupManagerNamedportsCatalog < InstanceGroupManagerNamedports
         def initialize(args)
           @name = Google::Compute::Property::String.unsafe_munge(args['name'])
           @port = Google::Compute::Property::Integer.unsafe_munge(args['port'])
@@ -102,7 +102,7 @@ module Google
 
     module Property
       # A class to manage input to NamedPorts for instance_group_manager.
-      class InstanceGroupManagerNamedPorts < Google::Compute::Property::Base
+      class InstanceGroupManagerNamedports < Google::Compute::Property::Base
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -111,18 +111,18 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          Data::InstanceGroupManagerNamedPortsCatalog.new(value)
+          Data::InstanceGroupManagerNamedportsCatalog.new(value)
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          Data::InstanceGroupManagerNamedPortsApi.new(value)
+          Data::InstanceGroupManagerNamedportsApi.new(value)
         end
       end
 
       # A Puppet property that holds an integer
-      class InstanceGroupManagerNamedPortsArray < Google::Compute::Property::Array
+      class InstanceGroupManagerNamedportsArray < Google::Compute::Property::Array
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -131,17 +131,17 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          return InstanceGroupManagerNamedPorts.unsafe_munge(value) \
+          return InstanceGroupManagerNamedports.unsafe_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| InstanceGroupManagerNamedPorts.unsafe_munge(v) }
+          value.map { |v| InstanceGroupManagerNamedports.unsafe_munge(v) }
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          return InstanceGroupManagerNamedPorts.api_munge(value) \
+          return InstanceGroupManagerNamedports.api_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| InstanceGroupManagerNamedPorts.api_munge(v) }
+          value.map { |v| InstanceGroupManagerNamedports.api_munge(v) }
         end
       end
     end

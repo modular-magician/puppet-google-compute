@@ -76,7 +76,7 @@ Puppet::Type.type(:gcompute_global_address).provide(:google) do
       id: Google::Compute::Property::Integer.api_munge(fetch['id']),
       name: Google::Compute::Property::String.api_munge(fetch['name']),
       ip_version: Google::Compute::Property::Enum.api_munge(fetch['ipVersion']),
-      region: Google::Compute::Property::RegionSelfLinkRef.api_munge(fetch['region']),
+      region: Google::Compute::Property::RegionSelflinkRef.api_munge(fetch['region']),
       address_type: Google::Compute::Property::AddressTypeEnum.api_munge(fetch['addressType'])
     }.reject { |_, v| v.nil? }
   end

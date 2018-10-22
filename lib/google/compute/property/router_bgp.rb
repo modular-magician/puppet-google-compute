@@ -100,7 +100,7 @@ module Google
           @advertised_groups =
             Google::Compute::Property::StringArray.api_munge(args['advertisedGroups'])
           @advertised_ip_ranges =
-            Google::Compute::Property::RouterAdvertisedIpRangesArray.api_munge(
+            Google::Compute::Property::RouterAdvertisediprangesArray.api_munge(
               args['advertisedIpRanges']
             )
         end
@@ -116,7 +116,7 @@ module Google
           @advertised_groups =
             Google::Compute::Property::StringArray.unsafe_munge(args['advertised_groups'])
           @advertised_ip_ranges =
-            Google::Compute::Property::RouterAdvertisedIpRangesArray.unsafe_munge(
+            Google::Compute::Property::RouterAdvertisediprangesArray.unsafe_munge(
               args['advertised_ip_ranges']
             )
         end

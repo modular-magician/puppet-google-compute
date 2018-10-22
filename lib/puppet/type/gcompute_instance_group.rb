@@ -98,7 +98,7 @@ Puppet::Type.newtype(:gcompute_instance_group) do
     DOC
   end
 
-  newproperty(:named_ports, parent: Google::Compute::Property::InstanceGroupNamedPortsArray) do
+  newproperty(:named_ports, parent: Google::Compute::Property::InstanceGroupNamedportsArray) do
     desc <<-DOC
       Assigns a name to a port number. For example: {name: "http", port: 80}. This allows the
       system to reference ports by the assigned name instead of a port number. Named ports can also
@@ -107,15 +107,15 @@ Puppet::Type.newtype(:gcompute_instance_group) do
     DOC
   end
 
-  newproperty(:network, parent: Google::Compute::Property::NetworkSelfLinkRef) do
+  newproperty(:network, parent: Google::Compute::Property::NetworkSelflinkRef) do
     desc 'The network to which all instances in the instance group belong.'
   end
 
-  newproperty(:region, parent: Google::Compute::Property::RegionSelfLinkRef) do
+  newproperty(:region, parent: Google::Compute::Property::RegionSelflinkRef) do
     desc 'The region where the instance group is located (for regional resources).'
   end
 
-  newproperty(:subnetwork, parent: Google::Compute::Property::SubnetworkSelfLinkRef) do
+  newproperty(:subnetwork, parent: Google::Compute::Property::SubnetworkSelflinkRef) do
     desc 'The subnetwork to which all instances in the instance group belong.'
   end
 

@@ -32,7 +32,7 @@ module Google
   module Compute
     module Data
       # A class to manage data for PathRules for url_map.
-      class UrlMapPathRules
+      class UrlMapPathrules
         include Comparable
 
         attr_reader :paths
@@ -53,7 +53,7 @@ module Google
         end
 
         def ==(other)
-          return false unless other.is_a? UrlMapPathRules
+          return false unless other.is_a? UrlMapPathrules
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             return false if compare[:self] != compare[:other]
@@ -62,7 +62,7 @@ module Google
         end
 
         def <=>(other)
-          return false unless other.is_a? UrlMapPathRules
+          return false unless other.is_a? UrlMapPathrules
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             result = compare[:self] <=> compare[:other]
@@ -81,29 +81,29 @@ module Google
         end
       end
 
-      # Manages a UrlMapPathRules nested object
+      # Manages a UrlMapPathrules nested object
       # Data is coming from the GCP API
-      class UrlMapPathRulesApi < UrlMapPathRules
+      class UrlMapPathrulesApi < UrlMapPathrules
         def initialize(args)
           @paths = Google::Compute::Property::StringArray.api_munge(args['paths'])
-          @service = Google::Compute::Property::BackendServiceSelfLinkRef.api_munge(args['service'])
+          @service = Google::Compute::Property::BackendServiceSelflinkRef.api_munge(args['service'])
         end
       end
 
-      # Manages a UrlMapPathRules nested object
+      # Manages a UrlMapPathrules nested object
       # Data is coming from the Puppet manifest
-      class UrlMapPathRulesCatalog < UrlMapPathRules
+      class UrlMapPathrulesCatalog < UrlMapPathrules
         def initialize(args)
           @paths = Google::Compute::Property::StringArray.unsafe_munge(args['paths'])
           @service =
-            Google::Compute::Property::BackendServiceSelfLinkRef.unsafe_munge(args['service'])
+            Google::Compute::Property::BackendServiceSelflinkRef.unsafe_munge(args['service'])
         end
       end
     end
 
     module Property
       # A class to manage input to PathRules for url_map.
-      class UrlMapPathRules < Google::Compute::Property::Base
+      class UrlMapPathrules < Google::Compute::Property::Base
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -112,18 +112,18 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          Data::UrlMapPathRulesCatalog.new(value)
+          Data::UrlMapPathrulesCatalog.new(value)
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          Data::UrlMapPathRulesApi.new(value)
+          Data::UrlMapPathrulesApi.new(value)
         end
       end
 
       # A Puppet property that holds an integer
-      class UrlMapPathRulesArray < Google::Compute::Property::Array
+      class UrlMapPathrulesArray < Google::Compute::Property::Array
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -132,17 +132,17 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          return UrlMapPathRules.unsafe_munge(value) \
+          return UrlMapPathrules.unsafe_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| UrlMapPathRules.unsafe_munge(v) }
+          value.map { |v| UrlMapPathrules.unsafe_munge(v) }
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          return UrlMapPathRules.api_munge(value) \
+          return UrlMapPathrules.api_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| UrlMapPathRules.api_munge(v) }
+          value.map { |v| UrlMapPathrules.api_munge(v) }
         end
       end
     end

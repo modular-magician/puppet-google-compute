@@ -80,7 +80,7 @@ Puppet::Type.type(:gcompute_network).provide(:google) do
       subnetworks: Google::Compute::Property::StringArray.api_munge(fetch['subnetworks']),
       creation_timestamp: Google::Compute::Property::Time.api_munge(fetch['creationTimestamp']),
       routing_config:
-        Google::Compute::Property::NetworkRoutingConfigArray.api_munge(fetch['routingConfig']),
+        Google::Compute::Property::NetworkRoutingconfigArray.api_munge(fetch['routingConfig']),
       description: resource[:description],
       ipv4_range: resource[:ipv4_range],
       name: resource[:name],

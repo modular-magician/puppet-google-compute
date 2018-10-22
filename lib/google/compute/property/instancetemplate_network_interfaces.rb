@@ -32,7 +32,7 @@ module Google
   module Compute
     module Data
       # A class to manage data for NetworkInterfaces for instance_template.
-      class InstanceTemplateNetworkInterfaces
+      class InstanceTemplateNetworkinterfaces
         include Comparable
 
         attr_reader :access_configs
@@ -69,7 +69,7 @@ module Google
         end
 
         def ==(other)
-          return false unless other.is_a? InstanceTemplateNetworkInterfaces
+          return false unless other.is_a? InstanceTemplateNetworkinterfaces
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             return false if compare[:self] != compare[:other]
@@ -78,7 +78,7 @@ module Google
         end
 
         def <=>(other)
-          return false unless other.is_a? InstanceTemplateNetworkInterfaces
+          return false unless other.is_a? InstanceTemplateNetworkinterfaces
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             result = compare[:self] <=> compare[:other]
@@ -101,45 +101,45 @@ module Google
         end
       end
 
-      # Manages a InstanceTemplateNetworkInterfaces nested object
+      # Manages a InstanceTemplateNetworkinterfaces nested object
       # Data is coming from the GCP API
-      class InstanceTemplateNetworkInterfacesApi < InstanceTemplateNetworkInterfaces
+      class InstanceTemplateNetworkinterfacesApi < InstanceTemplateNetworkinterfaces
         # rubocop:disable Metrics/MethodLength
         def initialize(args)
-          @access_configs = Google::Compute::Property::InstanceTemplateAccessConfigsArray.api_munge(
+          @access_configs = Google::Compute::Property::InstanceTemplateAccessconfigsArray.api_munge(
             args['accessConfigs']
           )
           @alias_ip_ranges =
-            Google::Compute::Property::InstanceTemplateAliasIpRangesArray.api_munge(
+            Google::Compute::Property::InstanceTemplateAliasiprangesArray.api_munge(
               args['aliasIpRanges']
             )
           @name = Google::Compute::Property::String.api_munge(args['name'])
-          @network = Google::Compute::Property::NetworkSelfLinkRef.api_munge(args['network'])
+          @network = Google::Compute::Property::NetworkSelflinkRef.api_munge(args['network'])
           @network_ip = Google::Compute::Property::String.api_munge(args['networkIP'])
           @subnetwork =
-            Google::Compute::Property::SubnetworkSelfLinkRef.api_munge(args['subnetwork'])
+            Google::Compute::Property::SubnetworkSelflinkRef.api_munge(args['subnetwork'])
         end
         # rubocop:enable Metrics/MethodLength
       end
 
-      # Manages a InstanceTemplateNetworkInterfaces nested object
+      # Manages a InstanceTemplateNetworkinterfaces nested object
       # Data is coming from the Puppet manifest
-      class InstanceTemplateNetworkInterfacesCatalog < InstanceTemplateNetworkInterfaces
+      class InstanceTemplateNetworkinterfacesCatalog < InstanceTemplateNetworkinterfaces
         # rubocop:disable Metrics/MethodLength
         def initialize(args)
           @access_configs =
-            Google::Compute::Property::InstanceTemplateAccessConfigsArray.unsafe_munge(
+            Google::Compute::Property::InstanceTemplateAccessconfigsArray.unsafe_munge(
               args['access_configs']
             )
           @alias_ip_ranges =
-            Google::Compute::Property::InstanceTemplateAliasIpRangesArray.unsafe_munge(
+            Google::Compute::Property::InstanceTemplateAliasiprangesArray.unsafe_munge(
               args['alias_ip_ranges']
             )
           @name = Google::Compute::Property::String.unsafe_munge(args['name'])
-          @network = Google::Compute::Property::NetworkSelfLinkRef.unsafe_munge(args['network'])
+          @network = Google::Compute::Property::NetworkSelflinkRef.unsafe_munge(args['network'])
           @network_ip = Google::Compute::Property::String.unsafe_munge(args['network_ip'])
           @subnetwork =
-            Google::Compute::Property::SubnetworkSelfLinkRef.unsafe_munge(args['subnetwork'])
+            Google::Compute::Property::SubnetworkSelflinkRef.unsafe_munge(args['subnetwork'])
         end
         # rubocop:enable Metrics/MethodLength
       end
@@ -147,7 +147,7 @@ module Google
 
     module Property
       # A class to manage input to NetworkInterfaces for instance_template.
-      class InstanceTemplateNetworkInterfaces < Google::Compute::Property::Base
+      class InstanceTemplateNetworkinterfaces < Google::Compute::Property::Base
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -156,18 +156,18 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          Data::InstanceTemplateNetworkInterfacesCatalog.new(value)
+          Data::InstanceTemplateNetworkinterfacesCatalog.new(value)
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          Data::InstanceTemplateNetworkInterfacesApi.new(value)
+          Data::InstanceTemplateNetworkinterfacesApi.new(value)
         end
       end
 
       # A Puppet property that holds an integer
-      class InstanceTemplateNetworkInterfacesArray < Google::Compute::Property::Array
+      class InstanceTemplateNetworkinterfacesArray < Google::Compute::Property::Array
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -176,17 +176,17 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          return InstanceTemplateNetworkInterfaces.unsafe_munge(value) \
+          return InstanceTemplateNetworkinterfaces.unsafe_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| InstanceTemplateNetworkInterfaces.unsafe_munge(v) }
+          value.map { |v| InstanceTemplateNetworkinterfaces.unsafe_munge(v) }
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          return InstanceTemplateNetworkInterfaces.api_munge(value) \
+          return InstanceTemplateNetworkinterfaces.api_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| InstanceTemplateNetworkInterfaces.api_munge(v) }
+          value.map { |v| InstanceTemplateNetworkinterfaces.api_munge(v) }
         end
       end
     end

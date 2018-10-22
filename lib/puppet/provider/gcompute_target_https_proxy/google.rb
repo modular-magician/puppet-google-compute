@@ -75,10 +75,10 @@ Puppet::Type.type(:gcompute_target_https_proxy).provide(:google) do
       creation_timestamp: Google::Compute::Property::Time.api_munge(fetch['creationTimestamp']),
       id: Google::Compute::Property::Integer.api_munge(fetch['id']),
       quic_override: Google::Compute::Property::Enum.api_munge(fetch['quicOverride']),
-      ssl_certificates: Google::Compute::Property::SslCertificateSelfLinkRefArray.api_munge(
+      ssl_certificates: Google::Compute::Property::SslCertificateSelflinkRefArray.api_munge(
         fetch['sslCertificates']
       ),
-      url_map: Google::Compute::Property::UrlMapSelfLinkRef.api_munge(fetch['urlMap']),
+      url_map: Google::Compute::Property::UrlMapSelflinkRef.api_munge(fetch['urlMap']),
       description: resource[:description],
       name: resource[:name]
     }.reject { |_, v| v.nil? }
