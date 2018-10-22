@@ -79,21 +79,21 @@ Puppet::Type.type(:gcompute_instance_group_manager).provide(:google) do
     {
       base_instance_name: Google::Compute::Property::String.api_munge(fetch['baseInstanceName']),
       creation_timestamp: Google::Compute::Property::Time.api_munge(fetch['creationTimestamp']),
-      current_actions: Google::Compute::Property::InstanceGroupManagerCurrentActions.api_munge(
+      current_actions: Google::Compute::Property::InstanceGroupManagerCurrentactions.api_munge(
         fetch['currentActions']
       ),
       id: Google::Compute::Property::Integer.api_munge(fetch['id']),
       instance_group:
-        Google::Compute::Property::InstanceGroupSelfLinkRef.api_munge(fetch['instanceGroup']),
+        Google::Compute::Property::InstanceGroupSelflinkRef.api_munge(fetch['instanceGroup']),
       instance_template:
-        Google::Compute::Property::InstanceTemplateSelfLinkRef.api_munge(fetch['instanceTemplate']),
+        Google::Compute::Property::InstanceTemplateSelflinkRef.api_munge(fetch['instanceTemplate']),
       name: Google::Compute::Property::String.api_munge(fetch['name']),
-      named_ports: Google::Compute::Property::InstanceGroupManagerNamedPortsArray.api_munge(
+      named_ports: Google::Compute::Property::InstanceGroupManagerNamedportsArray.api_munge(
         fetch['namedPorts']
       ),
-      region: Google::Compute::Property::RegionSelfLinkRef.api_munge(fetch['region']),
+      region: Google::Compute::Property::RegionSelflinkRef.api_munge(fetch['region']),
       target_pools:
-        Google::Compute::Property::TargetPoolSelfLinkRefArray.api_munge(fetch['targetPools']),
+        Google::Compute::Property::TargetPoolSelflinkRefArray.api_munge(fetch['targetPools']),
       target_size: Google::Compute::Property::Integer.api_munge(fetch['targetSize']),
       description: resource[:description]
     }.reject { |_, v| v.nil? }

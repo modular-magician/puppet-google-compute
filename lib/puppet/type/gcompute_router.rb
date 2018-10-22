@@ -96,7 +96,7 @@ Puppet::Type.newtype(:gcompute_router) do
     desc 'An optional description of this resource.'
   end
 
-  newproperty(:network, parent: Google::Compute::Property::NetworkSelfLinkRef) do
+  newproperty(:network, parent: Google::Compute::Property::NetworkSelflinkRef) do
     desc 'A reference to the network to which this router belongs.'
   end
 

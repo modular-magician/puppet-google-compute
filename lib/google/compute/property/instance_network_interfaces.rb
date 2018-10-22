@@ -32,7 +32,7 @@ module Google
   module Compute
     module Data
       # A class to manage data for NetworkInterfaces for instance.
-      class InstanceNetworkInterfaces
+      class InstanceNetworkinterfaces
         include Comparable
 
         attr_reader :access_configs
@@ -69,7 +69,7 @@ module Google
         end
 
         def ==(other)
-          return false unless other.is_a? InstanceNetworkInterfaces
+          return false unless other.is_a? InstanceNetworkinterfaces
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             return false if compare[:self] != compare[:other]
@@ -78,7 +78,7 @@ module Google
         end
 
         def <=>(other)
-          return false unless other.is_a? InstanceNetworkInterfaces
+          return false unless other.is_a? InstanceNetworkinterfaces
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             result = compare[:self] <=> compare[:other]
@@ -101,40 +101,40 @@ module Google
         end
       end
 
-      # Manages a InstanceNetworkInterfaces nested object
+      # Manages a InstanceNetworkinterfaces nested object
       # Data is coming from the GCP API
-      class InstanceNetworkInterfacesApi < InstanceNetworkInterfaces
+      class InstanceNetworkinterfacesApi < InstanceNetworkinterfaces
         # rubocop:disable Metrics/MethodLength
         def initialize(args)
           @access_configs =
-            Google::Compute::Property::InstanceAccessConfigsArray.api_munge(args['accessConfigs'])
+            Google::Compute::Property::InstanceAccessconfigsArray.api_munge(args['accessConfigs'])
           @alias_ip_ranges =
-            Google::Compute::Property::InstanceAliasIpRangesArray.api_munge(args['aliasIpRanges'])
+            Google::Compute::Property::InstanceAliasiprangesArray.api_munge(args['aliasIpRanges'])
           @name = Google::Compute::Property::String.api_munge(args['name'])
-          @network = Google::Compute::Property::NetworkSelfLinkRef.api_munge(args['network'])
+          @network = Google::Compute::Property::NetworkSelflinkRef.api_munge(args['network'])
           @network_ip = Google::Compute::Property::String.api_munge(args['networkIP'])
           @subnetwork =
-            Google::Compute::Property::SubnetworkSelfLinkRef.api_munge(args['subnetwork'])
+            Google::Compute::Property::SubnetworkSelflinkRef.api_munge(args['subnetwork'])
         end
         # rubocop:enable Metrics/MethodLength
       end
 
-      # Manages a InstanceNetworkInterfaces nested object
+      # Manages a InstanceNetworkinterfaces nested object
       # Data is coming from the Puppet manifest
-      class InstanceNetworkInterfacesCatalog < InstanceNetworkInterfaces
+      class InstanceNetworkinterfacesCatalog < InstanceNetworkinterfaces
         # rubocop:disable Metrics/MethodLength
         def initialize(args)
-          @access_configs = Google::Compute::Property::InstanceAccessConfigsArray.unsafe_munge(
+          @access_configs = Google::Compute::Property::InstanceAccessconfigsArray.unsafe_munge(
             args['access_configs']
           )
-          @alias_ip_ranges = Google::Compute::Property::InstanceAliasIpRangesArray.unsafe_munge(
+          @alias_ip_ranges = Google::Compute::Property::InstanceAliasiprangesArray.unsafe_munge(
             args['alias_ip_ranges']
           )
           @name = Google::Compute::Property::String.unsafe_munge(args['name'])
-          @network = Google::Compute::Property::NetworkSelfLinkRef.unsafe_munge(args['network'])
+          @network = Google::Compute::Property::NetworkSelflinkRef.unsafe_munge(args['network'])
           @network_ip = Google::Compute::Property::String.unsafe_munge(args['network_ip'])
           @subnetwork =
-            Google::Compute::Property::SubnetworkSelfLinkRef.unsafe_munge(args['subnetwork'])
+            Google::Compute::Property::SubnetworkSelflinkRef.unsafe_munge(args['subnetwork'])
         end
         # rubocop:enable Metrics/MethodLength
       end
@@ -142,7 +142,7 @@ module Google
 
     module Property
       # A class to manage input to NetworkInterfaces for instance.
-      class InstanceNetworkInterfaces < Google::Compute::Property::Base
+      class InstanceNetworkinterfaces < Google::Compute::Property::Base
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -151,18 +151,18 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          Data::InstanceNetworkInterfacesCatalog.new(value)
+          Data::InstanceNetworkinterfacesCatalog.new(value)
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          Data::InstanceNetworkInterfacesApi.new(value)
+          Data::InstanceNetworkinterfacesApi.new(value)
         end
       end
 
       # A Puppet property that holds an integer
-      class InstanceNetworkInterfacesArray < Google::Compute::Property::Array
+      class InstanceNetworkinterfacesArray < Google::Compute::Property::Array
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -171,17 +171,17 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          return InstanceNetworkInterfaces.unsafe_munge(value) \
+          return InstanceNetworkinterfaces.unsafe_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| InstanceNetworkInterfaces.unsafe_munge(v) }
+          value.map { |v| InstanceNetworkinterfaces.unsafe_munge(v) }
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          return InstanceNetworkInterfaces.api_munge(value) \
+          return InstanceNetworkinterfaces.api_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| InstanceNetworkInterfaces.api_munge(v) }
+          value.map { |v| InstanceNetworkinterfaces.api_munge(v) }
         end
       end
     end

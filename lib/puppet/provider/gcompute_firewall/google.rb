@@ -86,7 +86,7 @@ Puppet::Type.type(:gcompute_firewall).provide(:google) do
       direction: Google::Compute::Property::Enum.api_munge(fetch['direction']),
       disabled: Google::Compute::Property::Boolean.api_munge(fetch['disabled']),
       id: Google::Compute::Property::Integer.api_munge(fetch['id']),
-      network: Google::Compute::Property::NetworkSelfLinkRef.api_munge(fetch['network']),
+      network: Google::Compute::Property::NetworkSelflinkRef.api_munge(fetch['network']),
       priority: Google::Compute::Property::Integer.api_munge(fetch['priority']),
       source_ranges: Google::Compute::Property::StringArray.api_munge(fetch['sourceRanges']),
       source_service_accounts:

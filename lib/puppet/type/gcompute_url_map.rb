@@ -71,7 +71,7 @@ Puppet::Type.newtype(:gcompute_url_map) do
     desc 'Creation timestamp in RFC3339 text format. (output only)'
   end
 
-  newproperty(:default_service, parent: Google::Compute::Property::BackendServiceSelfLinkRef) do
+  newproperty(:default_service, parent: Google::Compute::Property::BackendServiceSelflinkRef) do
     desc 'A reference to BackendService resource if none of the hostRules match.'
   end
 
@@ -81,7 +81,7 @@ Puppet::Type.newtype(:gcompute_url_map) do
     DOC
   end
 
-  newproperty(:host_rules, parent: Google::Compute::Property::UrlMapHostRulesArray) do
+  newproperty(:host_rules, parent: Google::Compute::Property::UrlMapHostrulesArray) do
     desc 'The list of HostRules to use against the URL.'
   end
 
@@ -106,7 +106,7 @@ Puppet::Type.newtype(:gcompute_url_map) do
     DOC
   end
 
-  newproperty(:path_matchers, parent: Google::Compute::Property::UrlMapPathMatchersArray) do
+  newproperty(:path_matchers, parent: Google::Compute::Property::UrlMapPathmatchersArray) do
     desc 'The list of named PathMatchers to use against the URL.'
   end
 

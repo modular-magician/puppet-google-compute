@@ -70,7 +70,7 @@ Puppet::Type.newtype(:gcompute_interconnect_attachment) do
     desc 'The name of the InterconnectAttachment.'
   end
 
-  newparam(:region, parent: Google::Compute::Property::RegionSelfLinkRef) do
+  newparam(:region, parent: Google::Compute::Property::RegionSelflinkRef) do
     desc 'Region where the regional interconnect attachment resides.'
   end
 
@@ -100,7 +100,7 @@ Puppet::Type.newtype(:gcompute_interconnect_attachment) do
   end
 
   newproperty(:private_interconnect_info,
-              parent: Google::Compute::Property::InterconnectAttachmentPrivateInterconnectInfo) do
+              parent: Google::Compute::Property::InterconnectAttachmentPrivateinterconnectinfo) do
     desc <<-DOC
       Information specific to an InterconnectAttachment. This property is populated if the
       interconnect that this is attached to is of type DEDICATED. (output only)
@@ -114,7 +114,7 @@ Puppet::Type.newtype(:gcompute_interconnect_attachment) do
     DOC
   end
 
-  newproperty(:router, parent: Google::Compute::Property::RouterSelfLinkRef) do
+  newproperty(:router, parent: Google::Compute::Property::RouterSelflinkRef) do
     desc <<-DOC
       URL of the cloud router to be used for dynamic routing. This router must be in the same
       region as this InterconnectAttachment. The InterconnectAttachment will automatically connect

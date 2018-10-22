@@ -79,7 +79,7 @@ Puppet::Type.type(:gcompute_address).provide(:google) do
       id: Google::Compute::Property::Integer.api_munge(fetch['id']),
       name: Google::Compute::Property::String.api_munge(fetch['name']),
       network_tier: Google::Compute::Property::Enum.api_munge(fetch['networkTier']),
-      subnetwork: Google::Compute::Property::SubnetworkSelfLinkRef.api_munge(fetch['subnetwork']),
+      subnetwork: Google::Compute::Property::SubnetworkSelflinkRef.api_munge(fetch['subnetwork']),
       users: Google::Compute::Property::StringArray.api_munge(fetch['users'])
     }.reject { |_, v| v.nil? }
   end

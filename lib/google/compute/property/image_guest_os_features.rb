@@ -32,7 +32,7 @@ module Google
   module Compute
     module Data
       # A class to manage data for GuestOsFeatures for image.
-      class ImageGuestOsFeatures
+      class ImageGuestosfeatures
         include Comparable
 
         attr_reader :type
@@ -50,7 +50,7 @@ module Google
         end
 
         def ==(other)
-          return false unless other.is_a? ImageGuestOsFeatures
+          return false unless other.is_a? ImageGuestosfeatures
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             return false if compare[:self] != compare[:other]
@@ -59,7 +59,7 @@ module Google
         end
 
         def <=>(other)
-          return false unless other.is_a? ImageGuestOsFeatures
+          return false unless other.is_a? ImageGuestosfeatures
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             result = compare[:self] <=> compare[:other]
@@ -77,17 +77,17 @@ module Google
         end
       end
 
-      # Manages a ImageGuestOsFeatures nested object
+      # Manages a ImageGuestosfeatures nested object
       # Data is coming from the GCP API
-      class ImageGuestOsFeaturesApi < ImageGuestOsFeatures
+      class ImageGuestosfeaturesApi < ImageGuestosfeatures
         def initialize(args)
           @type = Google::Compute::Property::Enum.api_munge(args['type'])
         end
       end
 
-      # Manages a ImageGuestOsFeatures nested object
+      # Manages a ImageGuestosfeatures nested object
       # Data is coming from the Puppet manifest
-      class ImageGuestOsFeaturesCatalog < ImageGuestOsFeatures
+      class ImageGuestosfeaturesCatalog < ImageGuestosfeatures
         def initialize(args)
           @type = Google::Compute::Property::Enum.unsafe_munge(args['type'])
         end
@@ -96,7 +96,7 @@ module Google
 
     module Property
       # A class to manage input to GuestOsFeatures for image.
-      class ImageGuestOsFeatures < Google::Compute::Property::Base
+      class ImageGuestosfeatures < Google::Compute::Property::Base
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -105,18 +105,18 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          Data::ImageGuestOsFeaturesCatalog.new(value)
+          Data::ImageGuestosfeaturesCatalog.new(value)
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          Data::ImageGuestOsFeaturesApi.new(value)
+          Data::ImageGuestosfeaturesApi.new(value)
         end
       end
 
       # A Puppet property that holds an integer
-      class ImageGuestOsFeaturesArray < Google::Compute::Property::Array
+      class ImageGuestosfeaturesArray < Google::Compute::Property::Array
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -125,17 +125,17 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          return ImageGuestOsFeatures.unsafe_munge(value) \
+          return ImageGuestosfeatures.unsafe_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| ImageGuestOsFeatures.unsafe_munge(v) }
+          value.map { |v| ImageGuestosfeatures.unsafe_munge(v) }
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          return ImageGuestOsFeatures.api_munge(value) \
+          return ImageGuestosfeatures.api_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| ImageGuestOsFeatures.api_munge(v) }
+          value.map { |v| ImageGuestosfeatures.api_munge(v) }
         end
       end
     end

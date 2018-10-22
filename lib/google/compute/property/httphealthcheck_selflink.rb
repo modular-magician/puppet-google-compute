@@ -33,11 +33,11 @@ module Google
     module Data
       # Base class for ResourceRefs
       # Imports self_link from http_health_check
-      class HttpHealthCheckSelfLinkRef
+      class HttpHealthCheckSelflinkRef
         include Comparable
 
         def ==(other)
-          return false unless other.is_a? HttpHealthCheckSelfLinkRef
+          return false unless other.is_a? HttpHealthCheckSelflinkRef
           return false if resource != other.resource
           true
         end
@@ -49,7 +49,7 @@ module Google
 
       # A class to fetch the resource value from a referenced block
       # Will return the value exported from a different Puppet resource
-      class HttpHealthCheckSelfLinkRefCatalog < HttpHealthCheckSelfLinkRef
+      class HttpHealthCheckSelflinkRefCatalog < HttpHealthCheckSelflinkRef
         def initialize(title, resource)
           @title = title
           @resource = resource
@@ -79,7 +79,7 @@ module Google
 
       # A class to manage a JSON blob from GCP API
       # Will immediately return value from JSON blob without changes
-      class HttpHealthCheckSelfLinkRefApi < HttpHealthCheckSelfLinkRef
+      class HttpHealthCheckSelflinkRefApi < HttpHealthCheckSelflinkRef
         attr_reader :resource
 
         def initialize(resource)
@@ -98,7 +98,7 @@ module Google
 
     module Property
       # A class to manage fetching self_link from a http_health_check
-      class HttpHealthCheckSelfLinkRef < Puppet::Property
+      class HttpHealthCheckSelflinkRef < Puppet::Property
         # Used for catalog values
         def unsafe_munge(value)
           self.class.unsafe_munge(value, @resource)
@@ -106,13 +106,13 @@ module Google
 
         def self.unsafe_munge(value, resource = nil)
           return if value.nil?
-          Data::HttpHealthCheckSelfLinkRefCatalog.new(value, resource)
+          Data::HttpHealthCheckSelflinkRefCatalog.new(value, resource)
         end
 
         # Used for fetched JSON values
         def self.api_munge(value)
           return if value.nil?
-          Data::HttpHealthCheckSelfLinkRefApi.new(value)
+          Data::HttpHealthCheckSelflinkRefApi.new(value)
         end
       end
     end

@@ -31,7 +31,7 @@ module Google
   module Compute
     module Data
       # A class to manage data for DiskEncryptionKey for instance.
-      class InstanceDiskEncryptionKey
+      class InstanceDiskencryptionkey
         include Comparable
 
         attr_reader :raw_key
@@ -55,7 +55,7 @@ module Google
         end
 
         def ==(other)
-          return false unless other.is_a? InstanceDiskEncryptionKey
+          return false unless other.is_a? InstanceDiskencryptionkey
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             return false if compare[:self] != compare[:other]
@@ -64,7 +64,7 @@ module Google
         end
 
         def <=>(other)
-          return false unless other.is_a? InstanceDiskEncryptionKey
+          return false unless other.is_a? InstanceDiskencryptionkey
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             result = compare[:self] <=> compare[:other]
@@ -84,9 +84,9 @@ module Google
         end
       end
 
-      # Manages a InstanceDiskEncryptionKey nested object
+      # Manages a InstanceDiskencryptionkey nested object
       # Data is coming from the GCP API
-      class InstanceDiskEncryptionKeyApi < InstanceDiskEncryptionKey
+      class InstanceDiskencryptionkeyApi < InstanceDiskencryptionkey
         def initialize(args)
           @raw_key = Google::Compute::Property::String.api_munge(args['rawKey'])
           @rsa_encrypted_key = Google::Compute::Property::String.api_munge(args['rsaEncryptedKey'])
@@ -94,9 +94,9 @@ module Google
         end
       end
 
-      # Manages a InstanceDiskEncryptionKey nested object
+      # Manages a InstanceDiskencryptionkey nested object
       # Data is coming from the Puppet manifest
-      class InstanceDiskEncryptionKeyCatalog < InstanceDiskEncryptionKey
+      class InstanceDiskencryptionkeyCatalog < InstanceDiskencryptionkey
         def initialize(args)
           @raw_key = Google::Compute::Property::String.unsafe_munge(args['raw_key'])
           @rsa_encrypted_key =
@@ -108,7 +108,7 @@ module Google
 
     module Property
       # A class to manage input to DiskEncryptionKey for instance.
-      class InstanceDiskEncryptionKey < Google::Compute::Property::Base
+      class InstanceDiskencryptionkey < Google::Compute::Property::Base
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -117,13 +117,13 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          Data::InstanceDiskEncryptionKeyCatalog.new(value)
+          Data::InstanceDiskencryptionkeyCatalog.new(value)
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          Data::InstanceDiskEncryptionKeyApi.new(value)
+          Data::InstanceDiskencryptionkeyApi.new(value)
         end
       end
     end

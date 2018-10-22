@@ -32,7 +32,7 @@ module Google
   module Compute
     module Data
       # A class to manage data for RoutingConfig for network.
-      class NetworkRoutingConfig
+      class NetworkRoutingconfig
         include Comparable
 
         attr_reader :routing_mode
@@ -50,7 +50,7 @@ module Google
         end
 
         def ==(other)
-          return false unless other.is_a? NetworkRoutingConfig
+          return false unless other.is_a? NetworkRoutingconfig
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             return false if compare[:self] != compare[:other]
@@ -59,7 +59,7 @@ module Google
         end
 
         def <=>(other)
-          return false unless other.is_a? NetworkRoutingConfig
+          return false unless other.is_a? NetworkRoutingconfig
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             result = compare[:self] <=> compare[:other]
@@ -77,17 +77,17 @@ module Google
         end
       end
 
-      # Manages a NetworkRoutingConfig nested object
+      # Manages a NetworkRoutingconfig nested object
       # Data is coming from the GCP API
-      class NetworkRoutingConfigApi < NetworkRoutingConfig
+      class NetworkRoutingconfigApi < NetworkRoutingconfig
         def initialize(args)
           @routing_mode = Google::Compute::Property::Enum.api_munge(args['routingMode'])
         end
       end
 
-      # Manages a NetworkRoutingConfig nested object
+      # Manages a NetworkRoutingconfig nested object
       # Data is coming from the Puppet manifest
-      class NetworkRoutingConfigCatalog < NetworkRoutingConfig
+      class NetworkRoutingconfigCatalog < NetworkRoutingconfig
         def initialize(args)
           @routing_mode = Google::Compute::Property::Enum.unsafe_munge(args['routing_mode'])
         end
@@ -96,7 +96,7 @@ module Google
 
     module Property
       # A class to manage input to RoutingConfig for network.
-      class NetworkRoutingConfig < Google::Compute::Property::Base
+      class NetworkRoutingconfig < Google::Compute::Property::Base
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -105,18 +105,18 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          Data::NetworkRoutingConfigCatalog.new(value)
+          Data::NetworkRoutingconfigCatalog.new(value)
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          Data::NetworkRoutingConfigApi.new(value)
+          Data::NetworkRoutingconfigApi.new(value)
         end
       end
 
       # A Puppet property that holds an integer
-      class NetworkRoutingConfigArray < Google::Compute::Property::Array
+      class NetworkRoutingconfigArray < Google::Compute::Property::Array
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -125,17 +125,17 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          return NetworkRoutingConfig.unsafe_munge(value) \
+          return NetworkRoutingconfig.unsafe_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| NetworkRoutingConfig.unsafe_munge(v) }
+          value.map { |v| NetworkRoutingconfig.unsafe_munge(v) }
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          return NetworkRoutingConfig.api_munge(value) \
+          return NetworkRoutingconfig.api_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| NetworkRoutingConfig.api_munge(v) }
+          value.map { |v| NetworkRoutingconfig.api_munge(v) }
         end
       end
     end

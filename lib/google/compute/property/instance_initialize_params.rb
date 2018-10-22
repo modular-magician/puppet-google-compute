@@ -31,7 +31,7 @@ module Google
   module Compute
     module Data
       # A class to manage data for InitializeParams for instance.
-      class InstanceInitializeParams
+      class InstanceInitializeparams
         include Comparable
 
         attr_reader :disk_name
@@ -61,7 +61,7 @@ module Google
         end
 
         def ==(other)
-          return false unless other.is_a? InstanceInitializeParams
+          return false unless other.is_a? InstanceInitializeparams
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             return false if compare[:self] != compare[:other]
@@ -70,7 +70,7 @@ module Google
         end
 
         def <=>(other)
-          return false unless other.is_a? InstanceInitializeParams
+          return false unless other.is_a? InstanceInitializeparams
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             result = compare[:self] <=> compare[:other]
@@ -92,32 +92,32 @@ module Google
         end
       end
 
-      # Manages a InstanceInitializeParams nested object
+      # Manages a InstanceInitializeparams nested object
       # Data is coming from the GCP API
-      class InstanceInitializeParamsApi < InstanceInitializeParams
+      class InstanceInitializeparamsApi < InstanceInitializeparams
         def initialize(args)
           @disk_name = Google::Compute::Property::String.api_munge(args['diskName'])
           @disk_size_gb = Google::Compute::Property::Integer.api_munge(args['diskSizeGb'])
-          @disk_type = Google::Compute::Property::DiskTypeSelfLinkRef.api_munge(args['diskType'])
+          @disk_type = Google::Compute::Property::DiskTypeSelflinkRef.api_munge(args['diskType'])
           @source_image = Google::Compute::Property::String.api_munge(args['sourceImage'])
           @source_image_encryption_key =
-            Google::Compute::Property::InstanceSourceImageEncryptionKey.api_munge(
+            Google::Compute::Property::InstanceSourceimageencryptionkey.api_munge(
               args['sourceImageEncryptionKey']
             )
         end
       end
 
-      # Manages a InstanceInitializeParams nested object
+      # Manages a InstanceInitializeparams nested object
       # Data is coming from the Puppet manifest
-      class InstanceInitializeParamsCatalog < InstanceInitializeParams
+      class InstanceInitializeparamsCatalog < InstanceInitializeparams
         def initialize(args)
           @disk_name = Google::Compute::Property::String.unsafe_munge(args['disk_name'])
           @disk_size_gb = Google::Compute::Property::Integer.unsafe_munge(args['disk_size_gb'])
           @disk_type =
-            Google::Compute::Property::DiskTypeSelfLinkRef.unsafe_munge(args['disk_type'])
+            Google::Compute::Property::DiskTypeSelflinkRef.unsafe_munge(args['disk_type'])
           @source_image = Google::Compute::Property::String.unsafe_munge(args['source_image'])
           @source_image_encryption_key =
-            Google::Compute::Property::InstanceSourceImageEncryptionKey.unsafe_munge(
+            Google::Compute::Property::InstanceSourceimageencryptionkey.unsafe_munge(
               args['source_image_encryption_key']
             )
         end
@@ -126,7 +126,7 @@ module Google
 
     module Property
       # A class to manage input to InitializeParams for instance.
-      class InstanceInitializeParams < Google::Compute::Property::Base
+      class InstanceInitializeparams < Google::Compute::Property::Base
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -135,13 +135,13 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          Data::InstanceInitializeParamsCatalog.new(value)
+          Data::InstanceInitializeparamsCatalog.new(value)
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          Data::InstanceInitializeParamsApi.new(value)
+          Data::InstanceInitializeparamsApi.new(value)
         end
       end
     end

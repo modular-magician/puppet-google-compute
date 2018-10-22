@@ -83,8 +83,8 @@ Puppet::Type.type(:gcompute_backend_service).provide(:google) do
       affinity_cookie_ttl_sec:
         Google::Compute::Property::Integer.api_munge(fetch['affinityCookieTtlSec']),
       backends: Google::Compute::Property::BackendServiceBackendsArray.api_munge(fetch['backends']),
-      cdn_policy: Google::Compute::Property::BackendServiceCdnPolicy.api_munge(fetch['cdnPolicy']),
-      connection_draining: Google::Compute::Property::BackendServiceConnectionDraining.api_munge(
+      cdn_policy: Google::Compute::Property::BackendServiceCdnpolicy.api_munge(fetch['cdnPolicy']),
+      connection_draining: Google::Compute::Property::BackendServiceConnectiondraining.api_munge(
         fetch['connectionDraining']
       ),
       creation_timestamp: Google::Compute::Property::Time.api_munge(fetch['creationTimestamp']),
@@ -98,7 +98,7 @@ Puppet::Type.type(:gcompute_backend_service).provide(:google) do
       name: Google::Compute::Property::String.api_munge(fetch['name']),
       port_name: Google::Compute::Property::String.api_munge(fetch['portName']),
       protocol: Google::Compute::Property::Enum.api_munge(fetch['protocol']),
-      region: Google::Compute::Property::RegionSelfLinkRef.api_munge(fetch['region']),
+      region: Google::Compute::Property::RegionSelflinkRef.api_munge(fetch['region']),
       session_affinity: Google::Compute::Property::Enum.api_munge(fetch['sessionAffinity']),
       timeout_sec: Google::Compute::Property::Integer.api_munge(fetch['timeoutSec'])
     }.reject { |_, v| v.nil? }

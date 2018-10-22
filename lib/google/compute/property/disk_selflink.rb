@@ -33,11 +33,11 @@ module Google
     module Data
       # Base class for ResourceRefs
       # Imports self_link from disk
-      class DiskSelfLinkRef
+      class DiskSelflinkRef
         include Comparable
 
         def ==(other)
-          return false unless other.is_a? DiskSelfLinkRef
+          return false unless other.is_a? DiskSelflinkRef
           return false if resource != other.resource
           true
         end
@@ -49,7 +49,7 @@ module Google
 
       # A class to fetch the resource value from a referenced block
       # Will return the value exported from a different Puppet resource
-      class DiskSelfLinkRefCatalog < DiskSelfLinkRef
+      class DiskSelflinkRefCatalog < DiskSelflinkRef
         def initialize(title, resource)
           @title = title
           @resource = resource
@@ -79,7 +79,7 @@ module Google
 
       # A class to manage a JSON blob from GCP API
       # Will immediately return value from JSON blob without changes
-      class DiskSelfLinkRefApi < DiskSelfLinkRef
+      class DiskSelflinkRefApi < DiskSelflinkRef
         attr_reader :resource
 
         def initialize(resource)
@@ -98,7 +98,7 @@ module Google
 
     module Property
       # A class to manage fetching self_link from a disk
-      class DiskSelfLinkRef < Puppet::Property
+      class DiskSelflinkRef < Puppet::Property
         # Used for catalog values
         def unsafe_munge(value)
           self.class.unsafe_munge(value, @resource)
@@ -106,13 +106,13 @@ module Google
 
         def self.unsafe_munge(value, resource = nil)
           return if value.nil?
-          Data::DiskSelfLinkRefCatalog.new(value, resource)
+          Data::DiskSelflinkRefCatalog.new(value, resource)
         end
 
         # Used for fetched JSON values
         def self.api_munge(value)
           return if value.nil?
-          Data::DiskSelfLinkRefApi.new(value)
+          Data::DiskSelflinkRefApi.new(value)
         end
       end
     end

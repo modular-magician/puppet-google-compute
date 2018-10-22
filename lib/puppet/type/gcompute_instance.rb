@@ -113,7 +113,7 @@ Puppet::Type.newtype(:gcompute_instance) do
   end
 
   newproperty(:guest_accelerators,
-              parent: Google::Compute::Property::InstanceGuestAcceleratorsArray) do
+              parent: Google::Compute::Property::InstanceGuestacceleratorsArray) do
     desc 'List of the type and count of accelerator cards attached to the instance'
   end
 
@@ -140,7 +140,7 @@ Puppet::Type.newtype(:gcompute_instance) do
     DOC
   end
 
-  newproperty(:machine_type, parent: Google::Compute::Property::MachineTypeSelfLinkRef) do
+  newproperty(:machine_type, parent: Google::Compute::Property::MachineTypeSelflinkRef) do
     desc 'A reference to a machine type which defines VM kind.'
   end
 
@@ -162,7 +162,7 @@ Puppet::Type.newtype(:gcompute_instance) do
   end
 
   newproperty(:network_interfaces,
-              parent: Google::Compute::Property::InstanceNetworkInterfacesArray) do
+              parent: Google::Compute::Property::InstanceNetworkinterfacesArray) do
     desc <<-DOC
       An array of configurations for this interface. This specifies how this interface is
       configured to interact with other network services, such as connecting to the internet. Only
@@ -174,7 +174,7 @@ Puppet::Type.newtype(:gcompute_instance) do
     desc 'Sets the scheduling options for this instance.'
   end
 
-  newproperty(:service_accounts, parent: Google::Compute::Property::InstanceServiceAccountsArray) do
+  newproperty(:service_accounts, parent: Google::Compute::Property::InstanceServiceaccountsArray) do
     desc <<-DOC
       A list of service accounts, with their specified scopes, authorized for this instance. Only
       one service account per VM instance is supported.

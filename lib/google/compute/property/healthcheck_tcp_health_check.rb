@@ -31,7 +31,7 @@ module Google
   module Compute
     module Data
       # A class to manage data for TcpHealthCheck for health_check.
-      class HealthCheckTcpHealthCheck
+      class HealthCheckTcphealthcheck
         include Comparable
 
         attr_reader :request
@@ -61,7 +61,7 @@ module Google
         end
 
         def ==(other)
-          return false unless other.is_a? HealthCheckTcpHealthCheck
+          return false unless other.is_a? HealthCheckTcphealthcheck
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             return false if compare[:self] != compare[:other]
@@ -70,7 +70,7 @@ module Google
         end
 
         def <=>(other)
-          return false unless other.is_a? HealthCheckTcpHealthCheck
+          return false unless other.is_a? HealthCheckTcphealthcheck
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             result = compare[:self] <=> compare[:other]
@@ -92,9 +92,9 @@ module Google
         end
       end
 
-      # Manages a HealthCheckTcpHealthCheck nested object
+      # Manages a HealthCheckTcphealthcheck nested object
       # Data is coming from the GCP API
-      class HealthCheckTcpHealthCheckApi < HealthCheckTcpHealthCheck
+      class HealthCheckTcphealthcheckApi < HealthCheckTcphealthcheck
         def initialize(args)
           @request = Google::Compute::Property::String.api_munge(args['request'])
           @response = Google::Compute::Property::String.api_munge(args['response'])
@@ -104,9 +104,9 @@ module Google
         end
       end
 
-      # Manages a HealthCheckTcpHealthCheck nested object
+      # Manages a HealthCheckTcphealthcheck nested object
       # Data is coming from the Puppet manifest
-      class HealthCheckTcpHealthCheckCatalog < HealthCheckTcpHealthCheck
+      class HealthCheckTcphealthcheckCatalog < HealthCheckTcphealthcheck
         def initialize(args)
           @request = Google::Compute::Property::String.unsafe_munge(args['request'])
           @response = Google::Compute::Property::String.unsafe_munge(args['response'])
@@ -120,7 +120,7 @@ module Google
 
     module Property
       # A class to manage input to TcpHealthCheck for health_check.
-      class HealthCheckTcpHealthCheck < Google::Compute::Property::Base
+      class HealthCheckTcphealthcheck < Google::Compute::Property::Base
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -129,13 +129,13 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          Data::HealthCheckTcpHealthCheckCatalog.new(value)
+          Data::HealthCheckTcphealthcheckCatalog.new(value)
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          Data::HealthCheckTcpHealthCheckApi.new(value)
+          Data::HealthCheckTcphealthcheckApi.new(value)
         end
       end
     end

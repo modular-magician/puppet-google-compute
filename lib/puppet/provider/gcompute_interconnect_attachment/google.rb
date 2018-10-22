@@ -77,11 +77,11 @@ Puppet::Type.type(:gcompute_interconnect_attachment).provide(:google) do
       interconnect: Google::Compute::Property::String.api_munge(fetch['interconnect']),
       description: Google::Compute::Property::String.api_munge(fetch['description']),
       private_interconnect_info:
-        Google::Compute::Property::InterconnectAttachmentPrivateInterconnectInfo.api_munge(
+        Google::Compute::Property::InterconnectAttachmentPrivateinterconnectinfo.api_munge(
           fetch['privateInterconnectInfo']
         ),
       google_reference_id: Google::Compute::Property::String.api_munge(fetch['googleReferenceId']),
-      router: Google::Compute::Property::RouterSelfLinkRef.api_munge(fetch['router']),
+      router: Google::Compute::Property::RouterSelflinkRef.api_munge(fetch['router']),
       creation_timestamp: Google::Compute::Property::Time.api_munge(fetch['creationTimestamp']),
       id: Google::Compute::Property::String.api_munge(fetch['id']),
       name: Google::Compute::Property::String.api_munge(fetch['name'])

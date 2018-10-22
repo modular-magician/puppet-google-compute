@@ -31,7 +31,7 @@ module Google
   module Compute
     module Data
       # A class to manage data for PrivateInterconnectInfo for interconnect_attachment.
-      class InterconnectAttachmentPrivateInterconnectInfo
+      class InterconnectAttachmentPrivateinterconnectinfo
         include Comparable
 
         attr_reader :tag8021q
@@ -49,7 +49,7 @@ module Google
         end
 
         def ==(other)
-          return false unless other.is_a? InterconnectAttachmentPrivateInterconnectInfo
+          return false unless other.is_a? InterconnectAttachmentPrivateinterconnectinfo
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             return false if compare[:self] != compare[:other]
@@ -58,7 +58,7 @@ module Google
         end
 
         def <=>(other)
-          return false unless other.is_a? InterconnectAttachmentPrivateInterconnectInfo
+          return false unless other.is_a? InterconnectAttachmentPrivateinterconnectinfo
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             result = compare[:self] <=> compare[:other]
@@ -76,17 +76,17 @@ module Google
         end
       end
 
-      # Manages a InterconnectAttachmentPrivateInterconnectInfo nested object
+      # Manages a InterconnectAttachmentPrivateinterconnectinfo nested object
       # Data is coming from the GCP API
-      class InterconnectAttachmentPrivateInterconnectInfoApi < InterconnectAttachmentPrivateInterconnectInfo
+      class InterconnectAttachmentPrivateinterconnectinfoApi < InterconnectAttachmentPrivateinterconnectinfo
         def initialize(args)
           @tag8021q = Google::Compute::Property::Integer.api_munge(args['tag8021q'])
         end
       end
 
-      # Manages a InterconnectAttachmentPrivateInterconnectInfo nested object
+      # Manages a InterconnectAttachmentPrivateinterconnectinfo nested object
       # Data is coming from the Puppet manifest
-      class InterconnectAttachmentPrivateInterconnectInfoCatalog < InterconnectAttachmentPrivateInterconnectInfo
+      class InterconnectAttachmentPrivateinterconnectinfoCatalog < InterconnectAttachmentPrivateinterconnectinfo
         def initialize(args)
           @tag8021q = Google::Compute::Property::Integer.unsafe_munge(args['tag8021q'])
         end
@@ -95,7 +95,7 @@ module Google
 
     module Property
       # A class to manage input to PrivateInterconnectInfo for interconnect_attachment.
-      class InterconnectAttachmentPrivateInterconnectInfo < Google::Compute::Property::Base
+      class InterconnectAttachmentPrivateinterconnectinfo < Google::Compute::Property::Base
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -104,13 +104,13 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          Data::InterconnectAttachmentPrivateInterconnectInfoCatalog.new(value)
+          Data::InterconnectAttachmentPrivateinterconnectinfoCatalog.new(value)
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          Data::InterconnectAttachmentPrivateInterconnectInfoApi.new(value)
+          Data::InterconnectAttachmentPrivateinterconnectinfoApi.new(value)
         end
       end
     end

@@ -32,7 +32,7 @@ module Google
   module Compute
     module Data
       # A class to manage data for AccessConfigs for instance.
-      class InstanceAccessConfigs
+      class InstanceAccessconfigs
         include Comparable
 
         attr_reader :name
@@ -56,7 +56,7 @@ module Google
         end
 
         def ==(other)
-          return false unless other.is_a? InstanceAccessConfigs
+          return false unless other.is_a? InstanceAccessconfigs
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             return false if compare[:self] != compare[:other]
@@ -65,7 +65,7 @@ module Google
         end
 
         def <=>(other)
-          return false unless other.is_a? InstanceAccessConfigs
+          return false unless other.is_a? InstanceAccessconfigs
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             result = compare[:self] <=> compare[:other]
@@ -85,9 +85,9 @@ module Google
         end
       end
 
-      # Manages a InstanceAccessConfigs nested object
+      # Manages a InstanceAccessconfigs nested object
       # Data is coming from the GCP API
-      class InstanceAccessConfigsApi < InstanceAccessConfigs
+      class InstanceAccessconfigsApi < InstanceAccessconfigs
         def initialize(args)
           @name = Google::Compute::Property::String.api_munge(args['name'])
           @nat_ip = Google::Compute::Property::AddressAddressRef.api_munge(args['natIP'])
@@ -95,9 +95,9 @@ module Google
         end
       end
 
-      # Manages a InstanceAccessConfigs nested object
+      # Manages a InstanceAccessconfigs nested object
       # Data is coming from the Puppet manifest
-      class InstanceAccessConfigsCatalog < InstanceAccessConfigs
+      class InstanceAccessconfigsCatalog < InstanceAccessconfigs
         def initialize(args)
           @name = Google::Compute::Property::String.unsafe_munge(args['name'])
           @nat_ip = Google::Compute::Property::AddressAddressRef.unsafe_munge(args['nat_ip'])
@@ -108,7 +108,7 @@ module Google
 
     module Property
       # A class to manage input to AccessConfigs for instance.
-      class InstanceAccessConfigs < Google::Compute::Property::Base
+      class InstanceAccessconfigs < Google::Compute::Property::Base
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -117,18 +117,18 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          Data::InstanceAccessConfigsCatalog.new(value)
+          Data::InstanceAccessconfigsCatalog.new(value)
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          Data::InstanceAccessConfigsApi.new(value)
+          Data::InstanceAccessconfigsApi.new(value)
         end
       end
 
       # A Puppet property that holds an integer
-      class InstanceAccessConfigsArray < Google::Compute::Property::Array
+      class InstanceAccessconfigsArray < Google::Compute::Property::Array
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -137,17 +137,17 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          return InstanceAccessConfigs.unsafe_munge(value) \
+          return InstanceAccessconfigs.unsafe_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| InstanceAccessConfigs.unsafe_munge(v) }
+          value.map { |v| InstanceAccessconfigs.unsafe_munge(v) }
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          return InstanceAccessConfigs.api_munge(value) \
+          return InstanceAccessconfigs.api_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| InstanceAccessConfigs.api_munge(v) }
+          value.map { |v| InstanceAccessconfigs.api_munge(v) }
         end
       end
     end

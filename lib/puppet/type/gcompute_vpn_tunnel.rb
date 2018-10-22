@@ -92,11 +92,11 @@ Puppet::Type.newtype(:gcompute_vpn_tunnel) do
   end
 
   newproperty(:target_vpn_gateway,
-              parent: Google::Compute::Property::TargetVpnGatewaySelfLinkRef) do
+              parent: Google::Compute::Property::TargetVpnGatewaySelflinkRef) do
     desc 'URL of the Target VPN gateway with which this VPN tunnel is associated.'
   end
 
-  newproperty(:router, parent: Google::Compute::Property::RouterSelfLinkRef) do
+  newproperty(:router, parent: Google::Compute::Property::RouterSelflinkRef) do
     desc 'URL of router resource to be used for dynamic routing.'
   end
 

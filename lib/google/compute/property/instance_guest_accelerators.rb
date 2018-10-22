@@ -32,7 +32,7 @@ module Google
   module Compute
     module Data
       # A class to manage data for GuestAccelerators for instance.
-      class InstanceGuestAccelerators
+      class InstanceGuestaccelerators
         include Comparable
 
         attr_reader :accelerator_count
@@ -53,7 +53,7 @@ module Google
         end
 
         def ==(other)
-          return false unless other.is_a? InstanceGuestAccelerators
+          return false unless other.is_a? InstanceGuestaccelerators
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             return false if compare[:self] != compare[:other]
@@ -62,7 +62,7 @@ module Google
         end
 
         def <=>(other)
-          return false unless other.is_a? InstanceGuestAccelerators
+          return false unless other.is_a? InstanceGuestaccelerators
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             result = compare[:self] <=> compare[:other]
@@ -81,9 +81,9 @@ module Google
         end
       end
 
-      # Manages a InstanceGuestAccelerators nested object
+      # Manages a InstanceGuestaccelerators nested object
       # Data is coming from the GCP API
-      class InstanceGuestAcceleratorsApi < InstanceGuestAccelerators
+      class InstanceGuestacceleratorsApi < InstanceGuestaccelerators
         def initialize(args)
           @accelerator_count =
             Google::Compute::Property::Integer.api_munge(args['acceleratorCount'])
@@ -91,9 +91,9 @@ module Google
         end
       end
 
-      # Manages a InstanceGuestAccelerators nested object
+      # Manages a InstanceGuestaccelerators nested object
       # Data is coming from the Puppet manifest
-      class InstanceGuestAcceleratorsCatalog < InstanceGuestAccelerators
+      class InstanceGuestacceleratorsCatalog < InstanceGuestaccelerators
         def initialize(args)
           @accelerator_count =
             Google::Compute::Property::Integer.unsafe_munge(args['accelerator_count'])
@@ -105,7 +105,7 @@ module Google
 
     module Property
       # A class to manage input to GuestAccelerators for instance.
-      class InstanceGuestAccelerators < Google::Compute::Property::Base
+      class InstanceGuestaccelerators < Google::Compute::Property::Base
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -114,18 +114,18 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          Data::InstanceGuestAcceleratorsCatalog.new(value)
+          Data::InstanceGuestacceleratorsCatalog.new(value)
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          Data::InstanceGuestAcceleratorsApi.new(value)
+          Data::InstanceGuestacceleratorsApi.new(value)
         end
       end
 
       # A Puppet property that holds an integer
-      class InstanceGuestAcceleratorsArray < Google::Compute::Property::Array
+      class InstanceGuestacceleratorsArray < Google::Compute::Property::Array
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -134,17 +134,17 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          return InstanceGuestAccelerators.unsafe_munge(value) \
+          return InstanceGuestaccelerators.unsafe_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| InstanceGuestAccelerators.unsafe_munge(v) }
+          value.map { |v| InstanceGuestaccelerators.unsafe_munge(v) }
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          return InstanceGuestAccelerators.api_munge(value) \
+          return InstanceGuestaccelerators.api_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| InstanceGuestAccelerators.api_munge(v) }
+          value.map { |v| InstanceGuestaccelerators.api_munge(v) }
         end
       end
     end

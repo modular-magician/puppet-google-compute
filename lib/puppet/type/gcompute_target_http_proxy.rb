@@ -84,7 +84,7 @@ Puppet::Type.newtype(:gcompute_target_http_proxy) do
     DOC
   end
 
-  newproperty(:url_map, parent: Google::Compute::Property::UrlMapSelfLinkRef) do
+  newproperty(:url_map, parent: Google::Compute::Property::UrlMapSelflinkRef) do
     desc <<-DOC
       A reference to the UrlMap resource that defines the mapping from URL to the BackendService.
     DOC

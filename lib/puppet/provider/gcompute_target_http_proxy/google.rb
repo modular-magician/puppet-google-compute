@@ -72,7 +72,7 @@ Puppet::Type.type(:gcompute_target_http_proxy).provide(:google) do
       description: Google::Compute::Property::String.api_munge(fetch['description']),
       id: Google::Compute::Property::Integer.api_munge(fetch['id']),
       name: Google::Compute::Property::String.api_munge(fetch['name']),
-      url_map: Google::Compute::Property::UrlMapSelfLinkRef.api_munge(fetch['urlMap'])
+      url_map: Google::Compute::Property::UrlMapSelflinkRef.api_munge(fetch['urlMap'])
     }.reject { |_, v| v.nil? }
   end
 

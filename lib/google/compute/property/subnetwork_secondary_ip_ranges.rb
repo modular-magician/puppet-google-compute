@@ -32,7 +32,7 @@ module Google
   module Compute
     module Data
       # A class to manage data for SecondaryIpRanges for subnetwork.
-      class SubnetworkSecondaryIpRanges
+      class SubnetworkSecondaryipranges
         include Comparable
 
         attr_reader :range_name
@@ -53,7 +53,7 @@ module Google
         end
 
         def ==(other)
-          return false unless other.is_a? SubnetworkSecondaryIpRanges
+          return false unless other.is_a? SubnetworkSecondaryipranges
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             return false if compare[:self] != compare[:other]
@@ -62,7 +62,7 @@ module Google
         end
 
         def <=>(other)
-          return false unless other.is_a? SubnetworkSecondaryIpRanges
+          return false unless other.is_a? SubnetworkSecondaryipranges
           compare_fields(other).each do |compare|
             next if compare[:self].nil? || compare[:other].nil?
             result = compare[:self] <=> compare[:other]
@@ -81,18 +81,18 @@ module Google
         end
       end
 
-      # Manages a SubnetworkSecondaryIpRanges nested object
+      # Manages a SubnetworkSecondaryipranges nested object
       # Data is coming from the GCP API
-      class SubnetworkSecondaryIpRangesApi < SubnetworkSecondaryIpRanges
+      class SubnetworkSecondaryiprangesApi < SubnetworkSecondaryipranges
         def initialize(args)
           @range_name = Google::Compute::Property::String.api_munge(args['rangeName'])
           @ip_cidr_range = Google::Compute::Property::String.api_munge(args['ipCidrRange'])
         end
       end
 
-      # Manages a SubnetworkSecondaryIpRanges nested object
+      # Manages a SubnetworkSecondaryipranges nested object
       # Data is coming from the Puppet manifest
-      class SubnetworkSecondaryIpRangesCatalog < SubnetworkSecondaryIpRanges
+      class SubnetworkSecondaryiprangesCatalog < SubnetworkSecondaryipranges
         def initialize(args)
           @range_name = Google::Compute::Property::String.unsafe_munge(args['range_name'])
           @ip_cidr_range = Google::Compute::Property::String.unsafe_munge(args['ip_cidr_range'])
@@ -102,7 +102,7 @@ module Google
 
     module Property
       # A class to manage input to SecondaryIpRanges for subnetwork.
-      class SubnetworkSecondaryIpRanges < Google::Compute::Property::Base
+      class SubnetworkSecondaryipranges < Google::Compute::Property::Base
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -111,18 +111,18 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          Data::SubnetworkSecondaryIpRangesCatalog.new(value)
+          Data::SubnetworkSecondaryiprangesCatalog.new(value)
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          Data::SubnetworkSecondaryIpRangesApi.new(value)
+          Data::SubnetworkSecondaryiprangesApi.new(value)
         end
       end
 
       # A Puppet property that holds an integer
-      class SubnetworkSecondaryIpRangesArray < Google::Compute::Property::Array
+      class SubnetworkSecondaryiprangesArray < Google::Compute::Property::Array
         # Used for parsing Puppet catalog
         def unsafe_munge(value)
           self.class.unsafe_munge(value)
@@ -131,17 +131,17 @@ module Google
         # Used for parsing Puppet catalog
         def self.unsafe_munge(value)
           return if value.nil?
-          return SubnetworkSecondaryIpRanges.unsafe_munge(value) \
+          return SubnetworkSecondaryipranges.unsafe_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| SubnetworkSecondaryIpRanges.unsafe_munge(v) }
+          value.map { |v| SubnetworkSecondaryipranges.unsafe_munge(v) }
         end
 
         # Used for parsing GCP API responses
         def self.api_munge(value)
           return if value.nil?
-          return SubnetworkSecondaryIpRanges.api_munge(value) \
+          return SubnetworkSecondaryipranges.api_munge(value) \
             unless value.is_a?(::Array)
-          value.map { |v| SubnetworkSecondaryIpRanges.api_munge(v) }
+          value.map { |v| SubnetworkSecondaryipranges.api_munge(v) }
         end
       end
     end
